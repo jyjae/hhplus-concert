@@ -2,8 +2,6 @@
 
 ### 유저 대기열 토큰 기능
 
-
-
 ```mermaid
 sequenceDiagram
     participant User as 유저
@@ -21,9 +19,12 @@ sequenceDiagram
         QueueService-->>User: 대기열 등록 완료 응답 (토큰과 대기 순서 포함)
     end
 
-    User->>QueueService: 대기 순서 조회 요청 (토큰 전달)
-    QueueService->>QueueService: 토큰 기반으로 대기 순서 조회
-    QueueService-->>User: 대기 순서 정보 반환
+    loop 유저가 주기적으로 대기 상태 확인 (폴링)
+        User->>QueueService: 대기 순서 조회 요청 (토큰 전달)
+        QueueService->>QueueService: 토큰 기반으로 대기 순서 및 잔여 시간 조회
+        QueueService-->>User: 최신 대기 순서 및 잔여 시간 반환
+    end
+
 ```
 
 
