@@ -162,8 +162,6 @@ sequenceDiagram
     User->>QueueService: 대기열 토큰 검증 요청 (토큰 전달)
     QueueService-->>User: 대기열 검증 성공 응답
     User->>PaymentService: 결제 요청 (결제 금액, 사용자 정보 전달)
-    PaymentService->>PaymentService: 결제 처리 및 결제 내역 생성
-    PaymentService-->>User: 결제 완료 응답
 
     alt 임시 배정이 유효함
         PaymentService->>ReservationService: 좌석 소유권 배정 요청 (좌석 번호, 사용자 정보 전달)
@@ -178,5 +176,8 @@ sequenceDiagram
         ReservationService-->>PaymentService: 좌석 소유권 배정 실패 응답 (임시 배정 해제됨)
         PaymentService-->>User: 좌석 소유권 배정 실패 응답 (좌석 만료됨)
     end
+
+    PaymentService->>PaymentService: 결제 처리 및 결제 내역 생성
+    PaymentService-->>User: 결제 완료 응답
 ```
 
