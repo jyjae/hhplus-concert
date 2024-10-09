@@ -13,4 +13,4 @@
 [hhplus-concert/docs/api_specs.md](https://github.com/jyjae/hhplus-concert/blob/main/docs/api_specs.md)
 
 ### 프로젝트 문서
-[hhplus-concert/docs/project-quide.md](https://github.com/jyjae/hhplus-concert/blob/main/docs/api_specs.md)
+[hhplus-concert/docs/project-quide.md](https://github.com/jyjae/hhplus-concert/blob/main/docs/project_guide.md)
