@@ -64,14 +64,14 @@ sequenceDiagram
 sequenceDiagram
     participant User as 유저
     participant QueueService as 대기열 서비스
-    participant TokenService as 토큰 서비스
     participant ReservationService as 예약 서비스
 
-    User->>TokenService: 대기열 토큰 검증 요청 (토큰 전달)
-    TokenService-->>User: 대기열 검증 성공 응답
+    User->>QueueService: 대기열 토큰 검증 요청 (토큰 전달)
+    QueueService-->>User: 대기열 검증 성공 응답
     User->>ReservationService: 예약 가능한 날짜 조회 요청
     ReservationService->>ReservationService: 예약 가능 날짜 목록 조회
     ReservationService-->>User: 예약 가능 날짜 목록 반환
+
 ```
 
 
@@ -81,11 +81,10 @@ sequenceDiagram
 sequenceDiagram
     participant User as 유저
     participant QueueService as 대기열 서비스
-    participant TokenService as 토큰 서비스
     participant ReservationService as 예약 서비스
 
-    User->>TokenService: 대기열 토큰 검증 요청 (토큰 전달)
-    TokenService-->>User: 대기열 검증 성공 응답
+    User->>QueueService: 대기열 토큰 검증 요청 (토큰 전달)
+    QueueService-->>User: 대기열 검증 성공 응답
     User->>ReservationService: 특정 날짜의 예약 가능한 좌석 조회 요청 (날짜 전달)
     ReservationService->>ReservationService: 날짜별 예약 가능한 좌석 목록 조회
     ReservationService-->>User: 예약 가능한 좌석 목록 반환 (1~50번 좌석)
@@ -99,12 +98,11 @@ sequenceDiagram
 sequenceDiagram
     participant User as 유저
     participant QueueService as 대기열 서비스
-    participant TokenService as 토큰 서비스
     participant ReservationService as 예약 서비스
     participant TimerService as 타이머 서비스
 
-    User->>TokenService: 대기열 토큰 검증 요청 (토큰 전달)
-    TokenService-->>User: 대기열 검증 성공 응답
+    User->>QueueService: 대기열 토큰 검증 요청 (토큰 전달)
+    QueueService-->>User: 대기열 검증 성공 응답
     User->>ReservationService: 좌석 예약 요청 (날짜, 좌석번호 전달)
     ReservationService->>ReservationService: 좌석 예약 가능 여부 확인
     ReservationService->>TimerService: 예약 좌석에 대한 임시 배정 타이머 시작 (5분 설정)
@@ -116,6 +114,7 @@ sequenceDiagram
     else 결제 완료
         TimerService-->>ReservationService: 결제 완료로 좌석 배정 유지
     end
+
 ```
 
 
@@ -125,11 +124,10 @@ sequenceDiagram
 sequenceDiagram
     participant User as 유저
     participant QueueService as 대기열 서비스
-    participant TokenService as 토큰 서비스
     participant BalanceService as 잔액 서비스
 
-    User->>TokenService: 대기열 토큰 검증 요청 (토큰 전달)
-    TokenService-->>User: 대기열 검증 성공 응답
+    User->>QueueService: 대기열 토큰 검증 요청 (토큰 전달)
+    QueueService-->>User: 대기열 검증 성공 응답
     User->>BalanceService: 잔액 충전 요청 (사용자 식별자, 충전 금액 전달)
     BalanceService->>BalanceService: 사용자 잔액 정보 업데이트
     BalanceService-->>User: 충전 완료 응답
@@ -142,11 +140,10 @@ sequenceDiagram
 sequenceDiagram
     participant User as 유저
     participant QueueService as 대기열 서비스
-    participant TokenService as 토큰 서비스
     participant BalanceService as 잔액 서비스
 
-    User->>TokenService: 대기열 토큰 검증 요청 (토큰 전달)
-    TokenService-->>User: 대기열 검증 성공 응답
+    User->>QueueService: 대기열 토큰 검증 요청 (토큰 전달)
+    QueueService-->>User: 대기열 검증 성공 응답
     User->>BalanceService: 잔액 조회 요청 (사용자 식별자 전달)
     BalanceService->>BalanceService: 사용자 잔액 정보 조회
     BalanceService-->>User: 잔액 정보 반환
@@ -159,12 +156,11 @@ sequenceDiagram
 sequenceDiagram
     participant User as 유저
     participant QueueService as 대기열 서비스
-    participant TokenService as 토큰 서비스
     participant PaymentService as 결제 서비스
     participant ReservationService as 예약 서비스
 
-    User->>TokenService: 대기열 토큰 검증 요청 (토큰 전달)
-    TokenService-->>User: 대기열 검증 성공 응답
+    User->>QueueService: 대기열 토큰 검증 요청 (토큰 전달)
+    QueueService-->>User: 대기열 검증 성공 응답
     User->>PaymentService: 결제 요청 (결제 금액, 사용자 정보 전달)
     PaymentService->>PaymentService: 결제 처리 및 결제 내역 생성
     PaymentService-->>User: 결제 완료 응답
