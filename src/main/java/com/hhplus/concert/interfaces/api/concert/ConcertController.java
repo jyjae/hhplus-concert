@@ -22,8 +22,8 @@ public class ConcertController {
     @GetMapping
     public ResponseEntity<List<GetConcert.Response>> getConcerts() {
         List<GetConcert.Response> concerts = List.of(
-                new GetConcert.Response("1", "아이유 가을 콘서트"),
-                new GetConcert.Response("2", "방탄소년단 제대 콘서트")
+                new GetConcert.Response(1L, "아이유 가을 콘서트"),
+                new GetConcert.Response(2L, "방탄소년단 제대 콘서트")
         );
         return ResponseEntity.ok(concerts);
     }

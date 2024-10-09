@@ -29,7 +29,7 @@ public class UserController {
      * @param userId - 유저 아이디
      * @return - 대기 순서
      */
-    @GetMapping("/{userId}/queue")
+    @GetMapping("/{userId}/rank")
     public ResponseEntity<GetUserQueueRank.Response> getQueue(@PathVariable(name = "userId") String userId) {
         return ResponseEntity.ok(new GetUserQueueRank.Response(100));
     }

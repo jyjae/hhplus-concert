@@ -17,6 +17,6 @@ public class PaymentController {
      */
     @PostMapping
     public ResponseEntity<CreatePayment.Response> createPayment(@RequestBody CreatePayment.Request request) {
-        return ResponseEntity.ok(new CreatePayment.Response(1L, 1L, 1L, 100000, "결제 완료"));
+        return ResponseEntity.ok(new CreatePayment.Response(1L, 1L, 100000, "결제 완료"));
     }
 }
