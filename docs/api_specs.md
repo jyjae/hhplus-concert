@@ -189,7 +189,7 @@
 ### 7. 잔액 충전 API
 
 > ![](https://img.shields.io/static/v1?label=&message=PATCH&color=yellow) <br>
-> /**balances/**
+> /**points/**
 
 <details markdown="1">
 <summary>잔액 충전</summary>
@@ -219,7 +219,7 @@
 ### 8. 잔액 조회 API
 
 > ![](https://img.shields.io/static/v1?label=&message=GET&color=blue) <br>
-> /**users/:userId/balance**
+> /**users/:userId/point**
 
 <details markdown="1">
 <summary>잔액 조회</summary>
