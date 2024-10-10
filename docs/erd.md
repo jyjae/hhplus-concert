@@ -1,3 +1,3 @@
 ## ERD
 
-![img_5.png](img_5.png)
+![img.png](img.png)
