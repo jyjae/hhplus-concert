@@ -3,7 +3,7 @@
 ### 1. 유저 토큰 생성 API
 
 > ![](https://img.shields.io/static/v1?label=&message=POST&color=green) <br>
-> /**users/token**
+> /**users/{userId}/token**
 
 <details markdown="1">
 <summary>유저 토큰 생성</summary>

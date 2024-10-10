@@ -18,7 +18,7 @@ public class UserController {
      * @param request - 유저 아이디
      * @return - 토큰
      */
-    @PostMapping("/token")
+    @PostMapping("/{userId}/token")
     public ResponseEntity<CreateUserToken.Response> createUserToken(@RequestBody CreateUserToken.Request request) {
 
         return ResponseEntity.ok(new CreateUserToken.Response(UUID.randomUUID().toString()));
