@@ -3,10 +3,7 @@ package com.hhplus.concert.interfaces.api.concertdate;
 import com.hhplus.concert.interfaces.api.concert.dto.GetConcert;
 import com.hhplus.concert.interfaces.api.concertdate.dto.GetConcertDate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +18,9 @@ public class ConcertDateController {
      * @return - 콘서트 날짜 목록
      */
     @GetMapping("/{concertId}")
-    public ResponseEntity<List<GetConcertDate.Response>> getConcertDates(@PathVariable(name = "concertId") String concertId) {
+    public ResponseEntity<List<GetConcertDate.Response>> getConcertDates(
+            @RequestHeader("token") String token,
+            @PathVariable(name = "concertId") String concertId) {
         List<GetConcertDate.Response> concertDates = List.of(
                 new GetConcertDate.Response(1L,  50, 30, LocalDateTime.now()),
                 new GetConcertDate.Response(2L,  50, 10, LocalDateTime.now()),

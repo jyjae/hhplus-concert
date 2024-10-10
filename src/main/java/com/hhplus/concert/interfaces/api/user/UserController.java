@@ -30,7 +30,9 @@ public class UserController {
      * @return - 대기 순서
      */
     @GetMapping("/{userId}/rank")
-    public ResponseEntity<GetUserQueueRank.Response> getQueue(@PathVariable(name = "userId") String userId) {
+    public ResponseEntity<GetUserQueueRank.Response> getQueue(
+            @RequestHeader("token") String token,
+            @PathVariable(name = "userId") String userId) {
         return ResponseEntity.ok(new GetUserQueueRank.Response(100));
     }
 
@@ -40,7 +42,9 @@ public class UserController {
      * @return - 잔액
      */
     @GetMapping("/{userId}/point")
-    public ResponseEntity<GetUserPoint.Response> getBalance(@PathVariable(name = "userId") String userId) {
+    public ResponseEntity<GetUserPoint.Response> getBalance(
+            @RequestHeader("token") String token,
+            @PathVariable(name = "userId") String userId) {
         return ResponseEntity.ok(new GetUserPoint.Response(100000));
     }
 

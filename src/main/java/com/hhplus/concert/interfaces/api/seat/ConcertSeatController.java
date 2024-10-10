@@ -2,10 +2,7 @@ package com.hhplus.concert.interfaces.api.seat;
 
 import com.hhplus.concert.interfaces.api.seat.dto.GetConcertSeat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +16,9 @@ public class ConcertSeatController {
      * @return - 좌석 목록
      */
     @GetMapping("/{concertDateId}")
-    public ResponseEntity<List<GetConcertSeat.Response>> getSeats(@PathVariable(name = "concertDateId") Long concertDateId) {
+    public ResponseEntity<List<GetConcertSeat.Response>> getSeats(
+            @RequestHeader("token") String token,
+            @PathVariable(name = "concertDateId") Long concertDateId) {
         List<GetConcertSeat.Response> seats = List.of(
                 new GetConcertSeat.Response(1L, "AAS-1", 100000),
                 new GetConcertSeat.Response(2L, "AAS-2", 150000),
