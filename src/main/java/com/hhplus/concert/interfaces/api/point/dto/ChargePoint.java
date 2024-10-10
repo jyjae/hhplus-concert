@@ -1,6 +1,6 @@
-package com.hhplus.concert.interfaces.api.balance.dto;
+package com.hhplus.concert.interfaces.api.point.dto;
 
-public class ChargeBalance {
+public class ChargePoint {
 
         public record Request(String userId, int amount) {
 
