@@ -28,6 +28,7 @@ src/main/java
 - **Java 17**
 - **Spring Boot**
     - Data JPA
+    - QueryDSL
     - Cache
 - **H2 데이터베이스** (개발 및 테스트 환경에서 인메모리 데이터베이스 사용)
 - **낙관적 락(Optimistic Locking)**
