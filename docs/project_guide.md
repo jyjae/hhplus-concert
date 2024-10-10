@@ -6,10 +6,12 @@ src/main/java
 └── com
     └── hhplus
         └── concert
-            ├── application
+            ├── application          
+            │   └── service          
             ├── domain
             ├── exception
             ├── infra
+            │   └── persistence      
             └── interfaces
                 └── api
                     ├── balance
