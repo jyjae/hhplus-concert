@@ -7,7 +7,7 @@
 [hhplus-concert/docs/sequence.md](https://github.com/jyjae/hhplus-concert/blob/feat/concert-step5/docs/sequence.md)
 
 ### ERD
-[hhplus-concert/docs/erd.md](https://github.com/jyjae/hhplus-concert/blob/main/docs/erd.md)
+[hhplus-concert/docs/erd.md](https://github.com/jyjae/hhplus-concert/blob/main/docs/erd.md))
 
 ### API 명세서
 [hhplus-concert/docs/api_specs.md](https://github.com/jyjae/hhplus-concert/blob/main/docs/api_specs.md)
