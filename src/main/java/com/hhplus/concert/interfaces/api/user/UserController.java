@@ -2,7 +2,7 @@ package com.hhplus.concert.interfaces.api.user;
 
 
 import com.hhplus.concert.interfaces.api.user.dto.CreateUserToken;
-import com.hhplus.concert.interfaces.api.user.dto.GetUserBalance;
+import com.hhplus.concert.interfaces.api.user.dto.GetUserPoint;
 import com.hhplus.concert.interfaces.api.user.dto.GetUserQueueRank;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +39,9 @@ public class UserController {
      * @param userId - 유저 아이디
      * @return - 잔액
      */
-    @GetMapping("/{userId}/balance")
-    public ResponseEntity<GetUserBalance.Response> getBalance(@PathVariable(name = "userId") String userId) {
-        return ResponseEntity.ok(new GetUserBalance.Response(100000));
+    @GetMapping("/{userId}/point")
+    public ResponseEntity<GetUserPoint.Response> getBalance(@PathVariable(name = "userId") String userId) {
+        return ResponseEntity.ok(new GetUserPoint.Response(100000));
     }
 
 
