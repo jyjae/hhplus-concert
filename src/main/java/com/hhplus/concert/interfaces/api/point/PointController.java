@@ -2,10 +2,7 @@ package com.hhplus.concert.interfaces.api.point;
 
 import com.hhplus.concert.interfaces.api.point.dto.ChargePoint;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/points")
@@ -16,7 +13,9 @@ public class PointController {
     * @return - 충전 후 잔액
     **/
     @PatchMapping
-    public ResponseEntity<ChargePoint.Response> chargeBalance(@RequestBody ChargePoint.Request request) {
+    public ResponseEntity<ChargePoint.Response> chargeBalance(
+            @RequestHeader("token") String token,
+            @RequestBody ChargePoint.Request request) {
         return ResponseEntity.ok(new ChargePoint.Response(100000));
     }
 

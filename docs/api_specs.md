@@ -38,6 +38,12 @@
 <summary>대기 순서 조회</summary>
 
 #### Request
+##### Header
+
+|  name  | type | description | required |
+|:------:|:----:|:-----------:| :---: |
+| token | String |     토큰      | Required |
+
 ##### Path Variable
 
 |  name  | type | description | required |
@@ -94,6 +100,12 @@
 <summary>예약 가능 날짜 조회</summary>
 
 #### Request
+##### Header
+
+|  name  | type | description | required |
+|:------:|:----:|:-----------:| :---: |
+| token | String |     토큰      | Required |
+
 ##### Path Variable
 
 |   name    | type | description | required |
@@ -128,6 +140,12 @@
 <summary>예약 가능 좌석 조회</summary>
 
 #### Request
+##### Header
+
+|  name  | type | description | required |
+|:------:|:----:|:-----------:| :---: |
+| token | String |     토큰      | Required |
+
 ##### Path Variable
 
 |     name      | type | description | required |
@@ -161,6 +179,12 @@
 <summary>좌석 예약</summary>
 
 #### Request
+##### Header
+
+|  name  | type | description | required |
+|:------:|:----:|:-----------:| :---: |
+| token | String |     토큰      | Required |
+
 ##### Body
 ```
 {
@@ -195,6 +219,12 @@
 <summary>잔액 충전</summary>
 
 #### Request
+##### Header
+
+|  name  | type | description | required |
+|:------:|:----:|:-----------:| :---: |
+| token | String |     토큰      | Required |
+
 ##### Body
 ```
 {
@@ -225,6 +255,12 @@
 <summary>잔액 조회</summary>
 
 #### Request
+##### Header
+
+|  name  | type | description | required |
+|:------:|:----:|:-----------:| :---: |
+| token | String |     토큰      | Required |
+
 ##### Path Variable
 
 |  name  | type | description | required |
@@ -255,6 +291,12 @@
 <summary>결제</summary>
 
 #### Request
+##### Header
+
+|  name  | type | description | required |
+|:------:|:----:|:-----------:| :---: |
+| token | String |     토큰      | Required |
+
 ##### Body
 ```
 {
