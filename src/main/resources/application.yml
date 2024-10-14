@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    org.springframework.cache.interceptor.CacheInterceptor: DEBUG
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+queue:
+  token:
+    scheduling: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+queue:
+  token:
+    scheduling: false
