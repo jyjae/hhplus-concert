@@ -1,12 +1,11 @@
 package com.hhplus.concert.infra.persistence.token;
 
+import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.token.QueueToken;
 import com.hhplus.concert.domain.token.QueueTokenRepository;
 import com.hhplus.concert.domain.token.QueueTokenStatus;
 import com.hhplus.concert.exception.NotFoundException;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,11 +18,11 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
 
     private final QueueTokenJpaRepository tokenJpaRepository;
     private final QueueTokenMapper queueTokenMapper;
+    private final TimeProvider timeProvider;
 
     @Override
     public String token(Long userId, String token) {
-        return tokenJpaRepository.save(QueueTokenJpaEntity.of(userId, token, QueueTokenStatus.WAITING.getValue(), Instant.now().plus(
-            Duration.ofMinutes(30)).toEpochMilli())).getToken();
+        return tokenJpaRepository.save(QueueTokenJpaEntity.of(userId, token, QueueTokenStatus.WAITING.getValue(), timeProvider.getCurrentInstantPlusMinutes(30))).getToken();
     }
 
     @Override
