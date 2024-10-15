@@ -18,11 +18,10 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
 
     private final QueueTokenJpaRepository tokenJpaRepository;
     private final QueueTokenMapper queueTokenMapper;
-    private final TimeProvider timeProvider;
 
     @Override
-    public String token(Long userId, String token) {
-        return tokenJpaRepository.save(QueueTokenJpaEntity.of(userId, token, QueueTokenStatus.WAITING.getValue(), timeProvider.getCurrentInstantPlusMinutes(30))).getToken();
+    public String token(Long userId, String token, Long time) {
+        return tokenJpaRepository.save(QueueTokenJpaEntity.of(userId, token, QueueTokenStatus.WAITING.getValue(), time)).getToken();
     }
 
     @Override
@@ -31,13 +30,13 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
     }
 
     @Override
-    public QueueToken findToken(Long userId, String token) {
-        return queueTokenMapper.mapToDomainOptional(tokenJpaRepository.findTokenByUserIdAndToken(userId, token))
+    public QueueToken findToken(String token, Long currentTime) {
+        return queueTokenMapper.mapToDomainOptional(tokenJpaRepository.findTokenByToken(token, currentTime))
                 .orElseThrow(() -> new NotFoundException("Token not found"));
     }
 
     @Override
-    public Long lastProcessingToken(QueueTokenStatus queueTokenStatus) {
+    public long lastProcessingToken(QueueTokenStatus queueTokenStatus) {
         return tokenJpaRepository.findLastProcessingToken(queueTokenStatus.getValue());
     }
 

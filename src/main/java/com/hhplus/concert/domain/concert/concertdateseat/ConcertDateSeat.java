@@ -14,9 +14,9 @@ public class ConcertDateSeat {
   private Long expiredDate;
   private ConcertDateSeatStatus status;
 
-  public static ConcertDateSeat of(Long concertDateId, Long id, int price, Long expiredDate,
+  public static ConcertDateSeat of(Long id, Long concertDateId, int price, Long expiredDate,
       ConcertDateSeatStatus status) {
-    return new ConcertDateSeat(concertDateId, id, price, expiredDate, status);
+    return new ConcertDateSeat(id, concertDateId, price, expiredDate, status);
   }
 
     public boolean isAvailable() {

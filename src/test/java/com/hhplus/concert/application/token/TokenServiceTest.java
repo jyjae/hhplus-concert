@@ -1,5 +1,7 @@
 package com.hhplus.concert.application.token;
 
+import com.hhplus.concert.common.TimeProvider;
+import com.hhplus.concert.domain.token.QueueToken;
 import com.hhplus.concert.domain.token.QueueTokenRepository;
 import com.hhplus.concert.domain.token.QueueTokenStatus;
 import com.hhplus.concert.util.UuidUtil;
@@ -22,15 +24,19 @@ class TokenServiceTest {
     @Mock
     private QueueTokenRepository queueTokenRepository;
 
+    @Mock
+    private TimeProvider timeProvider;
+
     @Test
     @DisplayName("대기열 발급 성공")
     void addTokenToQueue() {
         // given
         String uuid = UuidUtil.generateUuid();
         CreateQueueTokenCommand command = new CreateQueueTokenCommand(1L, uuid);
+        when(timeProvider.getCurrentInstantPlusMinutes(30)).thenReturn(20220101L);
 
         // when
-        when(queueTokenRepository.token(1L, uuid)).thenReturn(uuid);
+        when(queueTokenRepository.token(1L, uuid, timeProvider.getCurrentInstantPlusMinutes(30))).thenReturn(uuid);
         String token = tokenService.createQueueToken(command);
 
         // then
@@ -50,8 +56,23 @@ class TokenServiceTest {
 
         // then
         assertThat(rank).isNotNull();
-        assertThat(rank).isEqualTo(1L);
+        assertThat(rank).isEqualTo(0L);
 
+    }
+
+    @Test
+    @DisplayName("토큰 검증 실패")
+    void findToken() {
+        // given
+        FindQueueTokenQuery command = new FindQueueTokenQuery("token");
+        when(timeProvider.getCurrentTimestamp()).thenReturn(20220101L);
+        when(queueTokenRepository.findToken("token", timeProvider.getCurrentTimestamp())).thenReturn(null);
+
+        // when
+        QueueToken token = tokenService.findQueueToken(command);
+
+        // then
+        assertThat(token).isNull();
     }
 
 

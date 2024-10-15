@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "queue_token")
@@ -24,7 +26,6 @@ public class QueueTokenJpaEntity {
     private String token;
 
     @Column(name = "created_at")
-    @CreationTimestamp
     private long createdAt;
 
     @Column(name = "status")
@@ -38,6 +39,16 @@ public class QueueTokenJpaEntity {
         this.userId = userId;
         this.token = token;
         this.status = status;
+        this.createdAt = Instant.now().toEpochMilli();
+        this.expiredDate = expiredDate;
+    }
+
+    public QueueTokenJpaEntity(Long id, Long userId, String token, String status, long expiredDate) {
+        this.id = id;
+        this.userId = userId;
+        this.token = token;
+        this.status = status;
+        this.createdAt = Instant.now().toEpochMilli();
         this.expiredDate = expiredDate;
     }
 
@@ -47,7 +58,7 @@ public class QueueTokenJpaEntity {
     }
 
     public static QueueTokenJpaEntity of(QueueToken queueToken) {
-        return new QueueTokenJpaEntity(queueToken.getUserId(), queueToken.getToken(), queueToken.getStatus().getValue(),
+        return new QueueTokenJpaEntity(queueToken.getId(), queueToken.getUserId(), queueToken.getToken(), queueToken.getStatus().getValue(),
             queueToken.getExpiredDate());
     }
 

@@ -3,6 +3,7 @@ package com.hhplus.concert.application.concert.concertdateseat;
 import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatRepository;
+import com.hhplus.concert.exception.AlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,10 @@ public class ConcertDateSeatService {
                 .filter(ConcertDateSeat::isAvailable)
                 .filter(seat -> seat.getExpiredDate() > timeProvider.getCurrentTimestamp())
                 .toList();
+    }
+
+    public ConcertDateSeat findAvailableConcertDateSeat(FindConcertDateSeatQuery query) {
+        return concertDateSeatRepository.findAvailableConcertDateSeat(query.getConcertDateId(), query.getConcertDateSeatId())
+                .orElseThrow(() -> new AlreadyExistsException("Seat already reserved"));
     }
 }

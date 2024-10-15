@@ -1,41 +1,42 @@
 package com.hhplus.concert.application.token;
 
+import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.token.QueueToken;
 import com.hhplus.concert.domain.token.QueueTokenRepository;
 import com.hhplus.concert.domain.token.QueueTokenStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class QueueTokenService {
 
     private final QueueTokenRepository tokenRepository;
+    private final TimeProvider timeProvider;
 
-    public QueueTokenService(QueueTokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
 
     @Transactional
     public String createQueueToken(CreateQueueTokenCommand command) {
-        return tokenRepository.token(command.userId(), command.token());
+        return tokenRepository.token(command.getUserId(), command.getToken(), timeProvider.getCurrentInstantPlusMinutes(30));
     }
 
     @Transactional(readOnly = true)
     public QueueToken getQueueToken(GetQueueTokenCommand command) {
-        return tokenRepository.getToken(command.userId());
+        return tokenRepository.getToken(command.getUserId());
     }
 
     @Transactional(readOnly = true)
-    public QueueToken findQueueToken(FindQueueTokenCommand command) {
-        return tokenRepository.findToken(command.userId(), command.token());
+    public QueueToken findQueueToken(FindQueueTokenQuery command) {
+        return tokenRepository.findToken(command.getToken(), timeProvider.getCurrentTimestamp());
     }
 
     @Transactional(readOnly = true)
     public Long userRank(GetUserQueueRankQuery command) {
         // 대기순서 공식: 내 id - 마지막 processing id - n
-        Long lastProcessingId = tokenRepository.lastProcessingToken(QueueTokenStatus.PROCESSING);
+        long lastProcessingId = tokenRepository.lastProcessingToken(QueueTokenStatus.PROCESSING);
         return getRank(command.getTokenId(), command.getCapacity(), lastProcessingId);
     }
 
@@ -51,7 +52,7 @@ public class QueueTokenService {
     }
 
     private Long getRank(Long tokenId, Integer count, Long lastProcessingId) {
-        return tokenId - lastProcessingId - count < 0 ? 1 : tokenId - lastProcessingId - count + 1;
+        return tokenId - lastProcessingId - count < 0 ? 0 : tokenId - lastProcessingId - count;
     }
 
 

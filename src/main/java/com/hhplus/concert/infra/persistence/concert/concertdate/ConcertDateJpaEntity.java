@@ -47,4 +47,8 @@ public class ConcertDateJpaEntity {
     return ConcertDate.of(concertDate.id, concertDate.concertId, concertDate.totalCapacity,
         concertDate.currentCapacity, concertDate.startDate, concertDate.place);
   }
+
+    public static ConcertDateJpaEntity of(Long concertId, int totalCapacity, int currentCapacity, String place, Long startDate) {
+        return new ConcertDateJpaEntity(concertId, totalCapacity, currentCapacity, place, startDate);
+    }
 }

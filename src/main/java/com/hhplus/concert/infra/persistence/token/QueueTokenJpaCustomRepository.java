@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface QueueTokenJpaCustomRepository {
     QueueTokenJpaEntity findTokenByUserId(Long userId);
 
-    Optional<QueueTokenJpaEntity> findTokenByUserIdAndToken(Long userId, String token);
-
     Long findLastProcessingToken(String queueTokenStatus);
 
     List<QueueTokenJpaEntity> findAllTokenAsc(int count);
+
+    Optional<QueueTokenJpaEntity> findTokenByToken(String token, Long currentTime);
 }

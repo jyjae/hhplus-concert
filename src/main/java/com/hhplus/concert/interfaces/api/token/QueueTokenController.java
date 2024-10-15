@@ -21,8 +21,8 @@ public class QueueTokenController {
      * @return - 토큰
      */
     @PostMapping
-    public ResponseEntity<String> generateToken(@RequestBody UserIdRequest request) {
-        return ResponseEntity.ok(queueTokenFacadeService.token(request.getUserId()));
+    public ResponseEntity<QueueTokenResponse> generateToken(@RequestBody UserIdRequest request) {
+        return ResponseEntity.ok(new QueueTokenResponse(queueTokenFacadeService.token(request.getUserId())));
     }
 
 }

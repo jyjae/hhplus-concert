@@ -25,20 +25,22 @@ public class QueueTokenJpaCustomRepositoryImpl implements QueueTokenJpaCustomRep
     }
 
     @Override
-    public Optional<QueueTokenJpaEntity> findTokenByUserIdAndToken(Long userId, String token) {
+    public Optional<QueueTokenJpaEntity> findTokenByToken(String token, Long currentTime) {
         return Optional.ofNullable(query.select(queueTokenJpaEntity)
                 .from(queueTokenJpaEntity)
-                .where(queueTokenJpaEntity.userId.eq(userId)
-                        .and(queueTokenJpaEntity.token.eq(token)))
+                .where(queueTokenJpaEntity.token.eq(token)
+                        .and(queueTokenJpaEntity.expiredDate.gt(currentTime)))
                 .fetchOne());
     }
 
     @Override
     public Long findLastProcessingToken(String queueTokenStatus) {
-        return query.select(queueTokenJpaEntity.id.max())
+        Long result = query.select(queueTokenJpaEntity.id.max())
                 .from(queueTokenJpaEntity)
                 .where(queueTokenJpaEntity.status.eq(queueTokenStatus))
                 .fetchOne();
+
+        return Optional.ofNullable(result).orElse(0L);
     }
 
     @Override

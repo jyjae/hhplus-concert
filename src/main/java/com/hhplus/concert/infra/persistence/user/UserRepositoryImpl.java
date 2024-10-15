@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
     @Override
     public Optional<User> findById(Long userId) {
         return Optional.empty();

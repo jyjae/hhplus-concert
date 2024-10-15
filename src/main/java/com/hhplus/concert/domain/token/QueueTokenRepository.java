@@ -5,13 +5,13 @@ import com.hhplus.concert.infra.persistence.token.QueueTokenJpaEntity;
 import java.util.List;
 
 public interface QueueTokenRepository {
-    String token(Long userId, String uuid);
+    String token(Long userId, String uuid, Long time);
 
     QueueToken getToken(Long userId);
 
-    QueueToken findToken(Long userId, String token);
+    QueueToken findToken(String token, Long currentTime);
 
-    Long lastProcessingToken(QueueTokenStatus queueTokenStatus);
+    long lastProcessingToken(QueueTokenStatus queueTokenStatus);
 
     List<QueueToken> getTokens(Integer count);
 

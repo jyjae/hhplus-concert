@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
-@Entity
+@Entity(name = "concert")
 @Getter
 public class ConcertJpaEntity {
 
@@ -35,6 +35,10 @@ public class ConcertJpaEntity {
     this.name = name;
     this.startDate = startDate;
     this.endDate = endDate;
+  }
+
+  public static ConcertJpaEntity of(String name, Long startDate, Long endDate) {
+    return new ConcertJpaEntity(name, startDate, endDate);
   }
 
 

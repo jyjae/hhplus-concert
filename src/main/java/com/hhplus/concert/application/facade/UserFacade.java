@@ -1,8 +1,7 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.config.ConfigKey;
 import com.hhplus.concert.application.config.ConfigService;
-import com.hhplus.concert.application.token.FindQueueTokenCommand;
+import com.hhplus.concert.application.token.FindQueueTokenQuery;
 import com.hhplus.concert.application.token.GetUserQueueRankQuery;
 import com.hhplus.concert.application.token.QueueTokenService;
 import com.hhplus.concert.application.user.FindUserCommand;
@@ -20,9 +19,9 @@ public class UserFacade {
     private final ConfigService configService;
 
     public Long rank(Long userId, String token) {
-        userService.findUser(new FindUserCommand(userId));
-        QueueToken queueToken = queueTokenService.findQueueToken(new FindQueueTokenCommand(userId, token));
-        Integer count = configService.getMaxQueueTokens();
+//        userService.findUser(new FindUserCommand(userId));
+        QueueToken queueToken = queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+        int count = configService.getMaxQueueTokens();
 
         return queueTokenService.userRank(new GetUserQueueRankQuery(queueToken.getId(), count));
     }

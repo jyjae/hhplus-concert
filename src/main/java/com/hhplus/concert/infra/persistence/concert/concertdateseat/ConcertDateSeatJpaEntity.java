@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
 @Entity(name = "concert_date_seat")
@@ -27,7 +29,19 @@ public class ConcertDateSeatJpaEntity {
     @Column(name = "status")
     private String status;
 
+    public ConcertDateSeatJpaEntity(Long concertDateId, int price, Long expiredDate, String status) {
+        this.concertDateId = concertDateId;
+        this.price = price;
+        this.expiredDate = expiredDate;
+        this.status = status;
+    }
+
+    public static ConcertDateSeatJpaEntity of(Long concertDateId, int price, Long expiredDate, String status) {
+        return new ConcertDateSeatJpaEntity(concertDateId, price, expiredDate, status);
+    }
+
+
     public ConcertDateSeat toDomain() {
-        return ConcertDateSeat.of(concertDateId, id, price, expiredDate, ConcertDateSeatStatus.valueOf(status));
+        return ConcertDateSeat.of(id, concertDateId, price, expiredDate, ConcertDateSeatStatus.valueOf(status));
     }
 }

@@ -1,30 +1,31 @@
 package com.hhplus.concert.interfaces.api.concert.concertdate;
 
+import com.hhplus.concert.application.facade.ConcertDateFacade;
+import com.hhplus.concert.domain.concert.concertdate.ConcertDate;
 import com.hhplus.concert.interfaces.api.concert.concertdate.dto.GetConcertDate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/concert-dates")
+@RequestMapping("/concerts/{concertId}/concert-dates")
 public class ConcertDateController {
+
+    private final ConcertDateFacade concertDateFacade;
 
     /**
      * 예약 가능한 콘서트 날짜 조회 API
      * @param concertId - 콘서트 아이디
      * @return - 콘서트 날짜 목록
      */
-    @GetMapping("/{concertId}")
-    public ResponseEntity<List<GetConcertDate.Response>> getConcertDates(
+    @GetMapping()
+    public ResponseEntity<List<ConcertDate>> getConcertDates(
             @RequestHeader("token") String token,
-            @PathVariable(name = "concertId") String concertId) {
-        List<GetConcertDate.Response> concertDates = List.of(
-                new GetConcertDate.Response(1L,  50, 30, LocalDateTime.now()),
-                new GetConcertDate.Response(2L,  50, 10, LocalDateTime.now()),
-                new GetConcertDate.Response(3L,  50, 0, LocalDateTime.now())
-        );
-        return ResponseEntity.ok(concertDates);
+            @PathVariable(name = "concertId") Long concertId) {
+        return ResponseEntity.ok(concertDateFacade.concertDates(concertId, token));
     }
 }

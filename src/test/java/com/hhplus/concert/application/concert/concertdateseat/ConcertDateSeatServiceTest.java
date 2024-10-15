@@ -1,13 +1,16 @@
 package com.hhplus.concert.application.concert.concertdateseat;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatRepository;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatStatus;
+import com.hhplus.concert.exception.AlreadyExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -51,6 +54,34 @@ class ConcertDateSeatServiceTest {
         assertThat(availableSeats).hasSize(3);
     }
 
+    @DisplayName("예약 가능한 좌석 조회 성공")
+    @Test
+    void getAvailableSeatsSuccess() {
+        // Given
+        ConcertDateSeat concertDateSeat = ConcertDateSeat.of(1L, 1L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE);
+        when(concertDateSeatRepository.findAvailableConcertDateSeat(1L, 1L))
+                .thenReturn(Optional.of(concertDateSeat));
+
+        // When
+        ConcertDateSeat availableSeats = concertDateSeatService.findAvailableConcertDateSeat(new FindConcertDateSeatQuery(1L, 1L));
+
+        // Then
+        assertThat(availableSeats).isNotNull();
+    }
+    @DisplayName("예약 가능한 좌석 조회 실패")
+    @Test
+    void getAvailableSeatsFail() {
+        // Given
+//        ConcertDateSeat concertDateSeat = ConcertDateSeat.of(1L, 1L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE);
+        when(concertDateSeatRepository.findAvailableConcertDateSeat(1L, 1L))
+                .thenReturn(Optional.empty());
+
+        // When
+        assertThatThrownBy(() -> concertDateSeatService.findAvailableConcertDateSeat(new FindConcertDateSeatQuery(1L, 1L)))
+                .isInstanceOf(AlreadyExistsException.class)
+                .hasMessage("Seat already reserved");
+
+    }
 
 
 
