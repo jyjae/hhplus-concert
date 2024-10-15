@@ -1,4 +1,4 @@
-package com.hhplus.concert.interfaces.api.concertdate.dto;
+package com.hhplus.concert.interfaces.api.concert.concertdate.dto;
 
 
 import java.time.LocalDateTime;

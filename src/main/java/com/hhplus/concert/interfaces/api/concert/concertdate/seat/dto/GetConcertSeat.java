@@ -1,4 +1,4 @@
-package com.hhplus.concert.interfaces.api.seat.dto;
+package com.hhplus.concert.interfaces.api.concert.concertdate.seat.dto;
 
 public class GetConcertSeat {
 

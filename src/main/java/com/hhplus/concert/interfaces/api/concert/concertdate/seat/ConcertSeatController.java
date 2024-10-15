@@ -1,6 +1,6 @@
-package com.hhplus.concert.interfaces.api.seat;
+package com.hhplus.concert.interfaces.api.concert.concertdate.seat;
 
-import com.hhplus.concert.interfaces.api.seat.dto.GetConcertSeat;
+import com.hhplus.concert.interfaces.api.concert.concertdate.seat.dto.GetConcertSeat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,6 @@
-package com.hhplus.concert.interfaces.api.concertdate;
+package com.hhplus.concert.interfaces.api.concert.concertdate;
 
-import com.hhplus.concert.interfaces.api.concert.dto.GetConcert;
-import com.hhplus.concert.interfaces.api.concertdate.dto.GetConcertDate;
+import com.hhplus.concert.interfaces.api.concert.concertdate.dto.GetConcertDate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

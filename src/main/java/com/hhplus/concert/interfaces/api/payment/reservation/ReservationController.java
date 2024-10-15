@@ -1,6 +1,6 @@
-package com.hhplus.concert.interfaces.api.reservation;
+package com.hhplus.concert.interfaces.api.payment.reservation;
 
-import com.hhplus.concert.interfaces.api.reservation.dto.CreateReservationCommand;
+import com.hhplus.concert.interfaces.api.payment.reservation.dto.CreateReservationCommand;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
