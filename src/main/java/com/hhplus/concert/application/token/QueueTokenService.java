@@ -39,15 +39,14 @@ public class QueueTokenService {
         return getRank(command.getTokenId(), command.getCapacity(), lastProcessingId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<QueueToken> getQueueTokens(Integer count) {
         return tokenRepository.getTokens(count);
     }
 
     public void processQueueTokens(List<QueueToken> queueTokens) {
         queueTokens.forEach(token -> {
-            token.processed();
-            tokenRepository.save(token);
+            tokenRepository.processed(token.processed());
         });
     }
 

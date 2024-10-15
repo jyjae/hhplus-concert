@@ -4,6 +4,9 @@ import com.hhplus.concert.domain.token.QueueToken;
 import com.hhplus.concert.domain.token.QueueTokenRepository;
 import com.hhplus.concert.domain.token.QueueTokenStatus;
 import com.hhplus.concert.exception.NotFoundException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +22,8 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
 
     @Override
     public String token(Long userId, String token) {
-        return tokenJpaRepository.save(QueueTokenJpaEntity.of(userId, token, QueueTokenStatus.WAITING.getValue())).getToken();
+        return tokenJpaRepository.save(QueueTokenJpaEntity.of(userId, token, QueueTokenStatus.WAITING.getValue(), Instant.now().plus(
+            Duration.ofMinutes(30)).toEpochMilli())).getToken();
     }
 
     @Override
@@ -49,5 +53,11 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
     @Override
     public void save(QueueToken token) {
         tokenJpaRepository.save(QueueTokenJpaEntity.of(token));
+    }
+
+    @Override
+    public void processed(QueueToken queueToken) {
+        QueueTokenJpaEntity queueTokenJpaEntity = queueTokenMapper.mapToEntity(queueToken);
+        tokenJpaRepository.save(queueTokenJpaEntity);
     }
 }

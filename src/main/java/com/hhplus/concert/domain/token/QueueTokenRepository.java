@@ -16,4 +16,6 @@ public interface QueueTokenRepository {
     List<QueueToken> getTokens(Integer count);
 
     void save(QueueToken token);
+
+  void processed(QueueToken token);
 }

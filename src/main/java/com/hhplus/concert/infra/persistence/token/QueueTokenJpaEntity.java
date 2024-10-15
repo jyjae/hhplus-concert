@@ -30,20 +30,25 @@ public class QueueTokenJpaEntity {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "expired_date")
+    private long expiredDate;
 
-    public QueueTokenJpaEntity(Long userId, String token, String status) {
+
+    public QueueTokenJpaEntity(Long userId, String token, String status, long expiredDate) {
         this.userId = userId;
         this.token = token;
         this.status = status;
+        this.expiredDate = expiredDate;
     }
 
 
-    public static QueueTokenJpaEntity of(Long userId, String token, String status) {
-        return new QueueTokenJpaEntity(userId, token, status);
+    public static QueueTokenJpaEntity of(Long userId, String token, String status, long expiredDate) {
+        return new QueueTokenJpaEntity(userId, token, status, expiredDate);
     }
 
     public static QueueTokenJpaEntity of(QueueToken queueToken) {
-        return new QueueTokenJpaEntity(queueToken.getUserId(), queueToken.getToken(), queueToken.getStatus().getValue());
+        return new QueueTokenJpaEntity(queueToken.getUserId(), queueToken.getToken(), queueToken.getStatus().getValue(),
+            queueToken.getExpiredDate());
     }
 
 }
