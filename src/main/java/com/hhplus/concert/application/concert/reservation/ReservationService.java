@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -17,13 +18,14 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final TimeProvider timeProvider;
 
+    @Transactional
     public Long reserveConcertDateSeat(ReservationCommand command) {
         Optional<Reservation> reservationOptional = reservationRepository.findReservation(command.getConcertDateSeatId());
 
         if (reservationOptional.isPresent()) {
             Reservation reservation = reservationOptional.get();
             if(!reservation.isExpired(timeProvider.getCurrentTimestamp())) {
-                throw new AlreadyExistsException("임시 예약된 좌석입니다.");
+                throw new AlreadyExistsException("Seat already reserved");
             }
         }
 
@@ -31,6 +33,7 @@ public class ReservationService {
         return reservationRepository.reserveConcertDateSeat(reservation);
     }
 
+    @Transactional(readOnly = true)
     public Reservation getReservation(Long reservationId) {
         return reservationRepository.findReservationById(reservationId)
                 .orElseThrow(() -> new NotFoundException("no reservation information"));

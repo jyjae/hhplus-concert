@@ -26,6 +26,7 @@ public class ConcertDateSeatService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public ConcertDateSeat findAvailableConcertDateSeat(FindConcertDateSeatQuery query) {
         return concertDateSeatRepository.findAvailableConcertDateSeat(query.getConcertDateId(), query.getConcertDateSeatId())
                 .orElseThrow(() -> new AlreadyExistsException("Seat already reserved"));

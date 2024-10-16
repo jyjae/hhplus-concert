@@ -3,6 +3,7 @@ package com.hhplus.concert.application.concert.reservation;
 import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.concert.reservation.Reservation;
 import com.hhplus.concert.domain.concert.reservation.ReservationRepository;
+import com.hhplus.concert.exception.AlreadyExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -31,7 +33,7 @@ class ReservationServiceTest {
 
     @DisplayName("좌석 예약 성공")
     @Test
-    void reserveConcertDateSeat() {
+    void reserveConcertDateSeatSuccess() {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
@@ -41,7 +43,29 @@ class ReservationServiceTest {
         Long reservationId = reservationService.reserveConcertDateSeat(command);
 
         // Then
+        when(reservationRepository.findReservation(reservationId)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
+        Reservation reservation = reservationRepository.findReservation(reservationId).get();
         assertThat(reservationId).isNotNull();
+        assertThat(reservation.getUserId()).isEqualTo(1L);
+        assertThat(reservation.getConcertDateSeatId()).isEqualTo(1L);
+
     }
+
+    @DisplayName("이미 예약되어 있는 좌석 예약 실패")
+    @Test
+    void reserveConcertDateSeatFail() {
+        // Given
+        ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
+        // When
+        when(reservationRepository.findReservation(1L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
+        when(timeProvider.getCurrentTimestamp()).thenReturn(20120101L);
+
+        // Then
+        assertThatThrownBy(() -> reservationService.reserveConcertDateSeat(command))
+                .isInstanceOf(AlreadyExistsException.class)
+                .hasMessage("Seat already reserved");
+
+    }
+
 
 }

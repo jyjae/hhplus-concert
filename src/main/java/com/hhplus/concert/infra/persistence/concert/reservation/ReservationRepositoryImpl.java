@@ -14,14 +14,12 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 
     private final ReservationJpaRepository reservationJpaRepository;
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<Reservation> findReservation(Long reservationId) {
         return reservationJpaRepository.findByConcertDateSeatId(reservationId)
                 .map(ReservationJpaEntity::toDomain);
     }
 
-    @Transactional
     @Override
     public Long reserveConcertDateSeat(Reservation reservation) {
         return reservationJpaRepository.save(ReservationJpaEntity.from(reservation)).getId();

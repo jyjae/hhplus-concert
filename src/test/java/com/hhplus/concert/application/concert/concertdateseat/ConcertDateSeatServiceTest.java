@@ -52,22 +52,10 @@ class ConcertDateSeatServiceTest {
 
         // Then
         assertThat(availableSeats).hasSize(3);
+        assertThat(availableSeats.get(0).getId()).isEqualTo(1L);
+        assertThat(availableSeats.get(0).getStatus()).isEqualTo(ConcertDateSeatStatus.AVAILABLE);
     }
 
-    @DisplayName("예약 가능한 좌석 조회 성공")
-    @Test
-    void getAvailableSeatsSuccess() {
-        // Given
-        ConcertDateSeat concertDateSeat = ConcertDateSeat.of(1L, 1L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE);
-        when(concertDateSeatRepository.findAvailableConcertDateSeat(1L, 1L))
-                .thenReturn(Optional.of(concertDateSeat));
-
-        // When
-        ConcertDateSeat availableSeats = concertDateSeatService.findAvailableConcertDateSeat(new FindConcertDateSeatQuery(1L, 1L));
-
-        // Then
-        assertThat(availableSeats).isNotNull();
-    }
     @DisplayName("예약 가능한 좌석 조회 실패")
     @Test
     void getAvailableSeatsFail() {

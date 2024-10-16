@@ -40,6 +40,8 @@ class ConcertDateServiceTest {
 
     // Then
     assertThat(savedConcertDates).hasSize(3);
+    assertThat(savedConcertDates.get(0).getConcertId()).isEqualTo(1L);
+    assertThat(savedConcertDates.get(0).getTotalCapacity()).isGreaterThan(savedConcertDates.get(0).getCurrentCapacity());
   }
 
 
