@@ -4,6 +4,7 @@ import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.concert.reservation.Reservation;
 import com.hhplus.concert.domain.concert.reservation.ReservationRepository;
 import com.hhplus.concert.exception.AlreadyExistsException;
+import com.hhplus.concert.exception.InvalidException;
 import com.hhplus.concert.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,13 @@ public class ReservationService {
 
     @Transactional(readOnly = true)
     public Reservation getReservation(Long reservationId) {
-        return reservationRepository.findReservationById(reservationId)
+        Reservation reservation =  reservationRepository.findReservationById(reservationId)
                 .orElseThrow(() -> new NotFoundException("no reservation information"));
+
+        if(reservation.isExpired(timeProvider.getCurrentTimestamp())) {
+            throw new InvalidException("reservation has expired");
+        }
+
+        return reservation;
     }
 }

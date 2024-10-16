@@ -27,8 +27,7 @@ public class ConcertDateSeatRepositoryImpl implements ConcertDateSeatRepository 
     public Optional<ConcertDateSeat> findAvailableConcertDateSeat(Long concertDateId, Long concertDateSeatId) {
         return concertDateSeatJpaRepository
                 .findAvailableConcertDateSeat(concertDateId, concertDateSeatId).map(
-                        ConcertDateSeatJpaEntity::toDomain
-                );
+                        ConcertDateSeatJpaEntity::toDomain);
 
     }
 

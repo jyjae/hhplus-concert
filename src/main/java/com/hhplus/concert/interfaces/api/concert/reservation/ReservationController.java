@@ -21,7 +21,7 @@ public class ReservationController implements ReservationApi{
             @PathVariable(name = "concertDateId") Long concertDateId,
             @RequestBody ReservationRequest request) {
 
-        return ResponseEntity.ok(new ReservationResponse(reservationFacade.reservation(token, concertDateId, request)));
+        return ResponseEntity.ok(new ReservationResponse(reservationFacade.reservation(token, concertDateId, request.getUserId(), request.getConcertDateSeatId())));
     }
 
 }
