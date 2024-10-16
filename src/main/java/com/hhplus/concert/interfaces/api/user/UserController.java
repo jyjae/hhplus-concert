@@ -1,28 +1,18 @@
 package com.hhplus.concert.interfaces.api.user;
 
 
-import com.hhplus.concert.interfaces.api.user.dto.CreateUserToken;
-import com.hhplus.concert.interfaces.api.user.dto.GetUserPoint;
-import com.hhplus.concert.interfaces.api.user.dto.GetUserQueueRank;
+import com.hhplus.concert.application.facade.UserFacade;
+import com.hhplus.concert.interfaces.api.user.dto.GetUserPointQuery;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    /**
-     * 유저 토큰 생성 API
-     * @param request - 유저 아이디
-     * @return - 토큰
-     */
-    @PostMapping("/{userId}/token")
-    public ResponseEntity<CreateUserToken.Response> createUserToken(@RequestBody CreateUserToken.Request request) {
-
-        return ResponseEntity.ok(new CreateUserToken.Response(UUID.randomUUID().toString()));
-    }
+    private final UserFacade userFacadeService;
 
     /**
      * 대기 순서 조회
@@ -30,10 +20,10 @@ public class UserController {
      * @return - 대기 순서
      */
     @GetMapping("/{userId}/rank")
-    public ResponseEntity<GetUserQueueRank.Response> getQueue(
+    public ResponseEntity<Long> getQueue(
             @RequestHeader("token") String token,
-            @PathVariable(name = "userId") String userId) {
-        return ResponseEntity.ok(new GetUserQueueRank.Response(100));
+            @PathVariable(name = "userId") Long userId) {
+        return ResponseEntity.ok(userFacadeService.rank(userId, token));
     }
 
     /**
@@ -42,10 +32,10 @@ public class UserController {
      * @return - 잔액
      */
     @GetMapping("/{userId}/point")
-    public ResponseEntity<GetUserPoint.Response> getBalance(
+    public ResponseEntity<GetUserPointQuery.Response> getBalance(
             @RequestHeader("token") String token,
             @PathVariable(name = "userId") String userId) {
-        return ResponseEntity.ok(new GetUserPoint.Response(100000));
+        return ResponseEntity.ok(new GetUserPointQuery.Response(100000));
     }
 
 
