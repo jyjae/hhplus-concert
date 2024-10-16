@@ -4,11 +4,13 @@ import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatRepository;
 import com.hhplus.concert.exception.AlreadyExistsException;
+import com.hhplus.concert.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,5 +32,15 @@ public class ConcertDateSeatService {
     public ConcertDateSeat findAvailableConcertDateSeat(FindConcertDateSeatQuery query) {
         return concertDateSeatRepository.findAvailableConcertDateSeat(query.getConcertDateId(), query.getConcertDateSeatId())
                 .orElseThrow(() -> new AlreadyExistsException("Seat already reserved"));
+    }
+
+    @Transactional
+    public void completeReservation(Long concertDateSeatId) {
+        ConcertDateSeat concertDateSeat = concertDateSeatRepository
+                .concertDateSeatById(concertDateSeatId)
+                .orElseThrow(() -> new NotFoundException("No concert date seat information"));
+
+        concertDateSeat.completeReservation();
+        concertDateSeatRepository.save(concertDateSeat);
     }
 }

@@ -31,4 +31,5 @@ public class Reservation {
     public boolean isExpired(long currentTimestamp) {
         return currentTimestamp > expirationDate;
     }
+
 }

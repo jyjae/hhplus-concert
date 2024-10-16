@@ -15,7 +15,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 
@@ -37,14 +36,14 @@ class ReservationServiceTest {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
-        when(reservationRepository.findReservation(1L)).thenReturn(Optional.empty());
+        when(reservationRepository.findReservationExpiredDateAfter(1L, 20220101L)).thenReturn(Optional.empty());
         when(timeProvider.getCurrentTimestamp()).thenReturn(20220101L);
         when(timeProvider.getCurrentInstantPlusMinutes(5)).thenReturn(20520101L);
         Long reservationId = reservationService.reserveConcertDateSeat(command);
 
         // Then
-        when(reservationRepository.findReservation(reservationId)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
-        Reservation reservation = reservationRepository.findReservation(reservationId).get();
+        when(reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
+        Reservation reservation = reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L).get();
         assertThat(reservationId).isNotNull();
         assertThat(reservation.getUserId()).isEqualTo(1L);
         assertThat(reservation.getConcertDateSeatId()).isEqualTo(1L);
@@ -57,8 +56,8 @@ class ReservationServiceTest {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
-        when(reservationRepository.findReservation(1L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
         when(timeProvider.getCurrentTimestamp()).thenReturn(20120101L);
+        when(reservationRepository.findReservationExpiredDateAfter(1L, 20120101L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
 
         // Then
         assertThatThrownBy(() -> reservationService.reserveConcertDateSeat(command))

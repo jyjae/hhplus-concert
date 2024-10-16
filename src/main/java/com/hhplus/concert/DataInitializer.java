@@ -3,6 +3,7 @@ package com.hhplus.concert;
 import com.hhplus.concert.application.config.ConfigKey;
 import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.config.ConfigRepository;
+import com.hhplus.concert.domain.token.QueueTokenStatus;
 import com.hhplus.concert.domain.user.UserRepository;
 import com.hhplus.concert.infra.persistence.concert.ConcertJpaEntity;
 import com.hhplus.concert.infra.persistence.concert.ConcertJpaRepository;
@@ -11,16 +12,21 @@ import com.hhplus.concert.infra.persistence.concert.concertdate.ConcertDateJpaRe
 import com.hhplus.concert.infra.persistence.concert.concertdateseat.ConcertDateSeatJpaEntity;
 import com.hhplus.concert.infra.persistence.concert.concertdateseat.ConcertDateSeatJpaRepository;
 import com.hhplus.concert.infra.persistence.config.ConfigJpaEntity;
+import com.hhplus.concert.infra.persistence.token.QueueTokenJpaEntity;
+import com.hhplus.concert.infra.persistence.token.QueueTokenJpaRepository;
 import com.hhplus.concert.infra.persistence.user.UserJpaEntity;
 import com.hhplus.concert.infra.persistence.user.UserJpaRepository;
+import com.hhplus.concert.util.UuidUtil;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Profile("dev")
 public class DataInitializer implements ApplicationRunner {
 
     private final UserJpaRepository userJpaRepository;
@@ -28,6 +34,7 @@ public class DataInitializer implements ApplicationRunner {
     private final ConcertJpaRepository concertJpaRepository;
     private final ConcertDateJpaRepository concertDateJpaRepository;
     private final ConcertDateSeatJpaRepository concertDateSeatJpaRepository;
+    private final QueueTokenJpaRepository queueTokenJpaRepository;
     private final TimeProvider timeProvider;
 
     public DataInitializer(
@@ -35,13 +42,14 @@ public class DataInitializer implements ApplicationRunner {
             ConfigRepository configRepository,
             ConcertJpaRepository concertJpaRepository,
             ConcertDateJpaRepository concertDateJpaRepository,
-            ConcertDateSeatJpaRepository concertDateSeatJpaRepository, TimeProvider timeProvider
+            ConcertDateSeatJpaRepository concertDateSeatJpaRepository, QueueTokenJpaRepository queueTokenJpaRepository, TimeProvider timeProvider
     ) {
         this.userJpaRepository = userJpaRepository;
         this.configRepository = configRepository;
         this.concertJpaRepository = concertJpaRepository;
         this.concertDateJpaRepository = concertDateJpaRepository;
         this.concertDateSeatJpaRepository = concertDateSeatJpaRepository;
+        this.queueTokenJpaRepository = queueTokenJpaRepository;
         this.timeProvider = timeProvider;
     }
 
@@ -56,6 +64,10 @@ public class DataInitializer implements ApplicationRunner {
         userJpaRepository.save(user1);
         userJpaRepository.save(user2);
         userJpaRepository.save(user3);
+
+        QueueTokenJpaEntity queueToken = QueueTokenJpaEntity.of(1L, UuidUtil.generateUuid(), QueueTokenStatus.WAITING.getValue(), timeProvider.getCurrentInstantPlusMinutes(30));
+        queueTokenJpaRepository.save(queueToken);
+
         ConfigJpaEntity config1 = new ConfigJpaEntity(ConfigKey.MAX_PROCESSING_TOKEN.getKey(), "10", "10");
         configRepository.save(config1);
 

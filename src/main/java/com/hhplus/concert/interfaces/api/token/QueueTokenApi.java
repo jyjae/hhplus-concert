@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "QueueToken", description = "대기열 토큰 발급 API")
-@RequestMapping("/token")
+@RequestMapping("/tokens")
 public interface QueueTokenApi {
 
     @Operation(

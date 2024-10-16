@@ -36,8 +36,25 @@ public class ConcertDateSeatJpaEntity {
         this.status = status;
     }
 
+    public ConcertDateSeatJpaEntity(Long id, Long concertDateId, int price, Long expiredDate, String status) {
+        this.id = id;
+        this.concertDateId = concertDateId;
+        this.price = price;
+        this.expiredDate = expiredDate;
+        this.status = status;
+    }
+
     public static ConcertDateSeatJpaEntity of(Long concertDateId, int price, Long expiredDate, String status) {
         return new ConcertDateSeatJpaEntity(concertDateId, price, expiredDate, status);
+    }
+
+    public static ConcertDateSeatJpaEntity from(ConcertDateSeat concertDateSeat) {
+        return new ConcertDateSeatJpaEntity(
+                concertDateSeat.getId(),
+                concertDateSeat.getConcertDateId(),
+                concertDateSeat.getPrice(),
+                concertDateSeat.getExpiredDate(),
+                concertDateSeat.getStatus().name());
     }
 
 

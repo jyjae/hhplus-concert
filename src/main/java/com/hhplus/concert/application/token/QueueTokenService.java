@@ -45,6 +45,11 @@ public class QueueTokenService {
         return tokenRepository.getTokens(count);
     }
 
+    @Transactional
+    public void deleteQueueToken(String token) {
+        tokenRepository.delete(token);
+    }
+
     public void processQueueTokens(List<QueueToken> queueTokens) {
         queueTokens.forEach(token -> {
             tokenRepository.processed(token.processed());
@@ -54,6 +59,5 @@ public class QueueTokenService {
     private Long getRank(Long tokenId, Integer count, Long lastProcessingId) {
         return tokenId - lastProcessingId - count < 0 ? 0 : tokenId - lastProcessingId - count;
     }
-
 
 }

@@ -18,4 +18,6 @@ public interface QueueTokenRepository {
     void save(QueueToken token);
 
   void processed(QueueToken token);
+
+    void delete(String token);
 }

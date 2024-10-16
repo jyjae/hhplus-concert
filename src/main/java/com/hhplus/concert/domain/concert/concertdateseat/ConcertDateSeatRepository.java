@@ -9,4 +9,8 @@ public interface ConcertDateSeatRepository {
     List<ConcertDateSeat> concertDateSeat(long concertDateId, long currentTime);
 
     Optional<ConcertDateSeat> findAvailableConcertDateSeat(Long concertDateId, Long concertDateSeatId);
+
+    Optional<ConcertDateSeat> concertDateSeatById(Long concertDateSeatId);
+
+    void save(ConcertDateSeat concertDateSeat);
 }

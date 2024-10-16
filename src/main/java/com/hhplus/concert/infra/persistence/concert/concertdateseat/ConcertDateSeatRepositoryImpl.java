@@ -2,6 +2,7 @@ package com.hhplus.concert.infra.persistence.concert.concertdateseat;
 
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatRepository;
+import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatStatus;
 import com.hhplus.concert.domain.concert.reservation.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.CloseableThreadContext;
@@ -27,9 +28,18 @@ public class ConcertDateSeatRepositoryImpl implements ConcertDateSeatRepository 
     public Optional<ConcertDateSeat> findAvailableConcertDateSeat(Long concertDateId, Long concertDateSeatId) {
         return concertDateSeatJpaRepository
                 .findAvailableConcertDateSeat(concertDateId, concertDateSeatId).map(
-                        ConcertDateSeatJpaEntity::toDomain
-                );
+                        ConcertDateSeatJpaEntity::toDomain);
 
+    }
+
+    @Override
+    public Optional<ConcertDateSeat> concertDateSeatById(Long concertDateSeatId) {
+        return concertDateSeatJpaRepository.findByIdAndStatus(concertDateSeatId, ConcertDateSeatStatus.AVAILABLE.getStatus()).map(ConcertDateSeatJpaEntity::toDomain);
+    }
+
+    @Override
+    public void save(ConcertDateSeat concertDateSeat) {
+        concertDateSeatJpaRepository.save(ConcertDateSeatJpaEntity.from(concertDateSeat));
     }
 
 }

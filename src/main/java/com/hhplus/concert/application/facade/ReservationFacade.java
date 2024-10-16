@@ -10,6 +10,7 @@ import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
 import com.hhplus.concert.interfaces.api.concert.reservation.dto.ReservationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,9 +20,10 @@ public class ReservationFacade {
     private final ConcertDateSeatService concertDateSeatService;
     private final QueueTokenService queueTokenService;
 
-    public Long reservation(String token, Long concertDateId, ReservationRequest request) {
+    @Transactional
+    public Long reservation(String token, Long concertDateId, Long userId, Long concertDateSeatId) {
         queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
-        ConcertDateSeat concertDateSeat = concertDateSeatService.findAvailableConcertDateSeat(new FindConcertDateSeatQuery(concertDateId, request.getConcertDateSeatId()));
-        return reservationService.reserveConcertDateSeat(new ReservationCommand(request.getUserId(), request.getConcertDateSeatId(), concertDateSeat.getPrice()));
+        ConcertDateSeat concertDateSeat = concertDateSeatService.findAvailableConcertDateSeat(new FindConcertDateSeatQuery(concertDateId, concertDateSeatId));
+        return reservationService.reserveConcertDateSeat(new ReservationCommand(userId, concertDateSeatId, concertDateSeat.getPrice()));
     }
 }

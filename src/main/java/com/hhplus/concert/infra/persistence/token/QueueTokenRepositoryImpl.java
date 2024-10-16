@@ -32,7 +32,7 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
     @Override
     public QueueToken findToken(String token, Long currentTime) {
         return queueTokenMapper.mapToDomainOptional(tokenJpaRepository.findTokenByToken(token, currentTime))
-                .orElseThrow(() -> new NotFoundException("Token not found"));
+                .orElseThrow(() ->  new NotFoundException("Token not found"));
     }
 
     @Override
@@ -57,5 +57,10 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
     public void processed(QueueToken queueToken) {
         QueueTokenJpaEntity queueTokenJpaEntity = queueTokenMapper.mapToEntity(queueToken);
         tokenJpaRepository.save(queueTokenJpaEntity);
+    }
+
+    @Override
+    public void delete(String token) {
+        tokenJpaRepository.deleteByToken(token);
     }
 }

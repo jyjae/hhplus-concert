@@ -1,14 +1,14 @@
 package com.hhplus.concert.domain.concert.reservation;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
 
 public interface ReservationRepository {
-    Optional<Reservation> findReservation(Long reservationId);
+    Optional<Reservation> findReservationExpiredDateAfter(Long reservationId, Long currentTime);
 
 
     Long reserveConcertDateSeat(Reservation reservation);
 
     Optional<Reservation> findReservationById(Long reservationId);
+
+    void deleteReservation(Long reservationId);
 }
