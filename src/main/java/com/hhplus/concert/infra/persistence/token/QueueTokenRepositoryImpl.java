@@ -58,4 +58,9 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
         QueueTokenJpaEntity queueTokenJpaEntity = queueTokenMapper.mapToEntity(queueToken);
         tokenJpaRepository.save(queueTokenJpaEntity);
     }
+
+    @Override
+    public void delete(String token) {
+        tokenJpaRepository.deleteByToken(token);
+    }
 }

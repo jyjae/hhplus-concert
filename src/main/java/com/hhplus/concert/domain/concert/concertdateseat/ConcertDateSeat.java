@@ -22,4 +22,9 @@ public class ConcertDateSeat {
     public boolean isAvailable() {
         return status == ConcertDateSeatStatus.AVAILABLE;
     }
+
+  public ConcertDateSeat completeReservation() {
+    this.status = ConcertDateSeatStatus.RESERVED;
+    return this;
+  }
 }

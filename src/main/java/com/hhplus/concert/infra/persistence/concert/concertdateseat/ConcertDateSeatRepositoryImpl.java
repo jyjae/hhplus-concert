@@ -31,4 +31,14 @@ public class ConcertDateSeatRepositoryImpl implements ConcertDateSeatRepository 
 
     }
 
+    @Override
+    public Optional<ConcertDateSeat> concertDateSeatById(Long concertDateSeatId) {
+        return concertDateSeatJpaRepository.findById(concertDateSeatId).map(ConcertDateSeatJpaEntity::toDomain);
+    }
+
+    @Override
+    public void save(ConcertDateSeat concertDateSeat) {
+        concertDateSeatJpaRepository.save(ConcertDateSeatJpaEntity.from(concertDateSeat));
+    }
+
 }

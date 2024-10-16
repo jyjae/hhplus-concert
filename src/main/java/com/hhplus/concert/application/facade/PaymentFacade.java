@@ -1,5 +1,6 @@
 package com.hhplus.concert.application.facade;
 
+import com.hhplus.concert.application.concert.concertdateseat.ConcertDateSeatService;
 import com.hhplus.concert.application.concert.reservation.ReservationService;
 import com.hhplus.concert.application.payment.PaymentCommand;
 import com.hhplus.concert.application.payment.PaymentService;
@@ -20,13 +21,29 @@ public class PaymentFacade {
     private final PaymentService paymentService;
     private final QueueTokenService queueTokenService;
     private final ReservationService reservationService;
+    private final ConcertDateSeatService concertDateSeatService;
     private final PointService pointService;
 
     @Transactional
     public Long payment(String token, CreatePaymentRequest request) {
+        // 1. 큐 토큰 확인 및 삭제
         queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+        queueTokenService.deleteQueueToken(token);
+
+        // 2. 예약 정보 조회
         Reservation reservation = reservationService.getReservation(request.getReservationId());
+
+        // 3. 포인트 차감 시도
         pointService.use(new UsePointCommand(request.getUserId(), reservation.getPrice()));
-        return paymentService.payment(new PaymentCommand(request.getUserId(), request.getReservationId()));
+
+        // 4. 결제 처리
+        Long paymentId = paymentService.payment(new PaymentCommand(
+                request.getUserId(), request.getReservationId()));
+
+        // 5. 좌석 예약 확정
+        concertDateSeatService.completeReservation(reservation.getConcertDateSeatId());
+
+        return paymentId;
+
     }
 }
