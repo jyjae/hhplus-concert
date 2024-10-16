@@ -21,13 +21,10 @@ public class ReservationService {
 
     @Transactional
     public Long reserveConcertDateSeat(ReservationCommand command) {
-        Optional<Reservation> reservationOptional = reservationRepository.findReservation(command.getConcertDateSeatId());
+        Optional<Reservation> reservationOptional = reservationRepository.findReservationExpiredDateAfter(command.getConcertDateSeatId(), timeProvider.getCurrentTimestamp());
 
         if (reservationOptional.isPresent()) {
-            Reservation reservation = reservationOptional.get();
-            if(!reservation.isExpired(timeProvider.getCurrentTimestamp())) {
-                throw new AlreadyExistsException("Seat already reserved");
-            }
+            throw new AlreadyExistsException("Seat already reserved");
         }
 
         Reservation reservation = Reservation.from(command.getUserId(), command.getPrice(), command.getConcertDateSeatId(), timeProvider.getCurrentTimestamp(), timeProvider.getCurrentInstantPlusMinutes(5));

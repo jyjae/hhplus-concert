@@ -15,8 +15,8 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     private final ReservationJpaRepository reservationJpaRepository;
 
     @Override
-    public Optional<Reservation> findReservation(Long reservationId) {
-        return reservationJpaRepository.findByConcertDateSeatId(reservationId)
+    public Optional<Reservation> findReservationExpiredDateAfter(Long reservationId, Long currentTime) {
+        return reservationJpaRepository.findByIdAndExpirationDateAfter(reservationId, currentTime)
                 .map(ReservationJpaEntity::toDomain);
     }
 
@@ -29,5 +29,10 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     public Optional<Reservation> findReservationById(Long reservationId) {
         return reservationJpaRepository.findById(reservationId)
                 .map(ReservationJpaEntity::toDomain);
+    }
+
+    @Override
+    public void deleteReservation(Long reservationId) {
+        reservationJpaRepository.deleteById(reservationId);
     }
 }
