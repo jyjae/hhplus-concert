@@ -11,19 +11,22 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/concerts/{concertId}/concert-dates/{concertDateId}/seats")
-public class ConcertDateSeatController {
+public class ConcertDateSeatController implements ConcertDateSeatApi {
 
     private final ConcertDateSeatFacade concertDateSeatFacade;
 
-    @GetMapping()
+    @Override
     public ResponseEntity<List<GetConcertDateSeatResponse>> getAvailableSeats(
             @RequestHeader("token") String token,
             @PathVariable(name = "concertId") Long concertId,
             @PathVariable(name = "concertDateId") Long concertDateId) {
         return ResponseEntity.ok(concertDateSeatFacade.concertDateSeats(token, concertDateId)
                 .stream()
-                .map(seat -> new GetConcertDateSeatResponse(seat.getId(), seat.getConcertDateId(), seat.getPrice(), seat.getExpiredDate(), seat.getStatus()))
-                .toList());
+                .map(seat -> new GetConcertDateSeatResponse(
+                        seat.getId(),
+                        seat.getConcertDateId(),
+                        seat.getPrice(),
+                        seat.getExpiredDate(),
+                        seat.getStatus())).toList());
     }
 }

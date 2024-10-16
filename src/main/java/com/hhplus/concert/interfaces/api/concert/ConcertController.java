@@ -2,7 +2,7 @@ package com.hhplus.concert.interfaces.api.concert;
 
 import com.hhplus.concert.application.facade.ConcertFacade;
 import com.hhplus.concert.domain.concert.Concert;
-import com.hhplus.concert.interfaces.api.concert.dto.GetConcert;
+import com.hhplus.concert.interfaces.api.concert.dto.GetConcertResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/concerts")
-public class ConcertController {
+public class ConcertController implements ConcertApi {
 
     private final ConcertFacade concertFacade;
 
@@ -22,9 +21,14 @@ public class ConcertController {
      * 콘서트 전체 조회 API
      * @return - 콘서트 목록
      */
-    @GetMapping
-    public ResponseEntity<List<Concert>> getConcerts() {
-        return ResponseEntity.ok(concertFacade.concerts());
+    @Override
+    public ResponseEntity<List<GetConcertResponse>> getConcerts() {
+        return ResponseEntity.ok(concertFacade.concerts().stream()
+                .map(concert -> new GetConcertResponse(
+                        concert.getId(),
+                        concert.getName(),
+                        concert.getStartDate(),
+                        concert.getEndDate())).toList());
     }
 
 }

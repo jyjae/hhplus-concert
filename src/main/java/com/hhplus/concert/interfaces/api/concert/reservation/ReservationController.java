@@ -1,19 +1,20 @@
 package com.hhplus.concert.interfaces.api.concert.reservation;
 
 import com.hhplus.concert.application.facade.ReservationFacade;
+import com.hhplus.concert.interfaces.api.concert.reservation.dto.ReservationRequest;
+import com.hhplus.concert.interfaces.api.concert.reservation.dto.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/concerts/{concertId}/concert-dates/{concertDateId}/reservations")
-public class ReservationController {
+public class ReservationController implements ReservationApi{
 
     private final ReservationFacade reservationFacade;
 
 
-    @PostMapping()
+    @Override
     public ResponseEntity<ReservationResponse> reserveConcertDateSeat(
             @RequestHeader("token") String token,
             @PathVariable(name = "concertId") Long concertId,

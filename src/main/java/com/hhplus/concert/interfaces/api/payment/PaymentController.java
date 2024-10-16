@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/payments")
-public class PaymentController {
+public class PaymentController implements PaymentApi{
 
     private final PaymentFacade paymentFacade;
 
@@ -18,7 +17,7 @@ public class PaymentController {
      * @param request - 유저 아이디, 자리 아이디
      * @return - 결제 정보
      */
-    @PostMapping
+    @Override
     public ResponseEntity<CreatePaymentResponse> createPayment(
             @RequestHeader("token") String token,
             @RequestBody CreatePaymentRequest request) {

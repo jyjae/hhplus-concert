@@ -2,15 +2,15 @@ package com.hhplus.concert.interfaces.api.user;
 
 
 import com.hhplus.concert.application.facade.UserFacade;
-import com.hhplus.concert.interfaces.api.user.dto.GetUserPointQuery;
+import com.hhplus.concert.interfaces.api.user.dto.GetQueueResponse;
+import com.hhplus.concert.interfaces.api.user.dto.GetUserPointResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/users")
-public class UserController {
+public class UserController implements UserApi {
 
     private final UserFacade userFacadeService;
 
@@ -19,11 +19,11 @@ public class UserController {
      * @param userId - 유저 아이디
      * @return - 대기 순서
      */
-    @GetMapping("/{userId}/rank")
-    public ResponseEntity<Long> getQueue(
+    @Override
+    public ResponseEntity<GetQueueResponse> getQueue(
             @RequestHeader("token") String token,
             @PathVariable(name = "userId") Long userId) {
-        return ResponseEntity.ok(userFacadeService.rank(userId, token));
+        return ResponseEntity.ok(new GetQueueResponse(userFacadeService.rank(userId, token)));
     }
 
     /**
@@ -31,11 +31,11 @@ public class UserController {
      * @param userId - 유저 아이디
      * @return - 잔액
      */
-    @GetMapping("/{userId}/point")
-    public ResponseEntity<GetUserPointQuery.Response> getBalance(
+    @Override
+    public ResponseEntity<GetUserPointResponse> getBalance(
             @RequestHeader("token") String token,
-            @PathVariable(name = "userId") String userId) {
-        return ResponseEntity.ok(new GetUserPointQuery.Response(100000));
+            @PathVariable(name = "userId") Long userId) {
+        return ResponseEntity.ok(new GetUserPointResponse(userFacadeService.point(userId, token)));
     }
 
 
