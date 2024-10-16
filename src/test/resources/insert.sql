@@ -88,7 +88,7 @@ INSERT INTO concert_date_seat (concert_date_id, price, expired_date, status) VAL
 
 -- 초기 예약 데이터 삽입
 INSERT INTO reservation (user_id, price, concert_date_seat_id, reservation_date, expiration_date)
-VALUES (1L, 10000, 2L, 1798644645000, 1798644345000);
+VALUES (1L, 10000, 1L, 1798644645000, 1798644345000);
 
 INSERT INTO reservation ( user_id, price, concert_date_seat_id, reservation_date, expiration_date)
 VALUES (1L, 10000, 4L, 1697594400000, 1697680800000);
