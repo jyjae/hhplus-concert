@@ -6,7 +6,5 @@ import java.util.Optional;
 
 public interface ReservationJpaRepository extends JpaRepository<ReservationJpaEntity, Long> {
 
-    Optional<ReservationJpaEntity> findById(Long reservationId);
-
     Optional<ReservationJpaEntity> findByIdAndExpirationDateAfter(Long reservationId, Long currentTime);
 }
