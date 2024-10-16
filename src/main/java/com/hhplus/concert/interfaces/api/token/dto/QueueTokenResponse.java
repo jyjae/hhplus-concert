@@ -1,4 +1,4 @@
-package com.hhplus.concert.interfaces.api.token;
+package com.hhplus.concert.interfaces.api.token.dto;
 
 public class QueueTokenResponse {
     private String token;

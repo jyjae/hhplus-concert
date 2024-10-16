@@ -1,4 +1,4 @@
-package com.hhplus.concert.interfaces.api.concert.reservation;
+package com.hhplus.concert.interfaces.api.concert.reservation.dto;
 
 import lombok.Getter;
 

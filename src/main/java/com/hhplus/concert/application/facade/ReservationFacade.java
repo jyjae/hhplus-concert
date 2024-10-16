@@ -7,7 +7,7 @@ import com.hhplus.concert.application.concert.reservation.ReservationService;
 import com.hhplus.concert.application.token.FindQueueTokenQuery;
 import com.hhplus.concert.application.token.QueueTokenService;
 import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
-import com.hhplus.concert.interfaces.api.concert.reservation.ReservationRequest;
+import com.hhplus.concert.interfaces.api.concert.reservation.dto.ReservationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
