@@ -32,14 +32,13 @@ spring:
     activate:
       on-profile: test
   datasource:
-    url: jdbc:h2:mem:testdb  # H2 데이터베이스 URL (메모리 모드 사용 예시)
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true          # H2 콘솔 활성화
-      path: /h2-console
+    url: jdbc:mysql://localhost:3306/example_db
+    username: user
+    password: user_password
+  jpa:
+    hibernate:
+      ddl-auto: update  # 필요에 따라 create, validate 등으로 변경 가능
+    show-sql: true
 queue:
   token:
     scheduling: true

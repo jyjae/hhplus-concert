@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password  # 루트 사용자 비밀번호 설정
+      MYSQL_DATABASE: example_db           # 기본 데이터베이스 생성
+      MYSQL_USER: user                     # 사용자 계정 생성
+      MYSQL_PASSWORD: user_password        # 사용자 비밀번호 설정
+    restart: always  # 컨테이너 자동 재시작 설정
