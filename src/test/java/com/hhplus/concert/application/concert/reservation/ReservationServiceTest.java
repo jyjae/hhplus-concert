@@ -42,7 +42,16 @@ class ReservationServiceTest {
         Long reservationId = reservationService.reserveConcertDateSeat(command);
 
         // Then
-        when(reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
+        when(reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L)).thenReturn(Optional.of(
+                Reservation.builder()
+                        .id(1L)
+                        .concertDateSeatId(1L)
+                        .userId(1L)
+                        .price(10000)
+                        .reservationDate(20220101L)
+                        .expirationDate(20520101L)
+                        .build()
+        ));
         Reservation reservation = reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L).get();
         assertThat(reservationId).isNotNull();
         assertThat(reservation.getUserId()).isEqualTo(1L);
@@ -57,7 +66,15 @@ class ReservationServiceTest {
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
         when(timeProvider.getCurrentTimestamp()).thenReturn(20120101L);
-        when(reservationRepository.findReservationExpiredDateAfter(1L, 20120101L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
+        when(reservationRepository.findReservationExpiredDateAfter(1L, 20120101L)).thenReturn(Optional.of(
+                Reservation.builder()
+                        .id(1L)
+                        .userId(1L)
+                        .price(10000)
+                        .reservationDate(20120101L)
+                        .expirationDate(20420101L)
+                        .build()
+        ));
 
         // Then
         assertThatThrownBy(() -> reservationService.reserveConcertDateSeat(command))

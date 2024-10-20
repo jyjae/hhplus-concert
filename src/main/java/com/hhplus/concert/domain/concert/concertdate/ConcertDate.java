@@ -2,10 +2,12 @@ package com.hhplus.concert.domain.concert.concertdate;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@Builder
 public class ConcertDate {
 
   private final Long id;
@@ -17,7 +19,14 @@ public class ConcertDate {
 
   public static ConcertDate of(Long id, Long concertId, int totalCapacity, int currentCapacity,
       Long startDate, String place) {
-    return new ConcertDate(id, concertId, totalCapacity, currentCapacity, startDate, place);
+    return ConcertDate.builder()
+        .id(id)
+        .concertId(concertId)
+        .totalCapacity(totalCapacity)
+        .currentCapacity(currentCapacity)
+        .startDate(startDate)
+        .place(place)
+        .build();
   }
 
   public boolean isAvailable() {

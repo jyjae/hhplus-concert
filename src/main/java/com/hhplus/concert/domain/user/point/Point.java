@@ -3,10 +3,12 @@ package com.hhplus.concert.domain.user.point;
 import com.hhplus.concert.exception.InvalidException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@Builder
 public class Point {
     private final Long id;
     private final Long userId;
@@ -14,7 +16,20 @@ public class Point {
     private final Long lastUpdated;
 
     public static Point of(Long id, Long userId, int point, Long lastUpdated) {
-        return new Point(id, userId, point, lastUpdated);
+        return Point.builder()
+                .id(id)
+                .userId(userId)
+                .point(point)
+                .lastUpdated(lastUpdated)
+                .build();
+    }
+
+    public static Point of(Long userId, int point, Long lastUpdated) {
+        return Point.builder()
+                .userId(userId)
+                .point(point)
+                .lastUpdated(lastUpdated)
+                .build();
     }
 
     public Point charge(int point) {

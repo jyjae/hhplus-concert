@@ -17,7 +17,7 @@ public class PointService {
     @Transactional
     public Long charge(ChargePointCommand command) {
         Point point = pointRepository.findPoint(command.getUserId())
-                .orElse(Point.of(null, command.getUserId(),0, provider.getCurrentTimestamp()));
+                .orElse(Point.of(command.getUserId(),0, provider.getCurrentTimestamp()));
 
         return pointRepository.save(point.charge(command.getPoint()));
     }
@@ -25,7 +25,7 @@ public class PointService {
     @Transactional
     public void use(UsePointCommand command) {
         Point point = pointRepository.findPoint(command.getUserId())
-                .orElse(Point.of(null, command.getUserId(),0, provider.getCurrentTimestamp()));
+                .orElse(Point.of(command.getUserId(),0, provider.getCurrentTimestamp()));
 
         pointRepository.save(point.use(command.getPoint()));
     }

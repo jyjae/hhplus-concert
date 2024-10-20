@@ -2,10 +2,12 @@ package com.hhplus.concert.domain.concert;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@Builder
 public class Concert {
 
   private final Long id;
@@ -14,7 +16,12 @@ public class Concert {
   private final Long endDate;
 
   public static Concert of(Long id, String name, Long startDate, Long endDate) {
-    return new Concert(id, name, startDate, endDate);
+    return Concert.builder()
+            .id(id)
+            .name(name)
+            .startDate(startDate)
+            .endDate(endDate)
+            .build();
   }
 
 }

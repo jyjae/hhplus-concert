@@ -7,6 +7,7 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@Builder
 public class QueueToken {
 
   private final Long id;
@@ -24,10 +25,24 @@ public class QueueToken {
       QueueTokenStatus status,
       Long expiredDate
   ) {
-    return new QueueToken(id, userId, token, createdAt, status, expiredDate);
+    return QueueToken.builder()
+        .id(id)
+        .userId(userId)
+        .token(token)
+        .createdAt(createdAt)
+        .status(status)
+        .expiredDate(expiredDate)
+        .build();
   }
 
   public QueueToken processed() {
-    return new QueueToken(this.id, this.userId, this.token, this.createdAt, QueueTokenStatus.PROCESSING, this.expiredDate);
+    return QueueToken.builder()
+        .id(id)
+        .userId(userId)
+        .token(token)
+        .createdAt(createdAt)
+        .status(QueueTokenStatus.PROCESSING)
+        .expiredDate(expiredDate)
+        .build();
   }
 }

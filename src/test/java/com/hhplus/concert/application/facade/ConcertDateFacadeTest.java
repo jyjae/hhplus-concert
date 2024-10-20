@@ -27,6 +27,7 @@ class ConcertDateFacadeTest {
     @Autowired
     private QueueTokenService queueTokenService;
 
+
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 가능한 날짜 조회 파사드 통합 테스트 성공")
     @Test
