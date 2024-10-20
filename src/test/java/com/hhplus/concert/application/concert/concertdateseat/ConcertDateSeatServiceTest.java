@@ -35,7 +35,7 @@ class ConcertDateSeatServiceTest {
     //  예약 가능한 좌석 조회 성공
     @DisplayName("예약 가능한 좌석 조회 성공")
     @Test
-    void getAvailableSeats() {
+    void shouldRetrieveAvailableSeatsSuccessfully() {
         // Given
         List<ConcertDateSeat> list = List.of(
                 ConcertDateSeat.of(1L, 1L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE),

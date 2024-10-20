@@ -10,7 +10,7 @@ class GetQueueTokenCommandTest {
 
     @DisplayName("userId가 null일 경우 IllegalArgumentException이 발생")
     @Test
-    void createGetQueueTokenCommand_shouldFailWhenUserIdIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenUserIdIsNull() {
         // Given
         Long userId = null;
 

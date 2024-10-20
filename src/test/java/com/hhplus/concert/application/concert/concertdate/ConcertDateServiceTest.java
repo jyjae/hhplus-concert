@@ -25,7 +25,7 @@ class ConcertDateServiceTest {
 
   @DisplayName("최대 수용량보다 작은 현재 수용량 콘서트 날짜 조회 성공")
   @Test
-  void getConcertDatesLessThanMaxCapacity() {
+  void shouldRetrieveConcertDatesWithCurrentCapacityLessThanMaxCapacity() {
     // Given
     List<ConcertDate> concertDates = List.of(
         ConcertDate.of(1L, 1L, 100, 50, 20220101L, "서울 송파구 올림픽공원 체조경기장"),

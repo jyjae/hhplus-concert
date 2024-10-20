@@ -11,7 +11,7 @@ class FindQueueTokenQueryTest {
 
     @DisplayName("token이 null일 경우 InvalidException이 발생")
     @Test
-    void createFindQueueTokenQuery_shouldFailWhenTokenIsNull() {
+    void shouldThrowInvalidExceptionWhenTokenIsNull() {
         // Given
         String token = null;
 

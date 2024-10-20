@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Point", description = "포인트 관리 API")
-@RequestMapping("/users/{userId}/points")
+@RequestMapping("/users")
 public interface PointApi {
 
 
@@ -63,7 +63,7 @@ public interface PointApi {
                     )
             }
     )
-    @GetMapping
+    @GetMapping("/{userId}/points")
     ResponseEntity<Integer> point(
             @RequestHeader("token") String token,
             @PathVariable("userId") Long userId

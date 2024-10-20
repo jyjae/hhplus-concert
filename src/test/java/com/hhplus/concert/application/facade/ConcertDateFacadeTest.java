@@ -31,7 +31,7 @@ class ConcertDateFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 가능한 날짜 조회 파사드 통합 테스트 성공")
     @Test
-    void getConcertDatesSuccess() {
+    void shouldRetrieveAvailableDatesSuccessfullyInFacadeIntegrationTest() {
         // given
         QueueToken token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L));
 
@@ -47,7 +47,7 @@ class ConcertDateFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("유효하지 않은 토큰으로 예약 가능한 날짜 조회 파사드 통합 테스트 실패")
     @Test
-    void getConcertDatesFail() {
+    void shouldFailToRetrieveAvailableDatesWithInvalidTokenInFacadeIntegrationTest() {
         // given
 
         // when

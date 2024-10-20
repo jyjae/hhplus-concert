@@ -24,7 +24,7 @@ class PaymentServiceTest {
 
     @DisplayName("결제 요청 시 결제 성공")
     @Test
-    void payment() {
+    void shouldCompletePaymentSuccessfullyOnPaymentRequest() {
         // Given
         PaymentCommand paymentCommand = new PaymentCommand(1L, 1L);
 

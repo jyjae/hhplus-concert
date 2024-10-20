@@ -11,7 +11,7 @@ class GetUserQueueRankQueryTest {
 
     @DisplayName("tokenId가 null일 경우 InvalidException이 발생")
     @Test
-    void createGetUserQueueRankQuery_shouldFailWhenTokenIdIsNull() {
+    void shouldThrowInvalidExceptionWhenTokenIdIsNull() {
         // Given
         Long tokenId = null;
         Integer capacity = 100;
@@ -24,7 +24,7 @@ class GetUserQueueRankQueryTest {
 
     @DisplayName("capacity가 null일 경우 InvalidException이 발생")
     @Test
-    void createGetUserQueueRankQuery_shouldFailWhenCapacityIsNull() {
+    void shouldThrowInvalidExceptionWhenCapacityIsNull() {
         // Given
         Long tokenId = 1L;
         Integer capacity = null;

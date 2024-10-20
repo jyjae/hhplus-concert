@@ -20,4 +20,5 @@ public class ConcertDateFacade {
         queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
         return concertDateService.getConcertDatesLessThanMaxCapacity(concertId);
     }
+
 }

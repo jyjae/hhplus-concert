@@ -11,7 +11,7 @@ class CreateQueueTokenCommandTest {
 
     @DisplayName("userId가 null일 경우 InvalidException이 발생")
     @Test
-    void createCreateQueueTokenCommand_shouldFailWhenUserIdIsNull() {
+    void shouldThrowInvalidExceptionWhenUserIdIsNull() {
         // Given
         Long userId = null;
         String token = "validToken";
@@ -24,7 +24,7 @@ class CreateQueueTokenCommandTest {
 
     @DisplayName("token이 null일 경우 InvalidException이 발생")
     @Test
-    void createCreateQueueTokenCommand_shouldFailWhenTokenIsNull() {
+    void shouldThrowInvalidExceptionWhenTokenIsNull() {
         // Given
         Long userId = 1L;
         String token = null;

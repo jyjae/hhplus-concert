@@ -37,7 +37,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 충전 테스트 성공")
     @Test
-    void chargeSuccess() {
+    void shouldChargePointsSuccessfully() {
         // given
         ChargePointCommand command = new ChargePointCommand(1L, 10000);
 
@@ -56,7 +56,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 사용 실패")
     @Test
-    void useFail() {
+    void shouldFailToUsePoints() {
         // given
         UsePointCommand command = new UsePointCommand(1L, 15000);
 
@@ -72,7 +72,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 사용 성공")
     @Test
-    void useSuccess() {
+    void shouldUsePointsSuccessfully() {
         // given
         UsePointCommand command = new UsePointCommand(1L, 1000);
 
@@ -89,7 +89,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 조회 성공")
     @Test
-    void getPointSuccess() {
+    void shouldRetrievePointsSuccessfully() {
         // given
         GetPointQuery query = new GetPointQuery(1L);
 

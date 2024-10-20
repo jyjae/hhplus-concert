@@ -34,7 +34,7 @@ class PaymentFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("포인트 부족으로 결제 파사드 통합 테스트 실패")
     @Test
-    void paymentFailByNotEnoughPoint() {
+    void shouldFailPaymentInFacadeIntegrationTestDueToInsufficientPoints() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
@@ -49,7 +49,7 @@ class PaymentFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("결제 파사드 통합 테스트 성공")
     @Test
-    void paymentSuccess() {
+    void shouldCompletePaymentSuccessfullyInFacadeIntegrationTest() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
         pointService.charge(new ChargePointCommand(1L, 100000));
@@ -64,7 +64,7 @@ class PaymentFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약이 존재하지 않아 결제 파사드 통합 테스트 실패")
     @Test
-    void paymentFailByNotFoundReservation() {
+    void shouldFailPaymentInFacadeIntegrationTestDueToNonExistentReservation() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
@@ -78,7 +78,7 @@ class PaymentFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("임시 예약이 풀려 결제 파사드 통합 테스트 실패")
     @Test
-    void paymentFailByNotTemporaryReservation() {
+    void shouldFailPaymentInFacadeIntegrationTestDueToReleasedTemporaryReservation() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
@@ -91,7 +91,7 @@ class PaymentFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("토큰이 존재하지 않아 결제 파사드 통합 테스트 실패")
     @Test
-    void paymentFailByNotFoundToken() {
+    void shouldFailPaymentInFacadeIntegrationTestDueToNonExistentToken() {
         // given
 
         // then

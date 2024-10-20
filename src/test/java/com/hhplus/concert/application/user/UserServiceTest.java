@@ -23,7 +23,7 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    @DisplayName("유저 조회 시 유저가 존재하지 않아 예외가 발생하는 테스트")
+    @DisplayName("shouldThrowExceptionWhenUserDoesNotExist")
     @Test
     void getUserNotFound() {
         // given

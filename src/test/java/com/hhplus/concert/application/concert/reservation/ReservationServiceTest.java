@@ -32,7 +32,7 @@ class ReservationServiceTest {
 
     @DisplayName("좌석 예약 성공")
     @Test
-    void reserveConcertDateSeatSuccess() {
+    void shouldReserveSeatSuccessfully() {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
@@ -61,7 +61,7 @@ class ReservationServiceTest {
 
     @DisplayName("이미 예약되어 있는 좌석 예약 실패")
     @Test
-    void reserveConcertDateSeatFail() {
+    void shouldFailToReserveSeatWhenAlreadyReserved() {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When

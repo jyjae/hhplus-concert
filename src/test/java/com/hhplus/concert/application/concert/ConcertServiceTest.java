@@ -26,7 +26,7 @@ class ConcertServiceTest {
   //  콘서트 목록 조회 테스트 성공
   @DisplayName("콘서트 목록 조회 테스트 성공")
   @Test
-  void getConcerts() {
+  void shouldRetrieveConcertListSuccessfully() {
     // Given
     List<Concert> concerts = List.of(
         Concert.of(1L, "콘서트1", 20220101L, 20220102L),

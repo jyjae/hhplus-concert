@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(name = "ConcertDateSeat", description = "콘서트 날짜 좌석 관련 API")
-@RequestMapping("/concerts/{concertId}/concert-dates/{concertDateId}/seats")
+@RequestMapping("/concerts")
 public interface ConcertDateSeatApi {
 
     @Operation(
@@ -42,7 +42,7 @@ public interface ConcertDateSeatApi {
                     )
             }
     )
-    @GetMapping
+    @GetMapping("/{concertId}/concert-dates/{concertDateId}/seats")
     ResponseEntity<List<GetConcertDateSeatResponse>> getAvailableSeats(
             @RequestHeader("token") String token,
             @PathVariable("concertId") Long concertId,

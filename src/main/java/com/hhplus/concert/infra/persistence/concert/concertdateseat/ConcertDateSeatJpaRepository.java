@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface ConcertDateSeatJpaRepository extends JpaRepository<ConcertDateSeatJpaEntity, Long>, ConcertDateSeatJpaCustomRepository {
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Lock(LockModeType.OPTIMISTIC)
     Optional<ConcertDateSeatJpaEntity> findByIdAndStatus(Long concertDateSeatId, String status);
 }

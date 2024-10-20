@@ -30,7 +30,7 @@ class ConcertDateSeatFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 가능한 좌석 조회 파사드 통합 테스트 성공")
     @Test
-    void getConcertDateSeatsSuccess() {
+    void shouldRetrieveAvailableSeatsSuccessfullyInFacadeIntegrationTest() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
@@ -44,7 +44,7 @@ class ConcertDateSeatFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("유효하지 않은 토큰으로 예약 가능한 좌석 조회 시 파사드 통합 테스트 실패")
     @Test
-    void getConcertDateSeatsFail() {
+    void shouldFailToRetrieveAvailableSeatsWithInvalidTokenInFacadeIntegrationTest() {
 
         assertThatThrownBy(() -> concertDateSeatFacade.concertDateSeats(UUID.randomUUID().toString(), 1L))
                 .isInstanceOf(NotFoundException.class)

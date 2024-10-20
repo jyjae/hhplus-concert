@@ -11,7 +11,7 @@ class FindConcertDateSeatQueryTest {
 
     @DisplayName("concertDateId가 null일 경우 InvalidException이 발생")
     @Test
-    void createFindConcertDateSeatQuery_shouldFailWhenConcertDateIdIsNull() {
+    void shouldThrowInvalidExceptionWhenConcertDateIdIsNull() {
         // Given
         Long concertDateId = null;
         Long concertDateSeatId = 1L;
@@ -24,7 +24,7 @@ class FindConcertDateSeatQueryTest {
 
     @DisplayName("concertDateSeatId가 null일 경우 InvalidException이 발생")
     @Test
-    void createFindConcertDateSeatQuery_shouldFailWhenConcertDateSeatIdIsNull() {
+    void shouldThrowInvalidExceptionWhenConcertDateSeatIdIsNull() {
         // Given
         Long concertDateId = 1L;
         Long concertDateSeatId = null;

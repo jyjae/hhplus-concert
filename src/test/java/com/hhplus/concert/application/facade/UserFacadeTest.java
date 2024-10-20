@@ -34,9 +34,9 @@ class UserFacadeTest {
     private PointService pointService;
 
     @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("대기열 순서 조회")
+    @DisplayName("대기열 순서 조회 성공")
     @Test
-    void getRankSuccess() {
+    void shouldRetrieveQueueOrderSuccessfully() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
         configJpaRepository.save(new ConfigJpaEntity(ConfigKey.MAX_PROCESSING_TOKEN.getKey(), "100", "대기열"));
@@ -50,7 +50,7 @@ class UserFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("포인트 조회 성공")
     @Test
-    void getPointSuccess() {
+    void shouldRetrievePointsSuccessfully() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
         pointService.charge(new ChargePointCommand(1L, 1000));

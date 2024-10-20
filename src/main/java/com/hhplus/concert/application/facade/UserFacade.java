@@ -21,7 +21,6 @@ public class UserFacade {
     private final PointService pointService;
 
     public Long rank(Long userId, String token) {
-//        userService.findUser(new FindUserCommand(userId));
         QueueToken queueToken = queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
         int count = configService.getMaxQueueTokens();
 

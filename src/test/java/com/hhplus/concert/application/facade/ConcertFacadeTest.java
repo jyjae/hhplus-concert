@@ -21,7 +21,7 @@ class ConcertFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("콘서트 조회 테스트 성공")
     @Test
-    void getConcertsSuccess() {
+    void shouldRetrieveConcertSuccessfully() {
         // given
 
         // when

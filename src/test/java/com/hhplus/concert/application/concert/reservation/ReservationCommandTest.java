@@ -11,7 +11,7 @@ class ReservationCommandTest {
 
     @DisplayName("userId가 null일 경우 IllegalArgumentException이 발생")
     @Test
-    void createReservationCommand_shouldFailWhenUserIdIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenUserIdIsNull() {
         // Given
         Long userId = null;
         Long concertDateSeatId = 1L;
@@ -24,7 +24,7 @@ class ReservationCommandTest {
 
     @DisplayName("concertDateSeatId가 null일 경우 IllegalArgumentException이 발생")
     @Test
-    void createReservationCommand_shouldFailWhenConcertDateSeatIdIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenConcertDateSeatIdIsNull() {
         // Given
         Long userId = 1L;
         Long concertDateSeatId = null;

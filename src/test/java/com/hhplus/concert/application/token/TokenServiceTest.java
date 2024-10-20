@@ -29,7 +29,7 @@ class TokenServiceTest {
 
     @Test
     @DisplayName("대기열 발급 성공")
-    void addTokenToQueue() {
+    void shouldIssueQueueTokenSuccessfully() {
         // given
         String uuid = UuidUtil.generateUuid();
         CreateQueueTokenCommand command = new CreateQueueTokenCommand(1L, uuid);
@@ -46,7 +46,7 @@ class TokenServiceTest {
 
     @Test
     @DisplayName("유저 대기 순서 조회 성공 테스트")
-    void findUser() {
+    void shouldRetrieveUserQueueOrderSuccessfully() {
         // given
         GetUserQueueRankQuery command = new GetUserQueueRankQuery(150L, 100);
         when(queueTokenRepository.lastProcessingToken(QueueTokenStatus.PROCESSING)).thenReturn(100L);
