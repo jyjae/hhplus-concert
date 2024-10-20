@@ -39,8 +39,6 @@ public class ConcertDateSeatService {
         ConcertDateSeat concertDateSeat = concertDateSeatRepository
                 .concertDateSeatById(concertDateSeatId)
                 .orElseThrow(() -> new NotFoundException("No concert date seat information"));
-
-        concertDateSeat.completeReservation();
-        concertDateSeatRepository.save(concertDateSeat);
+        concertDateSeatRepository.save(concertDateSeat.completeReservation());
     }
 }

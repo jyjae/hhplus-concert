@@ -32,7 +32,12 @@ public class ConcertDateSeat {
     }
 
   public ConcertDateSeat completeReservation() {
-    this.status = ConcertDateSeatStatus.RESERVED;
-    return this;
+    return ConcertDateSeat.builder()
+        .id(id)
+        .concertDateId(concertDateId)
+        .price(price)
+        .expiredDate(expiredDate)
+        .status(ConcertDateSeatStatus.RESERVED)
+        .build();
   }
 }

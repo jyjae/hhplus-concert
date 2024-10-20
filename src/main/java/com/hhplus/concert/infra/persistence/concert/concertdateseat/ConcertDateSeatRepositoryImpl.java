@@ -39,7 +39,9 @@ public class ConcertDateSeatRepositoryImpl implements ConcertDateSeatRepository 
 
     @Override
     public void save(ConcertDateSeat concertDateSeat) {
-        concertDateSeatJpaRepository.save(ConcertDateSeatJpaEntity.from(concertDateSeat));
+        ConcertDateSeatJpaEntity entity = concertDateSeatJpaRepository.findById(concertDateSeat.getId()).get();
+        entity.update(concertDateSeat);
+        concertDateSeatJpaRepository.save(entity);
     }
 
 }

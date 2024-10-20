@@ -23,9 +23,9 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    @DisplayName("shouldThrowExceptionWhenUserDoesNotExist")
+    @DisplayName("유저 조회 시 유저가 존재하지 않아 예외가 발생하는 테스트")
     @Test
-    void getUserNotFound() {
+    void shouldThrowExceptionWhenUserDoesNotExist() {
         // given
         FindUserCommand command = new FindUserCommand(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.empty());

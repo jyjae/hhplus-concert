@@ -64,4 +64,11 @@ public class ConcertDateSeatJpaEntity {
     public ConcertDateSeat toDomain() {
         return ConcertDateSeat.of(id, concertDateId, price, expiredDate, ConcertDateSeatStatus.valueOf(status));
     }
+
+    public void update(ConcertDateSeat concertDateSeat) {
+        this.concertDateId = concertDateSeat.getConcertDateId();
+        this.price = concertDateSeat.getPrice();
+        this.expiredDate = concertDateSeat.getExpiredDate();
+        this.status = concertDateSeat.getStatus().name();
+    }
 }
