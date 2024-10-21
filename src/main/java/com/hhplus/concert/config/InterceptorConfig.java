@@ -19,6 +19,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(queueTokenInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/tokens"); // 특정 경로에 인터셉터 적용
+                .excludePathPatterns("/tokens", "/concerts");
     }
 }
