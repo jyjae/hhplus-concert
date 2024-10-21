@@ -1,7 +1,9 @@
 package com.hhplus.concert.application.payment;
 
-import com.hhplus.concert.domain.payment.Payment;
-import com.hhplus.concert.domain.payment.PaymentRepository;
+import com.hhplus.concert.domain.payment.model.Payment;
+import com.hhplus.concert.domain.payment.dto.PaymentCommand;
+import com.hhplus.concert.domain.payment.repository.PaymentRepository;
+import com.hhplus.concert.domain.payment.service.PaymentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

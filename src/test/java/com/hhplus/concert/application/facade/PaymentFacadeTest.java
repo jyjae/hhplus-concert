@@ -1,10 +1,9 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.concert.reservation.ReservationService;
-import com.hhplus.concert.application.token.GetQueueTokenCommand;
-import com.hhplus.concert.application.token.QueueTokenService;
-import com.hhplus.concert.application.user.point.ChargePointCommand;
-import com.hhplus.concert.application.user.point.PointService;
+import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.domain.user.point.dto.ChargePointCommand;
+import com.hhplus.concert.domain.user.point.service.PointService;
 import com.hhplus.concert.exception.InvalidException;
 import com.hhplus.concert.exception.NotFoundException;
 import com.hhplus.concert.interfaces.api.payment.dto.CreatePaymentRequest;
@@ -17,7 +16,6 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PaymentFacadeTest {

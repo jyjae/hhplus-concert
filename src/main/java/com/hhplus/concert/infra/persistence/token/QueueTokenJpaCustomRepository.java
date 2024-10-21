@@ -1,7 +1,5 @@
 package com.hhplus.concert.infra.persistence.token;
 
-import com.hhplus.concert.domain.token.QueueToken;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

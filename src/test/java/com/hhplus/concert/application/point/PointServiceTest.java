@@ -1,12 +1,12 @@
 package com.hhplus.concert.application.point;
 
-import com.hhplus.concert.application.user.point.ChargePointCommand;
-import com.hhplus.concert.application.user.point.GetPointQuery;
-import com.hhplus.concert.application.user.point.PointService;
-import com.hhplus.concert.application.user.point.UsePointCommand;
+import com.hhplus.concert.domain.user.point.dto.ChargePointCommand;
+import com.hhplus.concert.domain.user.point.dto.GetPointQuery;
+import com.hhplus.concert.domain.user.point.service.PointService;
+import com.hhplus.concert.domain.user.point.dto.UsePointCommand;
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.user.point.Point;
-import com.hhplus.concert.domain.user.point.PointRepository;
+import com.hhplus.concert.domain.user.point.model.Point;
+import com.hhplus.concert.domain.user.point.repository.PointRepository;
 import com.hhplus.concert.exception.InvalidException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

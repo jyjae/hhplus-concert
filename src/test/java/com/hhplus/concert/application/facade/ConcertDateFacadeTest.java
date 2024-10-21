@@ -1,10 +1,9 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.concert.concertdate.ConcertDateService;
-import com.hhplus.concert.application.token.GetQueueTokenCommand;
-import com.hhplus.concert.application.token.QueueTokenService;
-import com.hhplus.concert.domain.concert.concertdate.ConcertDate;
-import com.hhplus.concert.domain.token.QueueToken;
+import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.domain.concert.concertdate.model.ConcertDate;
+import com.hhplus.concert.domain.token.model.QueueToken;
 import com.hhplus.concert.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

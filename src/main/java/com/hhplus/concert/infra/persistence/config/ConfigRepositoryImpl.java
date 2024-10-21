@@ -1,6 +1,6 @@
 package com.hhplus.concert.infra.persistence.config;
 
-import com.hhplus.concert.domain.config.ConfigRepository;
+import com.hhplus.concert.domain.config.repository.ConfigRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

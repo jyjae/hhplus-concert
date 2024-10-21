@@ -1,7 +1,7 @@
 package com.hhplus.concert.infra.persistence.token;
 
-import com.hhplus.concert.domain.token.QueueToken;
-import com.hhplus.concert.domain.token.QueueTokenStatus;
+import com.hhplus.concert.domain.token.model.QueueToken;
+import com.hhplus.concert.domain.token.model.QueueTokenStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

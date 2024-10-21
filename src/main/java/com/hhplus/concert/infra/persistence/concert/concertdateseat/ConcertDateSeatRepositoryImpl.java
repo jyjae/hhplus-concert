@@ -1,11 +1,9 @@
 package com.hhplus.concert.infra.persistence.concert.concertdateseat;
 
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatRepository;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatStatus;
-import com.hhplus.concert.domain.concert.reservation.Reservation;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeat;
+import com.hhplus.concert.domain.concert.concertdateseat.repository.ConcertDateSeatRepository;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeatStatus;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.CloseableThreadContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

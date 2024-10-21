@@ -1,14 +1,12 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.config.ConfigService;
-import com.hhplus.concert.application.token.FindQueueTokenQuery;
-import com.hhplus.concert.application.token.GetUserQueueRankQuery;
-import com.hhplus.concert.application.token.QueueTokenService;
-import com.hhplus.concert.application.user.FindUserCommand;
-import com.hhplus.concert.application.user.UserService;
-import com.hhplus.concert.application.user.point.GetPointQuery;
-import com.hhplus.concert.application.user.point.PointService;
-import com.hhplus.concert.domain.token.QueueToken;
+import com.hhplus.concert.domain.config.service.ConfigService;
+import com.hhplus.concert.domain.token.dto.FindQueueTokenQuery;
+import com.hhplus.concert.domain.token.dto.GetUserQueueRankQuery;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.domain.user.point.dto.GetPointQuery;
+import com.hhplus.concert.domain.user.point.service.PointService;
+import com.hhplus.concert.domain.token.model.QueueToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

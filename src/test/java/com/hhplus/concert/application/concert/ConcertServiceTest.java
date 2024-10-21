@@ -2,8 +2,9 @@ package com.hhplus.concert.application.concert;
 
 import static org.mockito.Mockito.when;
 
-import com.hhplus.concert.domain.concert.Concert;
-import com.hhplus.concert.domain.concert.ConcertRepository;
+import com.hhplus.concert.domain.concert.model.Concert;
+import com.hhplus.concert.domain.concert.repository.ConcertRepository;
+import com.hhplus.concert.domain.concert.service.ConcertService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

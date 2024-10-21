@@ -1,8 +1,10 @@
 package com.hhplus.concert.application.concert.reservation;
 
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.concert.reservation.Reservation;
-import com.hhplus.concert.domain.concert.reservation.ReservationRepository;
+import com.hhplus.concert.domain.concert.reservation.model.Reservation;
+import com.hhplus.concert.domain.concert.reservation.dto.ReservationCommand;
+import com.hhplus.concert.domain.concert.reservation.repository.ReservationRepository;
+import com.hhplus.concert.domain.concert.reservation.service.ReservationService;
 import com.hhplus.concert.exception.AlreadyExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

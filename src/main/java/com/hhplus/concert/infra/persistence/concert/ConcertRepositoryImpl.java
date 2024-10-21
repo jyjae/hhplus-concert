@@ -1,7 +1,7 @@
 package com.hhplus.concert.infra.persistence.concert;
 
-import com.hhplus.concert.domain.concert.Concert;
-import com.hhplus.concert.domain.concert.ConcertRepository;
+import com.hhplus.concert.domain.concert.model.Concert;
+import com.hhplus.concert.domain.concert.repository.ConcertRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

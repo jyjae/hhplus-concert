@@ -1,6 +1,6 @@
 package com.hhplus.concert.infra.persistence.concert.reservation;
 
-import com.hhplus.concert.domain.concert.reservation.Reservation;
+import com.hhplus.concert.domain.concert.reservation.model.Reservation;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,10 +1,8 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.concert.concertdateseat.ConcertDateSeatService;
-import com.hhplus.concert.application.token.GetQueueTokenCommand;
-import com.hhplus.concert.application.token.QueueTokenService;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
-import com.hhplus.concert.domain.token.QueueToken;
+import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeat;
 import com.hhplus.concert.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,6 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ConcertDateSeatFacadeTest {

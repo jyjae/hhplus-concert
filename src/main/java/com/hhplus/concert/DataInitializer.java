@@ -1,10 +1,9 @@
 package com.hhplus.concert;
 
-import com.hhplus.concert.application.config.ConfigKey;
+import com.hhplus.concert.domain.config.model.ConfigKey;
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.config.ConfigRepository;
-import com.hhplus.concert.domain.token.QueueTokenStatus;
-import com.hhplus.concert.domain.user.UserRepository;
+import com.hhplus.concert.domain.config.repository.ConfigRepository;
+import com.hhplus.concert.domain.token.model.QueueTokenStatus;
 import com.hhplus.concert.infra.persistence.concert.ConcertJpaEntity;
 import com.hhplus.concert.infra.persistence.concert.ConcertJpaRepository;
 import com.hhplus.concert.infra.persistence.concert.concertdate.ConcertDateJpaEntity;

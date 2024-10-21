@@ -1,11 +1,7 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.token.CreateQueueTokenCommand;
-import com.hhplus.concert.application.token.GetQueueTokenCommand;
-import com.hhplus.concert.application.token.QueueTokenService;
-import com.hhplus.concert.application.user.FindUserCommand;
-import com.hhplus.concert.application.user.UserService;
-import com.hhplus.concert.domain.token.QueueToken;
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.util.UuidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

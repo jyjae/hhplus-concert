@@ -1,9 +1,9 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.concert.concertdateseat.ConcertDateSeatService;
-import com.hhplus.concert.application.token.FindQueueTokenQuery;
-import com.hhplus.concert.application.token.QueueTokenService;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
+import com.hhplus.concert.domain.concert.concertdateseat.service.ConcertDateSeatService;
+import com.hhplus.concert.domain.token.dto.FindQueueTokenQuery;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

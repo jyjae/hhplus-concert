@@ -1,7 +1,7 @@
 package com.hhplus.concert.infra.persistence.user;
 
-import com.hhplus.concert.domain.user.User;
-import com.hhplus.concert.domain.user.UserRepository;
+import com.hhplus.concert.domain.user.model.User;
+import com.hhplus.concert.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.concert.ConcertService;
-import com.hhplus.concert.domain.concert.Concert;
+import com.hhplus.concert.domain.concert.service.ConcertService;
+import com.hhplus.concert.domain.concert.model.Concert;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

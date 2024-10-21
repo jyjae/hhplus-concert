@@ -1,6 +1,8 @@
 package com.hhplus.concert.application.user;
 
-import com.hhplus.concert.domain.user.UserRepository;
+import com.hhplus.concert.domain.user.dto.FindUserCommand;
+import com.hhplus.concert.domain.user.repository.UserRepository;
+import com.hhplus.concert.domain.user.service.UserService;
 import com.hhplus.concert.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,11 +1,11 @@
 package com.hhplus.concert.application.token;
 
+import com.hhplus.concert.domain.token.dto.GetUserQueueRankQuery;
 import com.hhplus.concert.exception.InvalidException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GetUserQueueRankQueryTest {
 

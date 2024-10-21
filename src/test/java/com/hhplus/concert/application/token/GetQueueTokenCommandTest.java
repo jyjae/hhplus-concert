@@ -1,10 +1,10 @@
 package com.hhplus.concert.application.token;
 
+import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GetQueueTokenCommandTest {
 

@@ -1,12 +1,10 @@
 package com.hhplus.concert.infra.persistence.concert.concertdateseat;
 
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeat;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeatStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
-import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
