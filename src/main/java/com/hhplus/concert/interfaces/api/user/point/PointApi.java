@@ -35,7 +35,7 @@ public interface PointApi {
                     )
             }
     )
-    @PatchMapping
+    @PatchMapping("/{userId}/points")
     ResponseEntity<ChargePointResponse> charge(
             @RequestHeader("token") String token,
             @PathVariable("userId") Long userId,

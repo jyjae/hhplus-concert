@@ -1,7 +1,7 @@
 package com.hhplus.concert.infra.persistence.concert.concertdateseat;
 
 
-import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.concert.constants.ConcertDateSeatStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 

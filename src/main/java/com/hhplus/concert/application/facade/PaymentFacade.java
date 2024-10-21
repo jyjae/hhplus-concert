@@ -1,14 +1,14 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.domain.concert.concertdateseat.service.ConcertDateSeatService;
-import com.hhplus.concert.domain.concert.reservation.service.ReservationService;
+import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
+import com.hhplus.concert.domain.reservation.service.ReservationService;
 import com.hhplus.concert.domain.payment.dto.PaymentCommand;
 import com.hhplus.concert.domain.payment.service.PaymentService;
 import com.hhplus.concert.domain.token.dto.FindQueueTokenQuery;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.domain.user.point.service.PointService;
 import com.hhplus.concert.domain.user.point.dto.UsePointCommand;
-import com.hhplus.concert.domain.concert.reservation.model.Reservation;
+import com.hhplus.concert.domain.reservation.model.Reservation;
 import com.hhplus.concert.interfaces.api.payment.dto.CreatePaymentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
