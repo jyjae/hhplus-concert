@@ -31,21 +31,12 @@ class PointFacadeTest {
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
         // when
-        Long charge = pointFacade.charge(token, 1L, new ChargePointRequest(1000));
+        Long charge = pointFacade.charge(1L, new ChargePointRequest(1000));
 
         // then
-        int point = pointFacade.point(token, 1L);
+        int point = pointFacade.point( 1L);
         assertThat(charge).isNotNull();
         assertThat(point).isEqualTo(1000);
-    }
-
-    @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("존재하지 않은 토큰으로 포인트 충전 파사드 통합 테스트 실패")
-    @Test
-    void shouldFailToChargePointsInFacadeIntegrationTestDueToNonExistentToken() {
-        assertThatThrownBy(() -> pointFacade.charge(UuidUtil.generateUuid(), 1L, new ChargePointRequest(1000)))
-                .isInstanceOf(NotFoundException.class)
-                .hasMessage("Token not found");
     }
 
     @Sql({"/reset.sql", "/insert.sql"})
@@ -54,22 +45,14 @@ class PointFacadeTest {
     void shouldRetrievePointsSuccessfullyInFacadeIntegrationTest() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
-        pointFacade.charge(token, 1L, new ChargePointRequest(1000));
+        pointFacade.charge(1L, new ChargePointRequest(1000));
 
         // when
-        int point = pointFacade.point(token, 1L);
+        int point = pointFacade.point( 1L);
 
         // then
         assertThat(point).isEqualTo(1000);
     }
 
-    @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("존재하지 않은 토큰으로 포인트 조회 파사드 통합 테스트 실패")
-    @Test
-    void shouldFailToRetrievePointsInFacadeIntegrationTestDueToNonExistentToken() {
-        assertThatThrownBy(() -> pointFacade.point(UuidUtil.generateUuid(), 1L))
-                .isInstanceOf(NotFoundException.class)
-                .hasMessage("Token not found");
-    }
 
 }

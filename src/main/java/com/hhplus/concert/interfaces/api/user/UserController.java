@@ -33,9 +33,8 @@ public class UserController implements UserApi {
      */
     @Override
     public ResponseEntity<GetUserPointResponse> getBalance(
-            @RequestHeader("token") String token,
             @PathVariable(name = "userId") Long userId) {
-        return ResponseEntity.ok(new GetUserPointResponse(userFacadeService.point(userId, token)));
+        return ResponseEntity.ok(new GetUserPointResponse(userFacadeService.point(userId)));
     }
 
 

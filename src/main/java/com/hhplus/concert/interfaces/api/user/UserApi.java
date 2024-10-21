@@ -50,7 +50,6 @@ public interface UserApi {
     /**
      * 유저 잔액 조회 API
      *
-     * @param token  사용자 인증 토큰
      * @param userId 유저 ID
      * @return 유저의 잔액 정보 응답 DTO
      */
@@ -58,13 +57,6 @@ public interface UserApi {
             summary = "유저 잔액 조회",
             description = "유저의 현재 잔액을 조회합니다.",
             parameters = {
-                    @Parameter(
-                            name = "token",
-                            description = "대기열 토큰",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string", example = "984382e4-4a0b-4228-a9e4-b45e180b4c39")
-                    ),
                     @Parameter(
                             name = "userId",
                             description = "유저 ID",
@@ -76,7 +68,6 @@ public interface UserApi {
     )
     @GetMapping("/{userId}/point")
     ResponseEntity<GetUserPointResponse> getBalance(
-            @RequestHeader("token") String token,
             @PathVariable("userId") Long userId
     );
 }

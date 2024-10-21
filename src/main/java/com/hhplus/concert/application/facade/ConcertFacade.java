@@ -20,21 +20,17 @@ public class ConcertFacade {
   private final ConcertService concertService;
   private final ConcertDateService concertDateService;
   private final ConcertDateSeatService concertDateSeatService;
-  private final QueueTokenService queueTokenService;
 
 
   public List<Concert> concerts() {
     return concertService.concerts();
   }
 
-  public List<ConcertDate> concertDates(Long concertId, String token) {
-    queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+  public List<ConcertDate> concertDates(Long concertId) {
     return concertDateService.getConcertDatesLessThanMaxCapacity(concertId);
   }
 
-  public List<ConcertDateSeat> concertDateSeats(String token, Long concertDateId) {
-    queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
-
+  public List<ConcertDateSeat> concertDateSeats(Long concertDateId) {
     return concertDateSeatService.getAvailableSeats(concertDateId);
   }
 

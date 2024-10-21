@@ -17,11 +17,9 @@ public class ReservationFacade {
 
     private final ReservationService reservationService;
     private final ConcertDateSeatService concertDateSeatService;
-    private final QueueTokenService queueTokenService;
 
     @Transactional
-    public Long reservation(String token, Long concertDateId, Long userId, Long concertDateSeatId) {
-        queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+    public Long reservation(Long concertDateId, Long userId, Long concertDateSeatId) {
         ConcertDateSeat concertDateSeat = concertDateSeatService.findAvailableConcertDateSeat(new FindConcertDateSeatQuery(concertDateId, concertDateSeatId));
         return reservationService.reserveConcertDateSeat(new ReservationCommand(userId, concertDateSeatId, concertDateSeat.getPrice()));
     }

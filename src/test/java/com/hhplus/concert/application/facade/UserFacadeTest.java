@@ -53,7 +53,7 @@ class UserFacadeTest {
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
         pointService.charge(new ChargePointCommand(1L, 1000));
         // when
-        int point = userFacade.point(1L, token);
+        int point = userFacade.point(1L);
 
         // then
         assertThat(point).isEqualTo(1000);

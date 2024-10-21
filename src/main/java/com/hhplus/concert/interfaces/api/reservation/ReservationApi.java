@@ -16,20 +16,10 @@ public interface ReservationApi {
 
     @Operation(
             summary = "콘서트 좌석 예약",
-            description = "콘서트 날짜와 좌석 정보를 기반으로 예약을 생성합니다.",
-            parameters = {
-                    @Parameter(
-                            name = "token",
-                            description = "대기열 토큰",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string", example = "984382e4-4a0b-4228-a9e4-b45e180b4c39")
-                    )
-            }
+            description = "콘서트 날짜와 좌석 정보를 기반으로 예약을 생성합니다."
     )
     @PostMapping()
     ResponseEntity<ReservationResponse> reserveConcertDateSeat(
-            @RequestHeader("token") String token,
             @RequestBody ReservationRequest request
     );
 }

@@ -19,24 +19,21 @@ public class PointController implements PointApi {
     **/
     @Override()
     public ResponseEntity<ChargePointResponse> charge(
-            @RequestHeader("token") String token,
             @PathVariable(name = "userId") Long userId,
             @RequestBody ChargePointRequest request) {
-        return ResponseEntity.ok(new ChargePointResponse(pointFacade.charge(token, userId, request)));
+        return ResponseEntity.ok(new ChargePointResponse(pointFacade.charge(userId, request)));
     }
 
     /**
      * 잔액 조회 API
      *
-     * @param token  사용자 인증 토큰
      * @param userId 유저 ID
      * @return 현재 포인트 잔액
      */
     @Override()
     public ResponseEntity<Integer> point(
-            @RequestHeader("token") String token,
             @PathVariable(name = "userId") Long userId) {
-        return ResponseEntity.ok(pointFacade.point(token, userId));
+        return ResponseEntity.ok(pointFacade.point(userId));
     }
 
 }

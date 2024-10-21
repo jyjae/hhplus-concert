@@ -26,8 +26,7 @@ public class UserFacade {
     }
 
 
-    public int point(Long userId, String token) {
-        queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+    public int point(Long userId) {
         return pointService.point(new GetPointQuery(userId));
     }
 }

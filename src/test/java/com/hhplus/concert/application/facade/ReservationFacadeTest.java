@@ -32,26 +32,12 @@ class ReservationFacadeTest {
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
         // when
-        Long reservationId = reservationFacade.reservation(token, 1L, 1L, 5L );
+        Long reservationId = reservationFacade.reservation(1L, 1L, 5L );
 
         // then
         assertThat(reservationId).isNotNull();
     }
 
-
-    @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("존재하지 않은 토큰으로 예약 파사드 통합 테스트 실패")
-    @Test
-    void shouldFailReservationInFacadeIntegrationTestDueToNonExistentToken() {
-        // given
-
-        // when
-
-        // then
-        assertThatThrownBy(() -> reservationFacade.reservation(UuidUtil.generateUuid(), 1L, 1L, 1L ))
-                .isInstanceOf(NotFoundException.class)
-                .hasMessage("Token not found");
-    }
 
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 가능하지 않은 좌석으로 예약 파사드 통합 테스트 실패")
@@ -63,7 +49,7 @@ class ReservationFacadeTest {
         // when
 
         // then
-        assertThatThrownBy(() -> reservationFacade.reservation(token, 1L, 1L, 2L ))
+        assertThatThrownBy(() -> reservationFacade.reservation(1L, 1L, 2L ))
                 .isInstanceOf(AlreadyExistsException.class)
                 .hasMessage("Seat already reserved");
     }

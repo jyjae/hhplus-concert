@@ -16,13 +16,11 @@ public class PointFacade {
     private final PointService pointService;
     private final QueueTokenService queueTokenService;
 
-    public Long charge(String token, Long userId, ChargePointRequest request) {
-        queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+    public Long charge(Long userId, ChargePointRequest request) {
         return pointService.charge(new ChargePointCommand(userId, request.getPoint()));
     }
 
-    public Integer point(String token, Long userId) {
-        queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+    public Integer point(Long userId) {
         return pointService.point(new GetPointQuery(userId));
     }
 }

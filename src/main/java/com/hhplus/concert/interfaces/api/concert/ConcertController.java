@@ -39,9 +39,8 @@ public class ConcertController implements ConcertApi {
      */
     @Override
     public ResponseEntity<List<GetConcertDateResponse>> getConcertDates(
-            @RequestHeader("token") String token,
             @PathVariable(name = "concertId") Long concertId) {
-        return ResponseEntity.ok(concertFacade.concertDates(concertId, token)
+        return ResponseEntity.ok(concertFacade.concertDates(concertId)
                 .stream()
                 .map(date -> new GetConcertDateResponse(
                         date.getId(),
@@ -54,10 +53,9 @@ public class ConcertController implements ConcertApi {
 
     @Override
     public ResponseEntity<List<GetConcertDateSeatResponse>> getAvailableSeats(
-            @RequestHeader("token") String token,
             @PathVariable(name = "concertId") Long concertId,
             @PathVariable(name = "concertDateId") Long concertDateId) {
-        return ResponseEntity.ok(concertFacade.concertDateSeats(token, concertDateId)
+        return ResponseEntity.ok(concertFacade.concertDateSeats(concertDateId)
                 .stream()
                 .map(seat -> new GetConcertDateSeatResponse(
                         seat.getId(),

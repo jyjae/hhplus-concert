@@ -19,12 +19,10 @@ public class ReservationController implements ReservationApi {
 
     @Override
     public ResponseEntity<ReservationResponse> reserveConcertDateSeat(
-            @RequestHeader("token") String token,
             @RequestBody ReservationRequest request) {
 
         return ResponseEntity.ok(new ReservationResponse(
                 reservationFacade.reservation(
-                        token,
                         request.getConcertDateId(),
                         request.getUserId(),
                         request.getConcertDateSeatId())
