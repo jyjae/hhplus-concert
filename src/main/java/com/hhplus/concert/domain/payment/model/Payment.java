@@ -19,6 +19,7 @@ public class Payment {
         return Payment.builder()
                 .userId(userId)
                 .reservationId(reservationId)
+                .status(PaymentStatus.PAYMENT_COMPLETED)
                 .build();
     }
 }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Profile("test")
+@Profile("dev")
 public class DataInitializer implements ApplicationRunner {
 
     private final UserJpaRepository userJpaRepository;

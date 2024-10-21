@@ -1,7 +1,7 @@
 package com.hhplus.concert.infra.persistence.concert.concertdate;
 
-import com.hhplus.concert.domain.concert.concertdate.model.ConcertDate;
-import com.hhplus.concert.domain.concert.concertdate.repository.ConcertDateRepository;
+import com.hhplus.concert.domain.concert.model.ConcertDate;
+import com.hhplus.concert.domain.concert.repository.ConcertDateRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

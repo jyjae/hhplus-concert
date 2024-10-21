@@ -1,7 +1,7 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.domain.concert.concertdateseat.service.ConcertDateSeatService;
-import com.hhplus.concert.domain.concert.concertdateseat.repository.ConcertDateSeatRepository;
+import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
+import com.hhplus.concert.domain.concert.repository.ConcertDateSeatRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,9 +19,7 @@ public class ConcertDateSeatConcurrencyTest {
 
     @Autowired
     private ConcertDateSeatService concertDateSeatService;
-
-    @Autowired
-    private ConcertDateSeatRepository concertDateSeatRepository;
+    
 
     private final Long seatId = 1L;  // 테스트용 좌석 ID
 

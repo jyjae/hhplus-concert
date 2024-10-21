@@ -3,9 +3,9 @@ package com.hhplus.concert.application.concert.concertdate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.hhplus.concert.domain.concert.concertdate.model.ConcertDate;
-import com.hhplus.concert.domain.concert.concertdate.repository.ConcertDateRepository;
-import com.hhplus.concert.domain.concert.concertdate.service.ConcertDateService;
+import com.hhplus.concert.domain.concert.model.ConcertDate;
+import com.hhplus.concert.domain.concert.repository.ConcertDateRepository;
+import com.hhplus.concert.domain.concert.service.ConcertDateService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -33,6 +33,6 @@ public class PaymentJpaEntity {
 
 
     public static PaymentJpaEntity from(Payment payment) {
-        return new PaymentJpaEntity(payment.getUserId(), payment.getReservationId(), payment.getStatus().name());
+        return new PaymentJpaEntity(payment.getUserId(), payment.getReservationId(), payment.getStatus().getValue());
     }
 }

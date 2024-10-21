@@ -1,6 +1,6 @@
 package com.hhplus.concert.application.concert.concertdateseat;
 
-import com.hhplus.concert.domain.concert.concertdateseat.dto.FindConcertDateSeatQuery;
+import com.hhplus.concert.domain.concert.dto.FindConcertDateSeatQuery;
 import com.hhplus.concert.exception.InvalidException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
