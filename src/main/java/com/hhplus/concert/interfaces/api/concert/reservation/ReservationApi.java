@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Reservation", description = "콘서트 좌석 예약 API")
-@RequestMapping("/concerts/{concertId}/concert-dates/{concertDateId}/reservations")
+@RequestMapping("/concerts")
 public interface ReservationApi {
 
     @Operation(
@@ -41,7 +41,7 @@ public interface ReservationApi {
                     )
             }
     )
-    @PostMapping
+    @PostMapping("/{concertId}/concert-dates/{concertDateId}/reservations")
     ResponseEntity<ReservationResponse> reserveConcertDateSeat(
             @RequestHeader("token") String token,
             @PathVariable("concertId") Long concertId,

@@ -1,8 +1,10 @@
 package com.hhplus.concert.application.concert.reservation;
 
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.concert.reservation.Reservation;
-import com.hhplus.concert.domain.concert.reservation.ReservationRepository;
+import com.hhplus.concert.domain.concert.reservation.model.Reservation;
+import com.hhplus.concert.domain.concert.reservation.dto.ReservationCommand;
+import com.hhplus.concert.domain.concert.reservation.repository.ReservationRepository;
+import com.hhplus.concert.domain.concert.reservation.service.ReservationService;
 import com.hhplus.concert.exception.AlreadyExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +34,7 @@ class ReservationServiceTest {
 
     @DisplayName("좌석 예약 성공")
     @Test
-    void reserveConcertDateSeatSuccess() {
+    void shouldReserveSeatSuccessfully() {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
@@ -42,7 +44,16 @@ class ReservationServiceTest {
         Long reservationId = reservationService.reserveConcertDateSeat(command);
 
         // Then
-        when(reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
+        when(reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L)).thenReturn(Optional.of(
+                Reservation.builder()
+                        .id(1L)
+                        .concertDateSeatId(1L)
+                        .userId(1L)
+                        .price(10000)
+                        .reservationDate(20220101L)
+                        .expirationDate(20520101L)
+                        .build()
+        ));
         Reservation reservation = reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L).get();
         assertThat(reservationId).isNotNull();
         assertThat(reservation.getUserId()).isEqualTo(1L);
@@ -52,12 +63,20 @@ class ReservationServiceTest {
 
     @DisplayName("이미 예약되어 있는 좌석 예약 실패")
     @Test
-    void reserveConcertDateSeatFail() {
+    void shouldFailToReserveSeatWhenAlreadyReserved() {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
         when(timeProvider.getCurrentTimestamp()).thenReturn(20120101L);
-        when(reservationRepository.findReservationExpiredDateAfter(1L, 20120101L)).thenReturn(Optional.of(new Reservation(1L, 10000, 1L, 20220101L, 20520101L)));
+        when(reservationRepository.findReservationExpiredDateAfter(1L, 20120101L)).thenReturn(Optional.of(
+                Reservation.builder()
+                        .id(1L)
+                        .userId(1L)
+                        .price(10000)
+                        .reservationDate(20120101L)
+                        .expirationDate(20420101L)
+                        .build()
+        ));
 
         // Then
         assertThatThrownBy(() -> reservationService.reserveConcertDateSeat(command))

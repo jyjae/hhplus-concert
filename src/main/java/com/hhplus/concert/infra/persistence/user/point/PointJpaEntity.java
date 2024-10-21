@@ -1,6 +1,6 @@
 package com.hhplus.concert.infra.persistence.user.point;
 
-import com.hhplus.concert.domain.user.point.Point;
+import com.hhplus.concert.domain.user.point.model.Point;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

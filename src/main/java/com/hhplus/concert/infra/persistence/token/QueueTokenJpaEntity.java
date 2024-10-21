@@ -1,11 +1,10 @@
 package com.hhplus.concert.infra.persistence.token;
 
-import com.hhplus.concert.domain.token.QueueToken;
+import com.hhplus.concert.domain.token.model.QueueToken;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 

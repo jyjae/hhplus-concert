@@ -1,9 +1,8 @@
 package com.hhplus.concert.infra.persistence.token;
 
-import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.token.QueueToken;
-import com.hhplus.concert.domain.token.QueueTokenRepository;
-import com.hhplus.concert.domain.token.QueueTokenStatus;
+import com.hhplus.concert.domain.token.model.QueueToken;
+import com.hhplus.concert.domain.token.repository.QueueTokenRepository;
+import com.hhplus.concert.domain.token.model.QueueTokenStatus;
 import com.hhplus.concert.exception.NotFoundException;
 
 import lombok.RequiredArgsConstructor;

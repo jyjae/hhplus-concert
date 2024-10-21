@@ -16,7 +16,7 @@ class QueueTokenFacadeTest {
 
     @DisplayName("토큰 생성 테스트 성공")
     @Test
-    void createTokenSuccess() {
+    void shouldCreateTokenSuccessfully() {
         // given
         Long userId = 1L;
 

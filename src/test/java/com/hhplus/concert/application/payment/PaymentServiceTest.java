@@ -1,7 +1,9 @@
 package com.hhplus.concert.application.payment;
 
-import com.hhplus.concert.domain.payment.Payment;
-import com.hhplus.concert.domain.payment.PaymentRepository;
+import com.hhplus.concert.domain.payment.model.Payment;
+import com.hhplus.concert.domain.payment.dto.PaymentCommand;
+import com.hhplus.concert.domain.payment.repository.PaymentRepository;
+import com.hhplus.concert.domain.payment.service.PaymentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +26,7 @@ class PaymentServiceTest {
 
     @DisplayName("결제 요청 시 결제 성공")
     @Test
-    void payment() {
+    void shouldCompletePaymentSuccessfullyOnPaymentRequest() {
         // Given
         PaymentCommand paymentCommand = new PaymentCommand(1L, 1L);
 

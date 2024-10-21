@@ -1,10 +1,9 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.concert.concertdate.ConcertDateService;
-import com.hhplus.concert.application.token.GetQueueTokenCommand;
-import com.hhplus.concert.application.token.QueueTokenService;
-import com.hhplus.concert.domain.concert.concertdate.ConcertDate;
-import com.hhplus.concert.domain.token.QueueToken;
+import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.domain.concert.concertdate.model.ConcertDate;
+import com.hhplus.concert.domain.token.model.QueueToken;
 import com.hhplus.concert.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,10 +26,11 @@ class ConcertDateFacadeTest {
     @Autowired
     private QueueTokenService queueTokenService;
 
+
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 가능한 날짜 조회 파사드 통합 테스트 성공")
     @Test
-    void getConcertDatesSuccess() {
+    void shouldRetrieveAvailableDatesSuccessfullyInFacadeIntegrationTest() {
         // given
         QueueToken token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L));
 
@@ -46,7 +46,7 @@ class ConcertDateFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("유효하지 않은 토큰으로 예약 가능한 날짜 조회 파사드 통합 테스트 실패")
     @Test
-    void getConcertDatesFail() {
+    void shouldFailToRetrieveAvailableDatesWithInvalidTokenInFacadeIntegrationTest() {
         // given
 
         // when

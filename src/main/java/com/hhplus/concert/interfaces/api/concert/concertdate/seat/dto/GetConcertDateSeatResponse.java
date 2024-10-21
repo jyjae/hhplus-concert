@@ -1,6 +1,6 @@
 package com.hhplus.concert.interfaces.api.concert.concertdate.seat.dto;
 
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeatStatus;
 import lombok.Getter;
 
 @Getter

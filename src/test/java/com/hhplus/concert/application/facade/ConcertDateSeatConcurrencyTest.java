@@ -1,7 +1,7 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.concert.concertdateseat.ConcertDateSeatService;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatRepository;
+import com.hhplus.concert.domain.concert.concertdateseat.service.ConcertDateSeatService;
+import com.hhplus.concert.domain.concert.concertdateseat.repository.ConcertDateSeatRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +27,7 @@ public class ConcertDateSeatConcurrencyTest {
 
     @Sql({"/reset.sql", "/insert.sql"})
     @Test
-    public void 동시성_좌석_예약_완료_테스트() throws InterruptedException {
+    public void shouldCompleteSeatReservationWithConcurrencySuccessfully() throws InterruptedException {
         int threadCount = 10;  // 동시에 실행할 스레드 수
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         CountDownLatch latch = new CountDownLatch(threadCount);  // 스레드 동기화

@@ -1,10 +1,9 @@
 package com.hhplus.concert.infra.persistence.concert.reservation;
 
-import com.hhplus.concert.domain.concert.reservation.Reservation;
-import com.hhplus.concert.domain.concert.reservation.ReservationRepository;
+import com.hhplus.concert.domain.concert.reservation.model.Reservation;
+import com.hhplus.concert.domain.concert.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

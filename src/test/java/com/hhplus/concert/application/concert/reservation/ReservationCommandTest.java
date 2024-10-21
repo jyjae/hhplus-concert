@@ -1,17 +1,17 @@
 package com.hhplus.concert.application.concert.reservation;
 
+import com.hhplus.concert.domain.concert.reservation.dto.ReservationCommand;
 import com.hhplus.concert.exception.InvalidException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ReservationCommandTest {
 
     @DisplayName("userId가 null일 경우 IllegalArgumentException이 발생")
     @Test
-    void createReservationCommand_shouldFailWhenUserIdIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenUserIdIsNull() {
         // Given
         Long userId = null;
         Long concertDateSeatId = 1L;
@@ -24,7 +24,7 @@ class ReservationCommandTest {
 
     @DisplayName("concertDateSeatId가 null일 경우 IllegalArgumentException이 발생")
     @Test
-    void createReservationCommand_shouldFailWhenConcertDateSeatIdIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenConcertDateSeatIdIsNull() {
         // Given
         Long userId = 1L;
         Long concertDateSeatId = null;

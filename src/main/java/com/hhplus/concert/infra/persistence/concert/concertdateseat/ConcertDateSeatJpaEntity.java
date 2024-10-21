@@ -1,12 +1,10 @@
 package com.hhplus.concert.infra.persistence.concert.concertdateseat;
 
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeat;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeatStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
-import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table
@@ -28,6 +26,9 @@ public class ConcertDateSeatJpaEntity {
 
     @Column(name = "status")
     private String status;
+
+    @Version
+    private Long version = 0L;
 
     public ConcertDateSeatJpaEntity(Long concertDateId, int price, Long expiredDate, String status) {
         this.concertDateId = concertDateId;
@@ -60,5 +61,12 @@ public class ConcertDateSeatJpaEntity {
 
     public ConcertDateSeat toDomain() {
         return ConcertDateSeat.of(id, concertDateId, price, expiredDate, ConcertDateSeatStatus.valueOf(status));
+    }
+
+    public void update(ConcertDateSeat concertDateSeat) {
+        this.concertDateId = concertDateSeat.getConcertDateId();
+        this.price = concertDateSeat.getPrice();
+        this.expiredDate = concertDateSeat.getExpiredDate();
+        this.status = concertDateSeat.getStatus().name();
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Tag(name = "ConcertDate", description = "콘서트 날짜 관련 API")
-@RequestMapping("/concerts/{concertId}/concert-dates")
+@RequestMapping("/concerts")
 public interface ConcertDateApi {
 
     @Operation(
@@ -38,7 +38,7 @@ public interface ConcertDateApi {
                     )
             }
     )
-    @GetMapping
+    @GetMapping("/{concertId}/concert-dates")
     ResponseEntity<List<GetConcertDateResponse>> getConcertDates(
             @RequestHeader("token") String token,
             @PathVariable("concertId") Long concertId

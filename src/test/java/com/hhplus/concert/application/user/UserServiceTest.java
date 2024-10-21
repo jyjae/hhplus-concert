@@ -1,6 +1,8 @@
 package com.hhplus.concert.application.user;
 
-import com.hhplus.concert.domain.user.UserRepository;
+import com.hhplus.concert.domain.user.dto.FindUserCommand;
+import com.hhplus.concert.domain.user.repository.UserRepository;
+import com.hhplus.concert.domain.user.service.UserService;
 import com.hhplus.concert.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,7 @@ class UserServiceTest {
 
     @DisplayName("유저 조회 시 유저가 존재하지 않아 예외가 발생하는 테스트")
     @Test
-    void getUserNotFound() {
+    void shouldThrowExceptionWhenUserDoesNotExist() {
         // given
         FindUserCommand command = new FindUserCommand(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.empty());

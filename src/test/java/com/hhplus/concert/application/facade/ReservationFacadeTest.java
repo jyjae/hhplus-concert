@@ -1,7 +1,7 @@
 package com.hhplus.concert.application.facade;
 
-import com.hhplus.concert.application.token.GetQueueTokenCommand;
-import com.hhplus.concert.application.token.QueueTokenService;
+import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.AlreadyExistsException;
 import com.hhplus.concert.exception.NotFoundException;
 import com.hhplus.concert.util.UuidUtil;
@@ -13,7 +13,6 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ReservationFacadeTest {
@@ -28,7 +27,7 @@ class ReservationFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 파사드 통합 테스트 성공")
     @Test
-    void reservationSuccess() {
+    void shouldCompleteReservationSuccessfullyInFacadeIntegrationTest() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
@@ -43,7 +42,7 @@ class ReservationFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("존재하지 않은 토큰으로 예약 파사드 통합 테스트 실패")
     @Test
-    void reservationFail() {
+    void shouldFailReservationInFacadeIntegrationTestDueToNonExistentToken() {
         // given
 
         // when
@@ -57,7 +56,7 @@ class ReservationFacadeTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 가능하지 않은 좌석으로 예약 파사드 통합 테스트 실패")
     @Test
-    void reservationFailByNotAvailableSeat() {
+    void shouldFailReservationInFacadeIntegrationTestDueToUnavailableSeat() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 

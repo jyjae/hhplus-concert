@@ -1,6 +1,6 @@
 package com.hhplus.concert.infra.persistence.concert.concertdate;
 
-import com.hhplus.concert.domain.concert.concertdate.ConcertDate;
+import com.hhplus.concert.domain.concert.concertdate.model.ConcertDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,16 +1,16 @@
 package com.hhplus.concert.application.token;
 
+import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GetQueueTokenCommandTest {
 
     @DisplayName("userId가 null일 경우 IllegalArgumentException이 발생")
     @Test
-    void createGetQueueTokenCommand_shouldFailWhenUserIdIsNull() {
+    void shouldThrowIllegalArgumentExceptionWhenUserIdIsNull() {
         // Given
         Long userId = null;
 

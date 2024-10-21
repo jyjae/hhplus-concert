@@ -1,12 +1,12 @@
 package com.hhplus.concert.application.point;
 
-import com.hhplus.concert.application.user.point.ChargePointCommand;
-import com.hhplus.concert.application.user.point.GetPointQuery;
-import com.hhplus.concert.application.user.point.PointService;
-import com.hhplus.concert.application.user.point.UsePointCommand;
+import com.hhplus.concert.domain.user.point.dto.ChargePointCommand;
+import com.hhplus.concert.domain.user.point.dto.GetPointQuery;
+import com.hhplus.concert.domain.user.point.service.PointService;
+import com.hhplus.concert.domain.user.point.dto.UsePointCommand;
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.user.point.Point;
-import com.hhplus.concert.domain.user.point.PointRepository;
+import com.hhplus.concert.domain.user.point.model.Point;
+import com.hhplus.concert.domain.user.point.repository.PointRepository;
 import com.hhplus.concert.exception.InvalidException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -37,7 +36,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 충전 테스트 성공")
     @Test
-    void chargeSuccess() {
+    void shouldChargePointsSuccessfully() {
         // given
         ChargePointCommand command = new ChargePointCommand(1L, 10000);
 
@@ -56,7 +55,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 사용 실패")
     @Test
-    void useFail() {
+    void shouldFailToUsePoints() {
         // given
         UsePointCommand command = new UsePointCommand(1L, 15000);
 
@@ -72,7 +71,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 사용 성공")
     @Test
-    void useSuccess() {
+    void shouldUsePointsSuccessfully() {
         // given
         UsePointCommand command = new UsePointCommand(1L, 1000);
 
@@ -89,7 +88,7 @@ class PointServiceTest {
 
     @DisplayName("포인트 조회 성공")
     @Test
-    void getPointSuccess() {
+    void shouldRetrievePointsSuccessfully() {
         // given
         GetPointQuery query = new GetPointQuery(1L);
 

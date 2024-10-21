@@ -1,7 +1,6 @@
 package com.hhplus.concert.interfaces.api.concert.concertdate.seat;
 
 import com.hhplus.concert.application.facade.ConcertDateSeatFacade;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
 import com.hhplus.concert.interfaces.api.concert.concertdate.seat.dto.GetConcertDateSeatResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

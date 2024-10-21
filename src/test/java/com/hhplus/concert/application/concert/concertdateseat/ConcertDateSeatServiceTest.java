@@ -3,13 +3,15 @@ package com.hhplus.concert.application.concert.concertdateseat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
+import com.hhplus.concert.domain.concert.concertdateseat.service.ConcertDateSeatService;
+import com.hhplus.concert.domain.concert.concertdateseat.dto.FindConcertDateSeatQuery;
 import java.util.List;
 import java.util.Optional;
 
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeat;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatRepository;
-import com.hhplus.concert.domain.concert.concertdateseat.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeat;
+import com.hhplus.concert.domain.concert.concertdateseat.repository.ConcertDateSeatRepository;
+import com.hhplus.concert.domain.concert.concertdateseat.model.ConcertDateSeatStatus;
 import com.hhplus.concert.exception.AlreadyExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +37,7 @@ class ConcertDateSeatServiceTest {
     //  예약 가능한 좌석 조회 성공
     @DisplayName("예약 가능한 좌석 조회 성공")
     @Test
-    void getAvailableSeats() {
+    void shouldRetrieveAvailableSeatsSuccessfully() {
         // Given
         List<ConcertDateSeat> list = List.of(
                 ConcertDateSeat.of(1L, 1L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE),

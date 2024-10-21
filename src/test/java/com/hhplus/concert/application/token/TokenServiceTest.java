@@ -1,9 +1,13 @@
 package com.hhplus.concert.application.token;
 
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.token.QueueToken;
-import com.hhplus.concert.domain.token.QueueTokenRepository;
-import com.hhplus.concert.domain.token.QueueTokenStatus;
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
+import com.hhplus.concert.domain.token.dto.FindQueueTokenQuery;
+import com.hhplus.concert.domain.token.dto.GetUserQueueRankQuery;
+import com.hhplus.concert.domain.token.model.QueueToken;
+import com.hhplus.concert.domain.token.repository.QueueTokenRepository;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.domain.token.model.QueueTokenStatus;
 import com.hhplus.concert.util.UuidUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +33,7 @@ class TokenServiceTest {
 
     @Test
     @DisplayName("대기열 발급 성공")
-    void addTokenToQueue() {
+    void shouldIssueQueueTokenSuccessfully() {
         // given
         String uuid = UuidUtil.generateUuid();
         CreateQueueTokenCommand command = new CreateQueueTokenCommand(1L, uuid);
@@ -46,7 +50,7 @@ class TokenServiceTest {
 
     @Test
     @DisplayName("유저 대기 순서 조회 성공 테스트")
-    void findUser() {
+    void shouldRetrieveUserQueueOrderSuccessfully() {
         // given
         GetUserQueueRankQuery command = new GetUserQueueRankQuery(150L, 100);
         when(queueTokenRepository.lastProcessingToken(QueueTokenStatus.PROCESSING)).thenReturn(100L);
