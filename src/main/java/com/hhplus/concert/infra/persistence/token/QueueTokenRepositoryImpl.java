@@ -5,6 +5,7 @@ import com.hhplus.concert.domain.token.repository.QueueTokenRepository;
 import com.hhplus.concert.domain.token.model.QueueTokenStatus;
 import com.hhplus.concert.exception.NotFoundException;
 
+import com.hhplus.concert.infra.persistence.error.PersistenceErrorType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ public class QueueTokenRepositoryImpl implements QueueTokenRepository {
     @Override
     public QueueToken findToken(String token, Long currentTime) {
         return queueTokenMapper.mapToDomainOptional(tokenJpaRepository.findTokenByToken(token, currentTime))
-                .orElseThrow(() ->  new NotFoundException("Token not found"));
+                .orElseThrow(() ->  new NotFoundException(PersistenceErrorType.NOT_FOUND_TOKEN));
     }
 
     @Override

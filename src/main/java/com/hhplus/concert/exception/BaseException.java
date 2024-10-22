@@ -1,22 +1,18 @@
 package com.hhplus.concert.exception;
 
-import lombok.Getter;
-
-@Getter
-public class AlreadyExistsException extends BaseException {
+public abstract class BaseException extends RuntimeException {
     private final ErrorStatus errorStatus;
 
-    public AlreadyExistsException(ErrorStatus errorStatus) {
-        super(errorStatus);
+    public BaseException(ErrorStatus errorStatus) {
+        super(errorStatus.getMessage());
         this.errorStatus = errorStatus;
     }
 
-    public ErrorCode getErrorStatus() {
+    public ErrorCode getErrorCode() {
         return errorStatus.getCode();
     }
 
     public String getMessage() {
         return errorStatus.getMessage();
     }
-
 }

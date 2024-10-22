@@ -19,7 +19,7 @@ class GetUserQueueRankQueryTest {
         // When & Then
         assertThatThrownBy(() -> new GetUserQueueRankQuery(tokenId, capacity))
                 .isInstanceOf(InvalidException.class)
-                .hasMessage("tokenId is null");
+                .hasMessage("token is null");
     }
 
     @DisplayName("capacity가 null일 경우 InvalidException이 발생")
