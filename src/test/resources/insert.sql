@@ -3,6 +3,8 @@ INSERT INTO "user" (id, name) VALUES (1L, 'Alice');
 INSERT INTO "user" (id, name) VALUES (2L, 'Bob');
 INSERT INTO "user" (id, name) VALUES (3L, 'Charlie');
 
+INSERT INTO point (user_id, point, last_updated) values (1L, 1200000, 1798642845000);
+
 
 -- QueueToken 데이터 삽입 (UUID를 token으로 사용)
 INSERT INTO queue_token (user_id, token, status, created_at, expired_date)
@@ -95,3 +97,5 @@ VALUES (1L, 10000, 4L, 1697594400000, 1697680800000);
 
 INSERT INTO reservation (user_id, price, concert_date_seat_id, reservation_date, expiration_date)
 VALUES (1L, 10000, 6L, 1697594400000, 1697680800000);
+
+INSERT INTO config (config_key, config_value, updated_at) VALUES ('max-processing-token', '100',1697680800000);

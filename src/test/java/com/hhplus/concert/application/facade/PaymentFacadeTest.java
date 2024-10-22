@@ -34,12 +34,12 @@ class PaymentFacadeTest {
     @Test
     void shouldFailPaymentInFacadeIntegrationTestDueToInsufficientPoints() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
 
         // when
 
         // then
-         assertThatThrownBy(() -> paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L)))
+         assertThatThrownBy(() -> paymentFacade.payment(token, new CreatePaymentRequest(2L, 1L)))
                 .isInstanceOf(InvalidException.class)
                 .hasMessage("Not enough point");
     }
