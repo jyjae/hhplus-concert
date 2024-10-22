@@ -46,28 +46,4 @@ public interface UserApi {
             @RequestHeader("token") String token,
             @PathVariable("userId") Long userId
     );
-
-    /**
-     * 유저 잔액 조회 API
-     *
-     * @param userId 유저 ID
-     * @return 유저의 잔액 정보 응답 DTO
-     */
-    @Operation(
-            summary = "유저 잔액 조회",
-            description = "유저의 현재 잔액을 조회합니다.",
-            parameters = {
-                    @Parameter(
-                            name = "userId",
-                            description = "유저 ID",
-                            required = true,
-                            in = ParameterIn.PATH,
-                            schema = @Schema(type = "string", example = "1")
-                    )
-            }
-    )
-    @GetMapping("/{userId}/point")
-    ResponseEntity<GetUserPointResponse> getBalance(
-            @PathVariable("userId") Long userId
-    );
 }

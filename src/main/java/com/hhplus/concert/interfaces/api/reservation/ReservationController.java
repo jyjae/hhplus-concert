@@ -16,7 +16,6 @@ public class ReservationController implements ReservationApi {
 
     private final ReservationFacade reservationFacade;
 
-
     @Override
     public ResponseEntity<ReservationResponse> reserveConcertDateSeat(
             @RequestBody ReservationRequest request) {

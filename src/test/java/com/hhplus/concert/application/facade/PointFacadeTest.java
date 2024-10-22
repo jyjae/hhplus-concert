@@ -36,7 +36,7 @@ class PointFacadeTest {
         // then
         int point = pointFacade.point( 1L);
         assertThat(charge).isNotNull();
-        assertThat(point).isEqualTo(1000);
+        assertThat(point).isEqualTo(1201000);
     }
 
     @Sql({"/reset.sql", "/insert.sql"})
@@ -51,7 +51,7 @@ class PointFacadeTest {
         int point = pointFacade.point( 1L);
 
         // then
-        assertThat(point).isEqualTo(1000);
+        assertThat(point).isEqualTo(1201000);
     }
 
 

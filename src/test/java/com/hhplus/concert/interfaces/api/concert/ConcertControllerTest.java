@@ -5,6 +5,7 @@ import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.interfaces.api.concert.dto.GetConcertDateResponse;
 import com.hhplus.concert.interfaces.api.concert.dto.GetConcertDateSeatResponse;
+import com.hhplus.concert.interfaces.api.concert.dto.GetConcertResponse;
 import com.hhplus.concert.util.UuidUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,32 @@ class ConcertControllerTest {
 
     private String baseUrl(String uri) {
         return "http://localhost:" + port + uri;
+    }
+
+    @Sql({"/reset.sql", "/insert.sql"})
+    @DisplayName("대기열 토큰 없이 콘서트 전체 조회 성공")
+    void shouldGetConcertSuccessfully() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<GetConcertResponse[]> response = restTemplate.exchange(
+            baseUrl("/concerts"),
+            HttpMethod.GET,
+            requestEntity,
+            GetConcertResponse[].class
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().length).isGreaterThan(0);
+
+        GetConcertResponse firstConcert = response.getBody()[0];
+        assertThat(firstConcert.getId()).isEqualTo(1L);
+        assertThat(firstConcert.getName()).isEqualTo("Spring Festival");
+        assertThat(firstConcert.getEndDate()).isEqualTo(1697594400000L);
+        assertThat(firstConcert.getStartDate()).isEqualTo(1697680800000L);
     }
 
 

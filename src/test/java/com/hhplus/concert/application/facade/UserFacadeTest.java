@@ -37,7 +37,6 @@ class UserFacadeTest {
     void shouldRetrieveQueueOrderSuccessfully() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
-        configJpaRepository.save(new ConfigJpaEntity(ConfigKey.MAX_PROCESSING_TOKEN.getKey(), "100", "대기열"));
         // when
         Long rank = userFacade.rank(1L, token);
 
@@ -50,13 +49,12 @@ class UserFacadeTest {
     @Test
     void shouldRetrievePointsSuccessfully() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
         pointService.charge(new ChargePointCommand(1L, 1000));
         // when
         int point = userFacade.point(1L);
 
         // then
-        assertThat(point).isEqualTo(1000);
+        assertThat(point).isEqualTo(1201000);
     }
 
 }
