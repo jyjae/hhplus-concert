@@ -1,6 +1,7 @@
-package com.hhplus.concert.domain.concert.concertdateseat;
+package com.hhplus.concert.domain.concert.reservation;
 
-import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
+import com.hhplus.concert.application.facade.ReservationFacade;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,27 +15,26 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class ConcertDateSeatConcurrencyTest {
+public class ReservationConcurrencyTest {
 
     @Autowired
-    private ConcertDateSeatService concertDateSeatService;
-    
-
-    private final Long seatId = 1L;  // 테스트용 좌석 ID
+    private ReservationFacade reservationFacade;
 
     @Sql({"/reset.sql", "/insert.sql"})
+    @DisplayName("좌석 예약 동시성 테스트 성공")
     @Test
     public void shouldCompleteSeatReservationWithConcurrencySuccessfully() throws InterruptedException {
-        int threadCount = 100;  // 동시에 실행할 스레드 수
-        ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
-        CountDownLatch latch = new CountDownLatch(threadCount);  // 스레드 동기화
+        // given
+        int threadCount = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        CountDownLatch latch = new CountDownLatch(threadCount);
 
-        AtomicInteger successCount = new AtomicInteger(0);  // 성공 횟수 카운터
+        AtomicInteger successCount = new AtomicInteger(0);
 
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    concertDateSeatService.completeReservation(seatId);  // 동시 요청
+                    reservationFacade.reservation(1L, 1L, 7L);  // 동시 요청
                     successCount.incrementAndGet();  // 성공 시 카운트 증가
                 } catch (Exception e) {
                     System.out.println("예외 발생: " + e.getMessage());

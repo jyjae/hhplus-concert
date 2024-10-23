@@ -42,4 +42,10 @@ public class ConcertDateSeatService {
                 .orElseThrow(() -> new NotFoundException(DomainErrorType.NOT_FOUND_CONCERT_DATE_SEAT));
         concertDateSeatRepository.save(concertDateSeat.completeReservation());
     }
+
+    @Transactional
+    public void tempReservation(ConcertDateSeat concertDateSeat) {
+        concertDateSeat.tempReservation();
+        concertDateSeatRepository.save(concertDateSeat);
+    }
 }

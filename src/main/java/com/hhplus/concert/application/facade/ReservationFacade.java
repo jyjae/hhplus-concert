@@ -21,6 +21,8 @@ public class ReservationFacade {
     @Transactional
     public Long reservation(Long concertDateId, Long userId, Long concertDateSeatId) {
         ConcertDateSeat concertDateSeat = concertDateSeatService.findAvailableConcertDateSeat(new FindConcertDateSeatQuery(concertDateId, concertDateSeatId));
-        return reservationService.reserveConcertDateSeat(new ReservationCommand(userId, concertDateSeatId, concertDateSeat.getPrice()));
+        Long reservationId = reservationService.reserveConcertDateSeat(new ReservationCommand(userId, concertDateSeatId, concertDateSeat.getPrice()));
+        concertDateSeatService.tempReservation(concertDateSeat);
+        return reservationId;
     }
 }

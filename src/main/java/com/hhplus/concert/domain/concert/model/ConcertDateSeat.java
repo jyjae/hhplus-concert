@@ -41,4 +41,8 @@ public class ConcertDateSeat {
         .status(ConcertDateSeatStatus.RESERVED)
         .build();
   }
+
+  public void tempReservation() {
+    this.status = ConcertDateSeatStatus.TEMP_RESERVED;
+  }
 }

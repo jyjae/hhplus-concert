@@ -3,6 +3,7 @@ package com.hhplus.concert.infra.persistence.concert.concertdateseat;
 
 import com.hhplus.concert.domain.concert.constants.ConcertDateSeatStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.LockModeType;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ConcertDateSeatJpaCustomRepositoryImpl implements ConcertDateSeatJp
                 .where(qConcertDateSeat.concertDateId.eq(concertDateId)
                         .and(qConcertDateSeat.id.eq(concertDateSeatId))
                         .and(qConcertDateSeat.status.eq(ConcertDateSeatStatus.AVAILABLE.getStatus())))
+                        .setLockMode(LockModeType.PESSIMISTIC_WRITE)
                 .fetchOne());
     }
 }

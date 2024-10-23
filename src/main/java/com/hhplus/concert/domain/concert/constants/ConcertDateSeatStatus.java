@@ -2,6 +2,7 @@ package com.hhplus.concert.domain.concert.constants;
 
 public enum ConcertDateSeatStatus {
   AVAILABLE("AVAILABLE"),
+  TEMP_RESERVED("TEMP_RESERVED"),
   RESERVED("RESERVED");
 
     private String status;
