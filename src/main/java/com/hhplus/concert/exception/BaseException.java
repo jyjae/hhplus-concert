@@ -1,18 +1,18 @@
 package com.hhplus.concert.exception;
 
 public abstract class BaseException extends RuntimeException {
-    private final ErrorStatus errorStatus;
+    private final ErrorType errorType;
 
-    public BaseException(ErrorStatus errorStatus) {
-        super(errorStatus.getMessage());
-        this.errorStatus = errorStatus;
+    public BaseException(ErrorType errorType) {
+        super(errorType.getMessage());
+        this.errorType = errorType;
     }
 
     public ErrorCode getErrorCode() {
-        return errorStatus.getCode();
+        return errorType.getCode();
     }
 
     public String getMessage() {
-        return errorStatus.getMessage();
+        return errorType.getMessage();
     }
 }

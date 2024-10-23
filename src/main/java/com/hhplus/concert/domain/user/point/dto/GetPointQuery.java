@@ -1,6 +1,6 @@
 package com.hhplus.concert.domain.user.point.dto;
 
-import com.hhplus.concert.domain.error.DomainErrorType;
+import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.exception.InvalidException;
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ public class GetPointQuery {
 
     public GetPointQuery(Long userId) {
         if(userId == null) {
-            throw new InvalidException(DomainErrorType.INVALID_USER_ID);
+            throw new InvalidException(ErrorType.INVALID_USER_ID);
         }
         this.userId = userId;
     }

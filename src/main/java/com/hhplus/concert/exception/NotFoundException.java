@@ -5,18 +5,18 @@ import lombok.Getter;
 
 @Getter
 public class NotFoundException  extends BaseException {
-    private final ErrorStatus errorStatus;
+    private final ErrorType errorType;
 
-    public NotFoundException(ErrorStatus errorStatus) {
-        super(errorStatus);
-        this.errorStatus = errorStatus;
+    public NotFoundException(ErrorType errorType) {
+        super(errorType);
+        this.errorType = errorType;
     }
 
     public ErrorCode getErrorStatus() {
-        return errorStatus.getCode();
+        return errorType.getCode();
     }
 
     public String getMessage() {
-        return errorStatus.getMessage();
+        return errorType.getMessage();
     }
 }

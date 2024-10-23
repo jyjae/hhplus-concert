@@ -1,19 +1,19 @@
 package com.hhplus.concert.exception;
 
 public class InvalidException extends BaseException {
-    private final ErrorStatus errorCode;
+    private final ErrorType errorType;
 
-    public InvalidException(ErrorStatus errorCode) {
-        super(errorCode);
-        this.errorCode = errorCode;
+    public InvalidException(ErrorType errorType) {
+        super(errorType);
+        this.errorType = errorType;
     }
 
-    public ErrorCode getErrorStatus() {
-        return errorCode.getCode();
+    public ErrorCode getErrorType() {
+        return errorType.getCode();
     }
 
 
     public String getMessage() {
-        return errorCode.getMessage();
+        return errorType.getMessage();
     }
 }

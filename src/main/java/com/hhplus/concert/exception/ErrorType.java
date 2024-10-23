@@ -1,10 +1,8 @@
-package com.hhplus.concert.domain.error;
+package com.hhplus.concert.exception;
 
-import com.hhplus.concert.exception.ErrorCode;
-import com.hhplus.concert.exception.ErrorStatus;
 import org.springframework.boot.logging.LogLevel;
 
-public enum DomainErrorType implements ErrorStatus {
+public enum ErrorType {
     SEAT_ALREADY_RESERVED(ErrorCode.ALREADY_EXISTS, "Seat already reserved", LogLevel.INFO),
     NOT_FOUND_CONCERT_DATE_SEAT(ErrorCode.NOT_FOUND, "No concert date seat information",LogLevel.INFO ),
     INVALID_CONCERT_DATE(ErrorCode.INVALID_PARAMETER, "concertDateId is null", LogLevel.INFO),
@@ -18,29 +16,27 @@ public enum DomainErrorType implements ErrorStatus {
     INVALID_TOKEN(ErrorCode.INVALID_PARAMETER, "token is null", LogLevel.INFO),
     INVALID_CAPACITY(ErrorCode.INVALID_PARAMETER, "capacity is null", LogLevel.INFO),
     INVALID_POINT(ErrorCode.INVALID_PARAMETER, "point is invalid", LogLevel.INFO),
-    NOT_ENOUGH_POINT(ErrorCode.INVALID_PARAMETER, "Not enough point", LogLevel.INFO),;
+    NOT_ENOUGH_POINT(ErrorCode.INVALID_PARAMETER, "Not enough point", LogLevel.INFO),
+    NOT_FOUND_TOKEN(ErrorCode.NOT_FOUND, "Token not found", LogLevel.INFO);
 
     private final ErrorCode code;
     private final String message;
     private final LogLevel logLevel;
 
-    DomainErrorType(ErrorCode code, String message, LogLevel logLevel) {
+    ErrorType(ErrorCode code, String message, LogLevel logLevel) {
         this.code = code;
         this.message = message;
         this.logLevel = logLevel;
     }
 
-    @Override
     public ErrorCode getCode() {
         return code;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }
 
-    @Override
     public LogLevel getLogLevel() {
         return logLevel;
     }
