@@ -1,6 +1,8 @@
 package com.hhplus.concert.interfaces.api.user.point;
 
-import com.hhplus.concert.application.facade.PointFacade;
+import com.hhplus.concert.domain.user.point.dto.ChargePointCommand;
+import com.hhplus.concert.domain.user.point.dto.GetPointQuery;
+import com.hhplus.concert.domain.user.point.service.PointService;
 import com.hhplus.concert.interfaces.api.user.point.dto.ChargePointRequest;
 import com.hhplus.concert.interfaces.api.user.point.dto.ChargePointResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PointController implements PointApi {
 
-    private final PointFacade pointFacade;
+    private final PointService pointService;
 
     /** 잔액 충전 API
     * @param request - 유저 아이디, 충전 금액
@@ -19,24 +21,23 @@ public class PointController implements PointApi {
     **/
     @Override()
     public ResponseEntity<ChargePointResponse> charge(
-            @RequestHeader("token") String token,
             @PathVariable(name = "userId") Long userId,
             @RequestBody ChargePointRequest request) {
-        return ResponseEntity.ok(new ChargePointResponse(pointFacade.charge(token, userId, request)));
+        ChargePointCommand command = new ChargePointCommand(userId, request.getPoint());
+        return ResponseEntity.ok(new ChargePointResponse(pointService.charge(command)));
     }
 
     /**
      * 잔액 조회 API
      *
-     * @param token  사용자 인증 토큰
      * @param userId 유저 ID
      * @return 현재 포인트 잔액
      */
     @Override()
     public ResponseEntity<Integer> point(
-            @RequestHeader("token") String token,
             @PathVariable(name = "userId") Long userId) {
-        return ResponseEntity.ok(pointFacade.point(token, userId));
+        GetPointQuery query = new GetPointQuery(userId);
+        return ResponseEntity.ok(pointService.point(query));
     }
 
 }

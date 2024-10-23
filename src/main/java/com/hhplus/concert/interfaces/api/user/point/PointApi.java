@@ -20,13 +20,6 @@ public interface PointApi {
             description = "사용자의 포인트 잔액을 충전합니다.",
             parameters = {
                     @Parameter(
-                            name = "token",
-                            description = "대기열 토큰",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string", example = "984382e4-4a0b-4228-a9e4-b45e180b4c39")
-                    ),
-                    @Parameter(
                             name = "userId",
                             description = "유저 ID",
                             required = true,
@@ -37,7 +30,6 @@ public interface PointApi {
     )
     @PatchMapping("/{userId}/points")
     ResponseEntity<ChargePointResponse> charge(
-            @RequestHeader("token") String token,
             @PathVariable("userId") Long userId,
             @RequestBody ChargePointRequest request
     );
@@ -47,13 +39,6 @@ public interface PointApi {
             summary = "잔액 조회",
             description = "사용자의 현재 포인트 잔액을 조회합니다.",
             parameters = {
-                    @Parameter(
-                            name = "token",
-                            description = "대기열 토큰",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string", example = "984382e4-4a0b-4228-a9e4-b45e180b4c39")
-                    ),
                     @Parameter(
                             name = "userId",
                             description = "유저 ID",
@@ -65,7 +50,6 @@ public interface PointApi {
     )
     @GetMapping("/{userId}/points")
     ResponseEntity<Integer> point(
-            @RequestHeader("token") String token,
             @PathVariable("userId") Long userId
     );
 }

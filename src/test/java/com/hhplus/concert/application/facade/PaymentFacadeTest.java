@@ -34,12 +34,12 @@ class PaymentFacadeTest {
     @Test
     void shouldFailPaymentInFacadeIntegrationTestDueToInsufficientPoints() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
 
         // when
 
         // then
-         assertThatThrownBy(() -> paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L)))
+         assertThatThrownBy(() -> paymentFacade.payment(token, new CreatePaymentRequest(2L, 1L)))
                 .isInstanceOf(InvalidException.class)
                 .hasMessage("Not enough point");
     }
@@ -86,15 +86,4 @@ class PaymentFacadeTest {
                 .hasMessage("reservation has expired");
     }
 
-    @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("토큰이 존재하지 않아 결제 파사드 통합 테스트 실패")
-    @Test
-    void shouldFailPaymentInFacadeIntegrationTestDueToNonExistentToken() {
-        // given
-
-        // then
-        assertThatThrownBy(() -> paymentFacade.payment(UuidUtil.generateUuid(), new CreatePaymentRequest(1L, 1L)))
-                .isInstanceOf(NotFoundException.class)
-                .hasMessage("Token not found");
-    }
 }

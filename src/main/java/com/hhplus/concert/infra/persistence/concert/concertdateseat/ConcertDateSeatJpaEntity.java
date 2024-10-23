@@ -27,8 +27,8 @@ public class ConcertDateSeatJpaEntity {
     @Column(name = "status")
     private String status;
 
-    @Version
-    private Long version = 0L;
+//    @Version
+//    private Long version = 0L;
 
     public ConcertDateSeatJpaEntity(Long concertDateId, int price, Long expiredDate, String status) {
         this.concertDateId = concertDateId;

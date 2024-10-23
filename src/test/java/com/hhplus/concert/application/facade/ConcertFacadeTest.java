@@ -48,7 +48,7 @@ class ConcertFacadeTest {
         QueueToken token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L));
 
         // when
-        List<ConcertDate> concertDates = concertFacade.concertDates(1L, token.getToken());
+        List<ConcertDate> concertDates = concertFacade.concertDates(1L);
 
         // then
         assertThat(concertDates).hasSize(2);
@@ -56,19 +56,6 @@ class ConcertFacadeTest {
         assertThat(concertDates.get(0).getPlace()).isEqualTo("Main Hall");
     }
 
-    @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("유효하지 않은 토큰으로 예약 가능한 날짜 조회 파사드 통합 테스트 실패")
-    @Test
-    void shouldFailToRetrieveAvailableDatesWithInvalidTokenInFacadeIntegrationTest() {
-        // given
-
-        // when
-
-        // then
-        assertThatThrownBy(() -> concertFacade.concertDates(1L, UUID.randomUUID().toString()))
-                .isInstanceOf(NotFoundException.class)
-                .hasMessage("Token not found");
-    }
 
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("예약 가능한 좌석 조회 파사드 통합 테스트 성공")
@@ -78,20 +65,11 @@ class ConcertFacadeTest {
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
         // when
-        List<ConcertDateSeat> concertDateSeats = concertFacade.concertDateSeats(token, 1L);
+        List<ConcertDateSeat> concertDateSeats = concertFacade.concertDateSeats( 1L);
 
         // then
         assertThat(concertDateSeats).hasSize(25);
     }
 
-    @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("유효하지 않은 토큰으로 예약 가능한 좌석 조회 시 파사드 통합 테스트 실패")
-    @Test
-    void shouldFailToRetrieveAvailableSeatsWithInvalidTokenInFacadeIntegrationTest() {
-
-        assertThatThrownBy(() -> concertFacade.concertDateSeats(UUID.randomUUID().toString(), 1L))
-                .isInstanceOf(NotFoundException.class)
-                .hasMessage("Token not found");
-    }
 
 }

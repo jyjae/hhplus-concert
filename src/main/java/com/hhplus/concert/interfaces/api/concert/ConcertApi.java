@@ -32,13 +32,6 @@ public interface ConcertApi {
             description = "콘서트 ID와 인증 토큰을 통해 예약 가능한 날짜 목록을 조회합니다.",
             parameters = {
                     @Parameter(
-                            name = "token",
-                            description = "대기열 토큰 (헤더)",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string", example = "984382e4-4a0b-4228-a9e4-b45e180b4c39")
-                    ),
-                    @Parameter(
                             name = "concertId",
                             description = "조회할 콘서트의 ID",
                             required = true,
@@ -49,7 +42,6 @@ public interface ConcertApi {
     )
     @GetMapping("/{concertId}/concert-dates")
     ResponseEntity<List<GetConcertDateResponse>> getConcertDates(
-            @RequestHeader("token") String token,
             @PathVariable("concertId") Long concertId
     );
 
@@ -57,13 +49,6 @@ public interface ConcertApi {
             summary = "예약 가능한 좌석 목록 조회",
             description = "콘서트 날짜별로 예약 가능한 좌석 목록을 조회합니다.",
             parameters = {
-                    @Parameter(
-                            name = "token",
-                            description = "사용자 인증 토큰",
-                            required = true,
-                            in = ParameterIn.HEADER,
-                            schema = @Schema(type = "string", example = "user-access-token-123")
-                    ),
                     @Parameter(
                             name = "concertId",
                             description = "콘서트 ID",
@@ -82,7 +67,6 @@ public interface ConcertApi {
     )
     @GetMapping("/{concertId}/concert-dates/{concertDateId}/seats")
     ResponseEntity<List<GetConcertDateSeatResponse>> getAvailableSeats(
-            @RequestHeader("token") String token,
             @PathVariable("concertId") Long concertId,
             @PathVariable("concertDateId") Long concertDateId
     );

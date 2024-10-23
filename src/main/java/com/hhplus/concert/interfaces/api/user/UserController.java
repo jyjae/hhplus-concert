@@ -21,22 +21,9 @@ public class UserController implements UserApi {
      */
     @Override
     public ResponseEntity<GetQueueResponse> getQueue(
-            @RequestHeader("token") String token,
+            @RequestHeader("X-Access-Token") String token,
             @PathVariable(name = "userId") Long userId) {
         return ResponseEntity.ok(new GetQueueResponse(userFacadeService.rank(userId, token)));
     }
-
-    /**
-     * 유저 잔액 조회
-     * @param userId - 유저 아이디
-     * @return - 잔액
-     */
-    @Override
-    public ResponseEntity<GetUserPointResponse> getBalance(
-            @RequestHeader("token") String token,
-            @PathVariable(name = "userId") Long userId) {
-        return ResponseEntity.ok(new GetUserPointResponse(userFacadeService.point(userId, token)));
-    }
-
 
 }

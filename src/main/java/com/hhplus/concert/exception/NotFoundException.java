@@ -1,24 +1,22 @@
 package com.hhplus.concert.exception;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Getter
-public class NotFoundException  extends RuntimeException {
+public class NotFoundException  extends BaseException {
+    private final ErrorStatus errorStatus;
 
-    private final Map<String, String> validation = new HashMap<>();
-
-    public NotFoundException(String message) {
-        super(message);
+    public NotFoundException(ErrorStatus errorStatus) {
+        super(errorStatus);
+        this.errorStatus = errorStatus;
     }
 
-    public NotFoundException(String message, Throwable cause) {
-        super(message, cause);
+    public ErrorCode getErrorStatus() {
+        return errorStatus.getCode();
     }
 
-    public String getStatusCode() {
-        return "404";
+    public String getMessage() {
+        return errorStatus.getMessage();
     }
 }

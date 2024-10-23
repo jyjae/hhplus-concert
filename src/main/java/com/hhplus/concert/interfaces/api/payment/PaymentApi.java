@@ -26,7 +26,7 @@ public interface PaymentApi {
             description = "유저와 자리 정보를 기반으로 결제를 생성합니다.",
             parameters = {
                     @Parameter(
-                            name = "token",
+                            name = "X-Access-Token",
                             description = "대기열 토큰",
                             required = true,
                             in = ParameterIn.HEADER,
@@ -36,7 +36,7 @@ public interface PaymentApi {
     )
     @PostMapping
     ResponseEntity<CreatePaymentResponse> createPayment(
-            @RequestHeader("token") String token,
+            @RequestHeader("X-Access-Token") String token,
             @RequestBody CreatePaymentRequest request
     );
 }

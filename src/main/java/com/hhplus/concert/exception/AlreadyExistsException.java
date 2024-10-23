@@ -1,21 +1,22 @@
 package com.hhplus.concert.exception;
 
-import java.util.HashMap;
-import java.util.Map;
+import lombok.Getter;
 
-public class AlreadyExistsException extends RuntimeException{
+@Getter
+public class AlreadyExistsException extends BaseException {
+    private final ErrorStatus errorStatus;
 
-    private final Map<String, String> validation = new HashMap<>();
-
-    public AlreadyExistsException(String message) {
-        super(message);
+    public AlreadyExistsException(ErrorStatus errorStatus) {
+        super(errorStatus);
+        this.errorStatus = errorStatus;
     }
 
-    public AlreadyExistsException(String message, Throwable cause) {
-        super(message, cause);
+    public ErrorCode getErrorStatus() {
+        return errorStatus.getCode();
     }
 
-    public String getStatusCode() {
-        return "400";
+    public String getMessage() {
+        return errorStatus.getMessage();
     }
+
 }
