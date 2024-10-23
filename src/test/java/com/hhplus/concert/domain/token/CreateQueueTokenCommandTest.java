@@ -1,4 +1,4 @@
-package com.hhplus.concert.application.token;
+package com.hhplus.concert.domain.token;
 
 import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.exception.InvalidException;

@@ -3,7 +3,7 @@ INSERT INTO "user" (id, name) VALUES (1L, 'Alice');
 INSERT INTO "user" (id, name) VALUES (2L, 'Bob');
 INSERT INTO "user" (id, name) VALUES (3L, 'Charlie');
 
-INSERT INTO point (user_id, point, last_updated) values (1L, 1200000, 1798642845000);
+INSERT INTO point (user_id, point, last_updated, version) values (1L, 1200000, 1798642845000, 0);
 
 
 -- QueueToken 데이터 삽입 (UUID를 token으로 사용)

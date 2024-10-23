@@ -1,7 +1,6 @@
-package com.hhplus.concert.application.facade;
+package com.hhplus.concert.domain.concert.concertdateseat;
 
 import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
-import com.hhplus.concert.domain.concert.repository.ConcertDateSeatRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

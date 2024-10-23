@@ -1,4 +1,4 @@
-package com.hhplus.concert.application.concert.reservation;
+package com.hhplus.concert.domain.concert.reservation;
 
 import com.hhplus.concert.domain.reservation.dto.ReservationCommand;
 import com.hhplus.concert.exception.InvalidException;

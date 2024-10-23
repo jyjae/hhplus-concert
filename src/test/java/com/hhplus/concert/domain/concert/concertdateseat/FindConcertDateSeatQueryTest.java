@@ -1,4 +1,4 @@
-package com.hhplus.concert.application.concert.concertdateseat;
+package com.hhplus.concert.domain.concert.concertdateseat;
 
 import com.hhplus.concert.domain.concert.dto.FindConcertDateSeatQuery;
 import com.hhplus.concert.exception.InvalidException;

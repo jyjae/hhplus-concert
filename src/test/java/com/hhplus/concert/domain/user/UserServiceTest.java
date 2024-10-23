@@ -1,4 +1,4 @@
-package com.hhplus.concert.application.user;
+package com.hhplus.concert.domain.user;
 
 import com.hhplus.concert.domain.user.dto.FindUserCommand;
 import com.hhplus.concert.domain.user.repository.UserRepository;

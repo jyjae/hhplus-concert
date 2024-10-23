@@ -1,17 +1,11 @@
-package com.hhplus.concert.application.concert.concertdateseat;
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
-
-import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
-import com.hhplus.concert.domain.concert.dto.FindConcertDateSeatQuery;
-import java.util.List;
-import java.util.Optional;
+package com.hhplus.concert.domain.concert.concertdateseat;
 
 import com.hhplus.concert.common.TimeProvider;
+import com.hhplus.concert.domain.concert.constants.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.concert.dto.FindConcertDateSeatQuery;
 import com.hhplus.concert.domain.concert.model.ConcertDateSeat;
 import com.hhplus.concert.domain.concert.repository.ConcertDateSeatRepository;
-import com.hhplus.concert.domain.concert.constants.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
 import com.hhplus.concert.exception.AlreadyExistsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ConcertDateSeatServiceTest {

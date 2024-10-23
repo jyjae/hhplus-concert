@@ -1,4 +1,4 @@
-package com.hhplus.concert.application.token;
+package com.hhplus.concert.domain.token;
 
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import org.junit.jupiter.api.DisplayName;

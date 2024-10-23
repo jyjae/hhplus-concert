@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class PointService {
@@ -35,9 +37,7 @@ public class PointService {
 
     @Transactional(readOnly = true)
     public int point(GetPointQuery query) {
-        if(pointRepository.findPoint(query.getUserId()).isEmpty()) {
-            return 0;
-        }
-        return pointRepository.findPoint(query.getUserId()).get().getPoint();
+        Optional<Point> point = pointRepository.findPoint(query.getUserId());
+        return point.map(Point::getPoint).orElse(0);
     }
 }

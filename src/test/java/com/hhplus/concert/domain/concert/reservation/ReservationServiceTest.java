@@ -1,8 +1,8 @@
-package com.hhplus.concert.application.concert.reservation;
+package com.hhplus.concert.domain.concert.reservation;
 
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.reservation.model.Reservation;
 import com.hhplus.concert.domain.reservation.dto.ReservationCommand;
+import com.hhplus.concert.domain.reservation.model.Reservation;
 import com.hhplus.concert.domain.reservation.repository.ReservationRepository;
 import com.hhplus.concert.domain.reservation.service.ReservationService;
 import com.hhplus.concert.exception.AlreadyExistsException;
