@@ -26,7 +26,7 @@ public interface UserApi {
             description = "유저의 대기 순서를 조회합니다.",
             parameters = {
                     @Parameter(
-                            name = "token",
+                            name = "X-Access-Token",
                             description = "대기열 토큰",
                             required = true,
                             in = ParameterIn.HEADER,
@@ -43,7 +43,7 @@ public interface UserApi {
     )
     @GetMapping("/{userId}/rank")
     ResponseEntity<GetQueueResponse> getQueue(
-            @RequestHeader("token") String token,
+            @RequestHeader("X-Access-Token") String token,
             @PathVariable("userId") Long userId
     );
 }

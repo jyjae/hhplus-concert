@@ -3,8 +3,12 @@ package com.hhplus.concert.interfaces.api.user.point;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.hhplus.concert.domain.error.DomainErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.exception.ErrorCode;
+import com.hhplus.concert.infra.persistence.error.PersistenceErrorType;
+import com.hhplus.concert.interfaces.api.error.ErrorResponse;
 import com.hhplus.concert.interfaces.api.user.point.dto.ChargePointRequest;
 import com.hhplus.concert.interfaces.api.user.point.dto.ChargePointResponse;
 import com.hhplus.concert.util.UuidUtil;;
@@ -57,7 +61,7 @@ class PointControllerTest {
     String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", token);
+    headers.set("X-Access-Token", token);
 
     ChargePointRequest request = new ChargePointRequest(1000);
     HttpEntity<ChargePointRequest> requestEntity = new HttpEntity<>(request, headers);
@@ -83,20 +87,23 @@ class PointControllerTest {
     // Given
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", UuidUtil.generateUuid());
+    headers.set("X-Access-Token", UuidUtil.generateUuid());
 
     ChargePointRequest request = new ChargePointRequest(1000);
     HttpEntity<ChargePointRequest> requestEntity = new HttpEntity<>(request, headers);
 
     // When
-    assertThatThrownBy(() -> restTemplate.exchange(
+    ResponseEntity<ErrorResponse> response =  restTemplate.exchange(
         baseUrl("/users/" + 2 + "/points"),
         HttpMethod.PATCH,
         requestEntity,
-        ChargePointResponse.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("Token not found");
+        ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
+    assertThat(response.getBody().message()).isEqualTo(PersistenceErrorType.NOT_FOUND_TOKEN.getMessage());
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -111,14 +118,17 @@ class PointControllerTest {
     HttpEntity<ChargePointRequest> requestEntity = new HttpEntity<>(request, headers);
 
     // When
-    assertThatThrownBy(() -> restTemplate.exchange(
+    ResponseEntity<ErrorResponse> response = restTemplate.exchange(
         baseUrl("/users/" + 2 + "/points"),
         HttpMethod.PATCH,
         requestEntity,
-        ChargePointResponse.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("token is null");
+        ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
+    assertThat(response.getBody().message()).isEqualTo(DomainErrorType.INVALID_TOKEN.getMessage());
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -129,7 +139,7 @@ class PointControllerTest {
     String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", token);
+    headers.set("X-Access-Token", token);
 
     HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
@@ -154,20 +164,23 @@ class PointControllerTest {
     // Given
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", UuidUtil.generateUuid());
+    headers.set("X-Access-Token", UuidUtil.generateUuid());
 
     ChargePointRequest request = new ChargePointRequest(1000);
     HttpEntity<ChargePointRequest> requestEntity = new HttpEntity<>(request, headers);
 
     // When
-    assertThatThrownBy(() -> restTemplate.exchange(
+    ResponseEntity<ErrorResponse> response = restTemplate.exchange(
         baseUrl("/users/" + 2 + "/points"),
         HttpMethod.GET,
         requestEntity,
-        Integer.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("Token not found");
+        ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
+    assertThat(response.getBody().message()).isEqualTo(PersistenceErrorType.NOT_FOUND_TOKEN.getMessage());
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -182,14 +195,17 @@ class PointControllerTest {
     HttpEntity<ChargePointRequest> requestEntity = new HttpEntity<>(request, headers);
 
     // When
-    assertThatThrownBy(() -> restTemplate.exchange(
+   ResponseEntity<ErrorResponse> response =  restTemplate.exchange(
         baseUrl("/users/" + 2 + "/points"),
         HttpMethod.GET,
         requestEntity,
-        Integer.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("token is null");
+       ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
+    assertThat(response.getBody().message()).isEqualTo(DomainErrorType.INVALID_TOKEN.getMessage());
   }
 
 

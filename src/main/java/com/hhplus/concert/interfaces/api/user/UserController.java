@@ -21,7 +21,7 @@ public class UserController implements UserApi {
      */
     @Override
     public ResponseEntity<GetQueueResponse> getQueue(
-            @RequestHeader("token") String token,
+            @RequestHeader("X-Access-Token") String token,
             @PathVariable(name = "userId") Long userId) {
         return ResponseEntity.ok(new GetQueueResponse(userFacadeService.rank(userId, token)));
     }

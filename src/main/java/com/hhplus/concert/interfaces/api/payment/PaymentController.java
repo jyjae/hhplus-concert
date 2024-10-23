@@ -19,7 +19,7 @@ public class PaymentController implements PaymentApi{
      */
     @Override
     public ResponseEntity<CreatePaymentResponse> createPayment(
-            @RequestHeader("token") String token,
+            @RequestHeader("X-Access-Token") String token,
             @RequestBody CreatePaymentRequest request) {
         return ResponseEntity.ok(new CreatePaymentResponse(paymentFacade.payment(token, request)));
     }

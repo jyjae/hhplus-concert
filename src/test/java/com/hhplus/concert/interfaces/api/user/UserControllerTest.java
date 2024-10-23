@@ -4,8 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.hhplus.concert.domain.error.DomainErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.exception.ErrorCode;
+import com.hhplus.concert.infra.persistence.error.PersistenceErrorType;
+import com.hhplus.concert.interfaces.api.error.ErrorResponse;
 import com.hhplus.concert.interfaces.api.user.dto.GetQueueResponse;
 import com.hhplus.concert.interfaces.api.user.dto.GetUserPointResponse;
 import com.hhplus.concert.util.UuidUtil;
@@ -48,7 +52,7 @@ class UserControllerTest {
     String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", token);
+    headers.set("X-Access-Token", token);
 
     // When
     ResponseEntity<GetQueueResponse> response = restTemplate.exchange(
@@ -70,18 +74,20 @@ class UserControllerTest {
     // Given
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", UuidUtil.generateUuid());
+    headers.set("X-Access-Token", UuidUtil.generateUuid());
 
     // When
-    assertThatThrownBy(() -> restTemplate.exchange(
+    ResponseEntity<ErrorResponse> response = restTemplate.exchange(
         baseUrl("/users/2/rank"),
         HttpMethod.GET,
         new HttpEntity<>(headers),
-        GetQueueResponse.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("Token not found");
+        ErrorResponse.class
+    );
 
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
+    assertThat(response.getBody().message()).isEqualTo(PersistenceErrorType.NOT_FOUND_TOKEN.getMessage());
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -93,14 +99,17 @@ class UserControllerTest {
     headers.setContentType(MediaType.APPLICATION_JSON);
 
     // When
-    assertThatThrownBy(() -> restTemplate.exchange(
-        baseUrl("/users/2/rank"),
+    ResponseEntity<ErrorResponse> response =  restTemplate.exchange(
+        baseUrl("/users/"+2+"/rank"),
         HttpMethod.GET,
         new HttpEntity<>(headers),
-        GetQueueResponse.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("token is null");
+        ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
+    assertThat(response.getBody().message()).isEqualTo(DomainErrorType.INVALID_TOKEN.getMessage());
 
   }
 

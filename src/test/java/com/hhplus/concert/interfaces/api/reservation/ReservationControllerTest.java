@@ -4,8 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.hhplus.concert.domain.error.DomainErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.exception.ErrorCode;
+import com.hhplus.concert.exception.InvalidException;
+import com.hhplus.concert.interfaces.api.error.ErrorResponse;
 import com.hhplus.concert.interfaces.api.reservation.dto.ReservationRequest;
 import com.hhplus.concert.interfaces.api.reservation.dto.ReservationResponse;
 import com.hhplus.concert.util.UuidUtil;
@@ -49,7 +53,7 @@ class ReservationControllerTest {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", token);
+    headers.set("X-Access-Token", token);
 
     ReservationRequest request = new ReservationRequest(1L, 1L, 1L, 9L);
     HttpEntity<ReservationRequest> requestEntity = new HttpEntity(request, headers);
@@ -75,19 +79,23 @@ class ReservationControllerTest {
   void shouldReservationFail() {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", UuidUtil.generateUuid());
+    headers.set("X-Access-Token", UuidUtil.generateUuid());
 
     ReservationRequest request = new ReservationRequest(1L, 1L, 1L, 9L);
     HttpEntity<ReservationRequest> requestEntity = new HttpEntity(request, headers);
 
-    assertThatThrownBy(() -> restTemplate.exchange(
+    ResponseEntity<ErrorResponse> response = restTemplate.exchange(
         baseUrl("/reservations"),
         HttpMethod.POST,
         requestEntity,
-        ReservationResponse.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("Token not found");
+        ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(404);
+    assertThat(response.getBody().message()).isEqualTo("Token not found");
+
 
   }
 
@@ -101,14 +109,17 @@ class ReservationControllerTest {
     ReservationRequest request = new ReservationRequest(1L, 1L, 1L, 9L);
     HttpEntity<ReservationRequest> requestEntity = new HttpEntity(request, headers);
 
-    assertThatThrownBy(() -> restTemplate.exchange(
+   ResponseEntity<ErrorResponse> response =  restTemplate.exchange(
         baseUrl("/reservations"),
         HttpMethod.POST,
         requestEntity,
-        ReservationResponse.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("token is null");
+        ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
+    assertThat(response.getBody().message()).isEqualTo(DomainErrorType.INVALID_TOKEN.getMessage());
 
   }
 

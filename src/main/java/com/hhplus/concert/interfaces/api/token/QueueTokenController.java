@@ -1,20 +1,20 @@
 package com.hhplus.concert.interfaces.api.token;
 
-import com.hhplus.concert.application.facade.QueueTokenFacade;
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
+import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.interfaces.api.token.dto.QueueTokenRequest;
 import com.hhplus.concert.interfaces.api.token.dto.QueueTokenResponse;
+import com.hhplus.concert.util.UuidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 public class QueueTokenController implements QueueTokenApi{
 
-    private final QueueTokenFacade queueTokenFacadeService;
+    private final QueueTokenService queueTokenService;
 
     /**
      * 대기열 발급 API
@@ -23,7 +23,9 @@ public class QueueTokenController implements QueueTokenApi{
      */
     @Override
     public ResponseEntity<QueueTokenResponse> generateToken(@RequestBody QueueTokenRequest request) {
-        return ResponseEntity.ok(new QueueTokenResponse(queueTokenFacadeService.token(request.getUserId())));
+
+        CreateQueueTokenCommand command = new CreateQueueTokenCommand(request.getUserId(), UuidUtil.generateUuid());
+        return ResponseEntity.ok(new QueueTokenResponse(queueTokenService.createQueueToken(command)));
     }
 
 }

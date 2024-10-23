@@ -26,7 +26,7 @@ public class ConcertDateSeatConcurrencyTest {
     @Sql({"/reset.sql", "/insert.sql"})
     @Test
     public void shouldCompleteSeatReservationWithConcurrencySuccessfully() throws InterruptedException {
-        int threadCount = 10;  // 동시에 실행할 스레드 수
+        int threadCount = 100;  // 동시에 실행할 스레드 수
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         CountDownLatch latch = new CountDownLatch(threadCount);  // 스레드 동기화
 

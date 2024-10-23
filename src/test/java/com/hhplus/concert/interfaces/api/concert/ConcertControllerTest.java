@@ -73,7 +73,7 @@ class ConcertControllerTest {
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("token", token);
+        headers.set("X-Access-Token", token);
 
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
@@ -127,7 +127,7 @@ class ConcertControllerTest {
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("token", token);
+        headers.set("X-Access-Token", token);
 
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 

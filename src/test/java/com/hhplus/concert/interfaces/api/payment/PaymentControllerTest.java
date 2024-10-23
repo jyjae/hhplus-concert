@@ -2,12 +2,11 @@ package com.hhplus.concert.interfaces.api.payment;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.InvalidException;
 import com.hhplus.concert.exception.NotFoundException;
+import com.hhplus.concert.interfaces.api.error.ErrorResponse;
 import com.hhplus.concert.interfaces.api.payment.dto.CreatePaymentRequest;
 import com.hhplus.concert.interfaces.api.payment.dto.CreatePaymentResponse;
 import com.hhplus.concert.util.UuidUtil;
@@ -52,7 +51,7 @@ class PaymentControllerTest {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", token);
+    headers.set("X-Access-Token", token);
 
     CreatePaymentRequest request = new CreatePaymentRequest(1L, 1L);
     HttpEntity<CreatePaymentRequest> requestEntity = new HttpEntity<>(request, headers);
@@ -77,23 +76,27 @@ class PaymentControllerTest {
   void shouldCreatePaymentFail() {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("token", UuidUtil.generateUuid());
+    headers.set("X-Access-Token", UuidUtil.generateUuid());
 
     CreatePaymentRequest request = new CreatePaymentRequest(1L, 1L);
     HttpEntity<CreatePaymentRequest> requestEntity = new HttpEntity<>(request, headers);
 
-    assertThatThrownBy(() ->restTemplate.exchange(
-        baseUrl("/payments"),
-        HttpMethod.POST,
-        requestEntity,
-        CreatePaymentResponse.class
-    )).isInstanceOf(HttpStatusCodeException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("Token not found");
+    ResponseEntity<ErrorResponse> response = restTemplate.exchange(
+              baseUrl("/payments"),
+              HttpMethod.POST,
+              requestEntity,
+              ErrorResponse.class);
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(404);
+    assertThat(response.getBody().message()).isEqualTo("Token not found");
   }
 
+
+
   @Sql({"/reset.sql", "/insert.sql"})
-  @DisplayName("유효하지 않은 토큰으로 결제 실패")
+  @DisplayName("토큰 Null 값으로 결제 실패")
   @Test
   void shouldFailCreatePaymentToTokenNull() {
     HttpHeaders headers = new HttpHeaders();
@@ -102,14 +105,16 @@ class PaymentControllerTest {
     CreatePaymentRequest request = new CreatePaymentRequest(1L, 1L);
     HttpEntity<CreatePaymentRequest> requestEntity = new HttpEntity<>(request, headers);
 
-    assertThatThrownBy(() ->restTemplate.exchange(
+    ResponseEntity<ErrorResponse> response = restTemplate.exchange(
         baseUrl("/payments"),
         HttpMethod.POST,
         requestEntity,
-        CreatePaymentResponse.class
-    )).isInstanceOf(HttpServerErrorException.class)
-        .hasMessageContaining("404")
-        .hasMessageContaining("token is null");
+        ErrorResponse.class
+    );
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(response.getBody()).isNotNull();
+    assertThat(response.getBody().code()).isEqualTo(400);
   }
 
 }
