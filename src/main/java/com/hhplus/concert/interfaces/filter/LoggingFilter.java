@@ -20,7 +20,14 @@ public class LoggingFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain filterChain) throws ServletException, IOException {
+                                  FilterChain filterChain) throws ServletException, IOException {
+
+    String requestUri = request.getRequestURI();
+
+    if (isSwaggerPath(requestUri)) {
+      filterChain.doFilter(request, response);
+      return;
+    }
 
     ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
     ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
@@ -34,6 +41,7 @@ public class LoggingFilter extends OncePerRequestFilter {
       responseWrapper.copyBodyToResponse();
     }
   }
+
   private void logRequest(ContentCachingRequestWrapper request) {
     String requestBody = new String(request.getContentAsByteArray(), StandardCharsets.UTF_8);
 
@@ -63,5 +71,12 @@ public class LoggingFilter extends OncePerRequestFilter {
     return response.getHeaderNames().stream()
         .map(name -> name + ": " + response.getHeader(name))
         .collect(Collectors.joining(", "));
+  }
+
+  private boolean isSwaggerPath(String uri) {
+    return uri.startsWith("/swagger-ui") ||
+            uri.startsWith("/v3/api-docs") ||
+            uri.startsWith("/swagger-resources") ||
+            uri.startsWith("/webjars");
   }
 }
