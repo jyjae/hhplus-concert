@@ -17,11 +17,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j
 @RestControllerAdvice
 class ApiControllerAdvice extends ResponseEntityExceptionHandler {
-    private static final Logger logger = LoggerFactory.getLogger(ApiControllerAdvice.class);
-
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest request) {
-        logger.error(
+        log.error(
             "[{}] 예외 발생 - URI: [{}], 메서드: [{}]",
             e.getClass().getSimpleName(),
             request.getRequestURI(),
@@ -33,7 +31,7 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = BaseException.class)
     public ResponseEntity<ErrorResponse> handleBaseException(BaseException e, HttpServletRequest request) {
-        logger.info(
+        log.info(
             "[{}] 예외 발생 - 에러 코드: [{}], URI: [{}], 메서드: [{}]",
             e.getClass().getSimpleName(),
             e.getErrorCode().getCode(),
