@@ -50,7 +50,6 @@ class PaymentFacadeTest {
     void shouldCompletePaymentSuccessfullyInFacadeIntegrationTest() {
         // given
         String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
-        pointService.charge(new ChargePointCommand(1L, 100000));
 
         // when
         Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L));

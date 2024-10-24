@@ -1,6 +1,6 @@
 package com.hhplus.concert.domain.user.point.model;
 
-import com.hhplus.concert.domain.error.DomainErrorType;
+import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.exception.InvalidException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,7 +39,7 @@ public class Point {
 
     public Point use(int point) {
         if(this.point < point) {
-            throw new InvalidException(DomainErrorType.NOT_ENOUGH_POINT);
+            throw new InvalidException(ErrorType.NOT_ENOUGH_POINT);
         }
         return new Point(id, userId, this.point - point, lastUpdated);
     }

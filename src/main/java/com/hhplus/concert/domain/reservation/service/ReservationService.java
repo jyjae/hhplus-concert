@@ -1,7 +1,7 @@
 package com.hhplus.concert.domain.reservation.service;
 
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.error.DomainErrorType;
+import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.domain.reservation.repository.ReservationRepository;
 import com.hhplus.concert.domain.reservation.dto.ReservationCommand;
 import com.hhplus.concert.domain.reservation.model.Reservation;
@@ -26,7 +26,7 @@ public class ReservationService {
         Optional<Reservation> reservationOptional = reservationRepository.findReservationExpiredDateAfter(command.getConcertDateSeatId(), timeProvider.getCurrentTimestamp());
 
         if (reservationOptional.isPresent()) {
-            throw new AlreadyExistsException(DomainErrorType.SEAT_ALREADY_RESERVED);
+            throw new AlreadyExistsException(ErrorType.SEAT_ALREADY_RESERVED);
         }
 
         Reservation reservation = Reservation.from(command.getUserId(), command.getPrice(), command.getConcertDateSeatId(), timeProvider.getCurrentTimestamp(), timeProvider.getCurrentInstantPlusMinutes(5));
@@ -36,10 +36,10 @@ public class ReservationService {
     @Transactional(readOnly = true)
     public Reservation getReservation(Long reservationId) {
         Reservation reservation =  reservationRepository.findReservationById(reservationId)
-                . orElseThrow(() -> new NotFoundException(DomainErrorType.NOT_FOUND_RESERVATION));
+                . orElseThrow(() -> new NotFoundException(ErrorType.NOT_FOUND_RESERVATION));
 
         if(reservation.isExpired(timeProvider.getCurrentTimestamp())) {
-            throw new InvalidException(DomainErrorType.RESERVATION_EXPIRED);
+            throw new InvalidException(ErrorType.RESERVATION_EXPIRED);
         }
 
         return reservation;

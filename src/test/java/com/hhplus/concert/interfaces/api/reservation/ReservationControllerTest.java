@@ -2,13 +2,11 @@ package com.hhplus.concert.interfaces.api.reservation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
-import com.hhplus.concert.domain.error.DomainErrorType;
+import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.ErrorCode;
-import com.hhplus.concert.exception.InvalidException;
 import com.hhplus.concert.interfaces.api.error.ErrorResponse;
 import com.hhplus.concert.interfaces.api.reservation.dto.ReservationRequest;
 import com.hhplus.concert.interfaces.api.reservation.dto.ReservationResponse;
@@ -26,7 +24,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -119,7 +116,7 @@ class ReservationControllerTest {
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
     assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
-    assertThat(response.getBody().message()).isEqualTo(DomainErrorType.INVALID_TOKEN.getMessage());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.INVALID_TOKEN.getMessage());
 
   }
 

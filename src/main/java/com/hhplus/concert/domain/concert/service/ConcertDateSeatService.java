@@ -4,7 +4,7 @@ import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.concert.repository.ConcertDateSeatRepository;
 import com.hhplus.concert.domain.concert.dto.FindConcertDateSeatQuery;
 import com.hhplus.concert.domain.concert.model.ConcertDateSeat;
-import com.hhplus.concert.domain.error.DomainErrorType;
+import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.exception.AlreadyExistsException;
 import com.hhplus.concert.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -32,14 +32,20 @@ public class ConcertDateSeatService {
     @Transactional(readOnly = true)
     public ConcertDateSeat findAvailableConcertDateSeat(FindConcertDateSeatQuery query) {
         return concertDateSeatRepository.findAvailableConcertDateSeat(query.getConcertDateId(), query.getConcertDateSeatId())
-                .orElseThrow(() -> new AlreadyExistsException(DomainErrorType.SEAT_ALREADY_RESERVED));
+                .orElseThrow(() -> new AlreadyExistsException(ErrorType.SEAT_ALREADY_RESERVED));
     }
 
     @Transactional
     public void completeReservation(Long concertDateSeatId) {
         ConcertDateSeat concertDateSeat = concertDateSeatRepository
                 .concertDateSeatById(concertDateSeatId)
-                .orElseThrow(() -> new NotFoundException(DomainErrorType.NOT_FOUND_CONCERT_DATE_SEAT));
+                .orElseThrow(() -> new NotFoundException(ErrorType.NOT_FOUND_CONCERT_DATE_SEAT));
         concertDateSeatRepository.save(concertDateSeat.completeReservation());
+    }
+
+    @Transactional
+    public void tempReservation(ConcertDateSeat concertDateSeat) {
+        concertDateSeat.tempReservation();
+        concertDateSeatRepository.save(concertDateSeat);
     }
 }

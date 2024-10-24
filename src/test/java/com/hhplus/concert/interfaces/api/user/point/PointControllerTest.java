@@ -3,11 +3,10 @@ package com.hhplus.concert.interfaces.api.user.point;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.hhplus.concert.domain.error.DomainErrorType;
+import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.ErrorCode;
-import com.hhplus.concert.infra.persistence.error.PersistenceErrorType;
 import com.hhplus.concert.interfaces.api.error.ErrorResponse;
 import com.hhplus.concert.interfaces.api.user.point.dto.ChargePointRequest;
 import com.hhplus.concert.interfaces.api.user.point.dto.ChargePointResponse;
@@ -28,7 +27,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -103,7 +101,7 @@ class PointControllerTest {
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
     assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
-    assertThat(response.getBody().message()).isEqualTo(PersistenceErrorType.NOT_FOUND_TOKEN.getMessage());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.NOT_FOUND_TOKEN.getMessage());
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -128,7 +126,7 @@ class PointControllerTest {
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
     assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
-    assertThat(response.getBody().message()).isEqualTo(DomainErrorType.INVALID_TOKEN.getMessage());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.INVALID_TOKEN.getMessage());
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -180,7 +178,7 @@ class PointControllerTest {
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
     assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
-    assertThat(response.getBody().message()).isEqualTo(PersistenceErrorType.NOT_FOUND_TOKEN.getMessage());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.NOT_FOUND_TOKEN.getMessage());
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -205,7 +203,7 @@ class PointControllerTest {
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
     assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
-    assertThat(response.getBody().message()).isEqualTo(DomainErrorType.INVALID_TOKEN.getMessage());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.INVALID_TOKEN.getMessage());
   }
 
 

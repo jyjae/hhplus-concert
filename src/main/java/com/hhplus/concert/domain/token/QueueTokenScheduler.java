@@ -1,7 +1,6 @@
 package com.hhplus.concert.domain.token;
 
 import com.hhplus.concert.domain.config.service.ConfigService;
-import com.hhplus.concert.domain.lock.NamedLockService;
 import com.hhplus.concert.domain.token.model.QueueToken;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import lombok.extern.log4j.Log4j2;
@@ -17,18 +16,16 @@ public class QueueTokenScheduler {
 
     private final QueueTokenService queueTokenService;
     private final ConfigService configService;
-    private final NamedLockService namedLockService;
 
     @Value("${queue.token.scheduling}")
     private Boolean scheduling;
 
     public QueueTokenScheduler(
             QueueTokenService queueTokenService,
-            ConfigService configService, NamedLockService namedLockService
+            ConfigService configService
     ) {
         this.queueTokenService = queueTokenService;
         this.configService = configService;
-        this.namedLockService = namedLockService;
     }
 
     @Scheduled(initialDelay = 10000, fixedRate = 100000)
@@ -37,19 +34,8 @@ public class QueueTokenScheduler {
             return;
         }
 
-        boolean lockAcquired = namedLockService.acquireLock("processing_queue", 10);
-        if (!lockAcquired) {
-            log.info("Another process is already handling the queue.");
-            return;
-        }
-
-        try {
-            log.info("Processing queue tokens...");
-            int count = configService.getMaxQueueTokens();
-            List<QueueToken> queueTokens = queueTokenService.getQueueTokens(count);
-            queueTokenService.processQueueTokens(queueTokens);
-        } finally {
-            namedLockService.releaseLock("processing_queue");
-        }
+        int count = configService.getMaxQueueTokens();
+        List<QueueToken> queueTokens = queueTokenService.getQueueTokens(count);
+        queueTokenService.processQueueTokens(queueTokens);
     }
 }
