@@ -21,7 +21,7 @@ public class ReservationConcurrencyTest {
     private ReservationFacade reservationFacade;
 
     @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("좌석 예약 동시성 테스트 성공")
+    @DisplayName("좌석 예약 동시성 테스트 성공 - 비관적 락")
     @Test
     public void shouldCompleteSeatReservationWithConcurrencySuccessfully() throws InterruptedException {
         // given

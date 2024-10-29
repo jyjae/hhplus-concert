@@ -7,6 +7,9 @@ import com.hhplus.concert.domain.user.point.dto.GetPointQuery;
 import com.hhplus.concert.domain.user.point.model.Point;
 import com.hhplus.concert.domain.user.point.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
