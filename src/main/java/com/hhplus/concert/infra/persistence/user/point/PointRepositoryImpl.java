@@ -22,7 +22,7 @@ public class PointRepositoryImpl implements PointRepository {
 
     @Override
     public Optional<Point> findPoint(Long userId) {
-        return pointJpaRepository.findByUserId(userId)
+        return pointJpaRepository.findByUserIdWithPessimisticLock(userId)
                 .map(PointJpaEntity::toDomain);
     }
 }

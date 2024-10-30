@@ -23,6 +23,12 @@ public class PointService {
     private final TimeProvider provider;
 
     @Transactional
+//    @Retryable(
+//        retryFor = {ObjectOptimisticLockingFailureException.class},
+//        maxAttempts = 100,
+//        backoff = @Backoff(100),
+//        listeners = {"retryLoggingListener"}
+//    )
     public Long charge(ChargePointCommand command) {
         Point point = pointRepository.findPoint(command.getUserId())
                 .orElse(Point.of(command.getUserId(),0, provider.getCurrentTimestamp()));
