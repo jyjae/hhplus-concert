@@ -1,5 +1,6 @@
 package com.hhplus.concert.domain.concert.service;
 
+import com.hhplus.concert.application.lock.DistributedLock;
 import com.hhplus.concert.common.TimeProvider;
 import com.hhplus.concert.domain.concert.repository.ConcertDateSeatRepository;
 import com.hhplus.concert.domain.concert.dto.FindConcertDateSeatQuery;
@@ -8,6 +9,7 @@ import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.exception.AlreadyExistsException;
 import com.hhplus.concert.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

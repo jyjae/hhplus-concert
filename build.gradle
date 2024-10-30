@@ -48,6 +48,9 @@ dependencies {
     implementation 'org.springframework.retry:spring-retry'
     implementation 'org.springframework:spring-aspects'
 
+    // redis
+    implementation 'org.redisson:redisson-spring-boot-starter:3.27.0'
+
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

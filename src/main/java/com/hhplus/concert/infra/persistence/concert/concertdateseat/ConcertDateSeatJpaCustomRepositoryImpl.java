@@ -32,7 +32,7 @@ public class ConcertDateSeatJpaCustomRepositoryImpl implements ConcertDateSeatJp
                 .where(qConcertDateSeat.concertDateId.eq(concertDateId)
                         .and(qConcertDateSeat.id.eq(concertDateSeatId))
                         .and(qConcertDateSeat.status.eq(ConcertDateSeatStatus.AVAILABLE.getStatus())))
-                        .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+//                        .setLockMode(LockModeType.PESSIMISTIC_WRITE)
                 .fetchOne());
     }
 }

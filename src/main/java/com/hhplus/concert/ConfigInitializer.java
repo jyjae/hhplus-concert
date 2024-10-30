@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Profile("test")
+@Profile("dev")
 public class ConfigInitializer implements ApplicationRunner {
     private final ConfigRepository configRepository;
 

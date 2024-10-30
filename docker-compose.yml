@@ -12,3 +12,11 @@ services:
       MYSQL_USER: user                     # 사용자 계정 생성
       MYSQL_PASSWORD: user_password        # 사용자 비밀번호 설정
     restart: always  # 컨테이너 자동 재시작 설정
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes  # 데이터 영구 저장 설정
+    restart: always  # 컨테이너 자동 재시작 설정
