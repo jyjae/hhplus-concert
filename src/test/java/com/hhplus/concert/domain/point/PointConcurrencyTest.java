@@ -59,4 +59,35 @@ public class PointConcurrencyTest {
         assertThat(successCount.get()).isEqualTo(1);
     }
 
+
+
+    @DisplayName("포인트 사용 동시성 테스트 성공 - 비관적 락")
+    @Sql({"/reset.sql", "/insert.sql"})
+    @Test
+    public void shouldCompleteUsePointWithPessimisticLockWithConcurrencySuccessfully() throws InterruptedException {
+        int threadCount = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        AtomicInteger successCount = new AtomicInteger(0);
+
+
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    pointService.use(new UsePointCommand(1L, 1000));
+                    successCount.incrementAndGet();
+                } catch (ObjectOptimisticLockingFailureException e) {
+                    log.info("예외 발생: {}", e.getMessage());
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+        executorService.shutdown();
+
+        assertThat(successCount.get()).isEqualTo(100);
+    }
 }
