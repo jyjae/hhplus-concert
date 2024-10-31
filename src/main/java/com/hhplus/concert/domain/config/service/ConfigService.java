@@ -20,7 +20,6 @@ public class ConfigService {
         return configRepository.findByKeyValue(key);
     }
 
-    @Cacheable("maxQueueTokens")
     public int getMaxQueueTokens() {
         return Integer.parseInt(configRepository.findByKeyValue(ConfigKey.MAX_PROCESSING_TOKEN.getKey()));
     }

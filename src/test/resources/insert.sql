@@ -1,3 +1,6 @@
+-- Config 데이터 삽입
+INSERT INTO config (config_key, config_value, updated_at) VALUES ('max-processing-token', '100', FROM_UNIXTIME(1697680800));
+
 -- User 데이터 삽입
 INSERT INTO `user` (id, name) VALUES (1, 'Alice');
 INSERT INTO `user` (id, name) VALUES (2, 'Bob');
@@ -98,4 +101,3 @@ VALUES (1, 10000, 4, 1697594400000, 1697680800000);
 INSERT INTO reservation (user_id, price, concert_date_seat_id, reservation_date, expiration_date)
 VALUES (1, 10000, 6, 1697594400000, 1697680800000);
 
-INSERT INTO config (config_key, config_value, updated_at) VALUES ('max-processing-token', '100',1697680800000);
