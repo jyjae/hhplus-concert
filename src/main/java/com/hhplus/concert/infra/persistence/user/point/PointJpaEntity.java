@@ -21,8 +21,8 @@ public class PointJpaEntity {
     @Column(name = "last_updated")
     private Long lastUpdated;
 
-//    @Version
-//    private Long version = 0L;
+    @Version
+    private Long version = 0L;
 
     public PointJpaEntity(Long id, Long userId, int point, Long lastUpdated) {
         this.id = id;

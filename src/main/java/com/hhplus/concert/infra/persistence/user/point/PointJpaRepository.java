@@ -12,7 +12,7 @@ public interface PointJpaRepository extends JpaRepository<PointJpaEntity, Long> 
     @Lock(LockModeType.OPTIMISTIC)
     Optional<PointJpaEntity> findByUserId(Long userId);
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Lock(LockModeType.OPTIMISTIC)
     @Query("select p from point p where p.userId = :userId")
-    Optional<PointJpaEntity> findByUserIdWithPessimisticLock(Long userId);
+    Optional<PointJpaEntity> findByUserIdWithOptimisticLock(Long userId);
 }

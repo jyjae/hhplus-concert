@@ -7,6 +7,7 @@ import com.hhplus.concert.domain.user.point.dto.GetPointQuery;
 import com.hhplus.concert.domain.user.point.model.Point;
 import com.hhplus.concert.domain.user.point.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PointService {
 
     private final PointRepository pointRepository;
@@ -30,10 +32,15 @@ public class PointService {
 //        listeners = {"retryLoggingListener"}
 //    )
     public Long charge(ChargePointCommand command) {
-        Point point = pointRepository.findPoint(command.getUserId())
-                .orElse(Point.of(command.getUserId(),0, provider.getCurrentTimestamp()));
+        try {
+            Point point = pointRepository.findPoint(command.getUserId())
+                    .orElse(Point.of(command.getUserId(), 0, provider.getCurrentTimestamp()));
 
-        return pointRepository.save(point.charge(command.getPoint()));
+            return pointRepository.save(point.charge(command.getPoint()));
+        } catch (ObjectOptimisticLockingFailureException e) {
+            log.warn("Optimistic lock exception caught globally: {}", e.getMessage(), e);
+            return null;
+        }
     }
 
     @Transactional
