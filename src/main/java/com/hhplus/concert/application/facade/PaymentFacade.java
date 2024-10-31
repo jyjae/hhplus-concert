@@ -27,7 +27,7 @@ public class PaymentFacade {
     @Transactional
     public Long payment(String token, CreatePaymentRequest request) {
         // 1. 큐 토큰 확인 및 삭제
-        queueTokenService.deleteQueueToken(token);
+//        queueTokenService.deleteQueueToken(token);
 
         // 2. 예약 정보 조회
         Reservation reservation = reservationService.getReservation(request.getReservationId());

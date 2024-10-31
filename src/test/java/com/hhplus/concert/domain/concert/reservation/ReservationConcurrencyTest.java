@@ -1,6 +1,6 @@
 package com.hhplus.concert.domain.concert.reservation;
 
-import com.hhplus.concert.application.facade.ReservationFacade;
+import com.hhplus.concert.application.facade.ReservationLockFacade;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +18,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ReservationConcurrencyTest {
 
     @Autowired
-    private ReservationFacade reservationFacade;
+    private ReservationLockFacade reservationFacade;
 
     @Sql({"/reset.sql", "/insert.sql"})
-    @DisplayName("좌석 예약 동시성 테스트 성공")
+    @DisplayName("좌석 예약 동시성 테스트 성공 - 분산 락")
     @Test
     public void shouldCompleteSeatReservationWithConcurrencySuccessfully() throws InterruptedException {
         // given
-        int threadCount = 100;
-        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        int threadCount = 1000;
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
         CountDownLatch latch = new CountDownLatch(threadCount);
 
         AtomicInteger successCount = new AtomicInteger(0);
