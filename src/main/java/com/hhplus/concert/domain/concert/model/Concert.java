@@ -1,19 +1,17 @@
 package com.hhplus.concert.domain.concert.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @Getter
 @Builder
 public class Concert {
 
-  private final Long id;
-  private final String name;
-  private final Long startDate;
-  private final Long endDate;
+  private Long id;
+  private String name;
+  private Long startDate;
+  private Long endDate;
 
   public static Concert of(Long id, String name, Long startDate, Long endDate) {
     return Concert.builder()

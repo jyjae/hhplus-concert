@@ -66,16 +66,18 @@ public class DataInitializer implements ApplicationRunner {
 
         QueueTokenJpaEntity queueToken = QueueTokenJpaEntity.of(1L, UuidUtil.generateUuid(), QueueTokenStatus.WAITING.getValue(), timeProvider.getCurrentInstantPlusMinutes(30));
         queueTokenJpaRepository.save(queueToken);
-
-        ConfigJpaEntity config1 = new ConfigJpaEntity(ConfigKey.MAX_PROCESSING_TOKEN.getKey(), "10", "10");
+//
+//        ConfigJpaEntity config1 = new ConfigJpaEntity(ConfigKey.MAX_PROCESSING_TOKEN.getKey(), "10", "10");
 //        configRepository.save(config1);
 
-        ConcertJpaEntity concert1 = ConcertJpaEntity.of("Concert A", 20240101L, 20240105L);
-        ConcertJpaEntity concert2 = ConcertJpaEntity.of("Concert B", 20240201L, 20240205L);
+        for (int i = 1; i <= 10000; i++) {
+            String name = "Concert " + i;
+            long startDate = 20240101L + i;  // 시작 날짜를 각 콘서트마다 다르게 설정
+            long endDate = startDate + 4;     // 종료 날짜는 시작 날짜 +4일
 
-        concertJpaRepository.save(concert1);
-        concertJpaRepository.save(concert2);
-
+            ConcertJpaEntity concert = ConcertJpaEntity.of(name, startDate, endDate);
+            concertJpaRepository.save(concert);
+        }
         ConcertDateJpaEntity concertDate1 = ConcertDateJpaEntity.of(1L, 50, 10, "Seoul", 20240101L);
         ConcertDateJpaEntity concertDate2 = ConcertDateJpaEntity.of(2L, 50, 20, "Busan", 20240201L);
 

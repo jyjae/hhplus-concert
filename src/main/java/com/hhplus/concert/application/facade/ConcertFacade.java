@@ -23,7 +23,7 @@ public class ConcertFacade {
 
 
   public List<Concert> concerts() {
-    return concertService.concerts();
+    return concertService.concerts().getConcerts();
   }
 
   public List<ConcertDate> concertDates(Long concertId) {

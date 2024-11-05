@@ -36,7 +36,7 @@ class ConcertServiceTest {
     when(concertRepository.concerts()).thenReturn(concerts);
 
     // When
-    List<Concert> savedConcerts = concertService.concerts();
+    List<Concert> savedConcerts = concertService.concerts().getConcerts();
 
     // Then
     assertThat(savedConcerts).hasSize(2);

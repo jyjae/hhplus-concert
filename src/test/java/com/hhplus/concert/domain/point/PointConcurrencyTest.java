@@ -4,6 +4,7 @@ package com.hhplus.concert.domain.point;
 import com.hhplus.concert.domain.user.point.dto.ChargePointCommand;
 import com.hhplus.concert.domain.user.point.dto.UsePointCommand;
 import com.hhplus.concert.domain.user.point.service.PointService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -11,8 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+@ActiveProfiles("test")
 @SpringBootTest
 public class PointConcurrencyTest {
 
@@ -28,6 +32,7 @@ public class PointConcurrencyTest {
 
     @Autowired
     private PointService pointService;
+
 
 
     @DisplayName("포인트 충전 동시성 테스트 성공 - 낙관적 락")

@@ -1,10 +1,13 @@
 package com.hhplus.concert.domain.concert.service;
 
+import com.hhplus.concert.domain.concert.dto.Concerts;
 import com.hhplus.concert.domain.concert.model.Concert;
 import com.hhplus.concert.domain.concert.repository.ConcertRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -12,7 +15,8 @@ public class ConcertService {
 
   private final ConcertRepository concertRepository;
 
-  public List<Concert> concerts() {
-    return concertRepository.concerts();
+  @Cacheable(cacheNames = "getConcerts", key = "'concerts:'")
+  public Concerts concerts() {
+    return new Concerts(concertRepository.concerts());
   }
 }
