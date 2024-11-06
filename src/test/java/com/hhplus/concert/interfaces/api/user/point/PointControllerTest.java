@@ -3,6 +3,7 @@ package com.hhplus.concert.interfaces.api.user.point;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
@@ -56,7 +57,7 @@ class PointControllerTest {
   @Test
   void shouldChargeSuccessfully() {
     // Given
-    String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
+    String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.set("X-Access-Token", token);
@@ -134,7 +135,7 @@ class PointControllerTest {
   @Test
   void shouldGetPointSuccessfully() {
     // Given
-    String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
+    String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.set("X-Access-Token", token);

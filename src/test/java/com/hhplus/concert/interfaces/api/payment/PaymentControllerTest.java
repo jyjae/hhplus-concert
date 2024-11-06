@@ -2,6 +2,8 @@ package com.hhplus.concert.interfaces.api.payment;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.InvalidException;
@@ -47,7 +49,7 @@ class PaymentControllerTest {
   @DisplayName("결제 성공")
   @Test
   void shouldCreatePaymentSuccessfully() {
-    String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+    String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);

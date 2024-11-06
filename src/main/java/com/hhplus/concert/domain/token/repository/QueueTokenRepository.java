@@ -6,19 +6,12 @@ import com.hhplus.concert.domain.token.model.QueueToken;
 import java.util.List;
 
 public interface QueueTokenRepository {
-    String token(Long userId, String uuid, Long time);
+    String token(String token, Long time);
 
-    QueueToken getToken(Long userId);
+    boolean findToken(String token);
 
-    QueueToken findToken(String token, Long currentTime);
+    Long rank(String token);
 
-    long lastProcessingToken(QueueTokenStatus queueTokenStatus);
 
-    List<QueueToken> getTokens(Integer count);
-
-    void save(QueueToken token);
-
-  void processed(QueueToken token);
-
-    void delete(String token);
+    void processed(int count);
 }

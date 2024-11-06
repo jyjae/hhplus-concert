@@ -45,7 +45,6 @@ class ConcertFacadeTest {
     @Test
     void shouldRetrieveAvailableDatesSuccessfullyInFacadeIntegrationTest() {
         // given
-        QueueToken token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L));
 
         // when
         List<ConcertDate> concertDates = concertFacade.concertDates(1L);
@@ -62,7 +61,6 @@ class ConcertFacadeTest {
     @Test
     void shouldRetrieveAvailableSeatsSuccessfullyInFacadeIntegrationTest() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
         // when
         List<ConcertDateSeat> concertDateSeats = concertFacade.concertDateSeats( 1L);

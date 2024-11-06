@@ -2,6 +2,7 @@ package com.hhplus.concert.domain.token;
 
 import com.hhplus.concert.domain.token.dto.GetUserQueueRankQuery;
 import com.hhplus.concert.exception.InvalidException;
+import com.hhplus.concert.util.UuidUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ class GetUserQueueRankQueryTest {
     @Test
     void shouldThrowInvalidExceptionWhenTokenIdIsNull() {
         // Given
-        Long tokenId = null;
+        String tokenId = null;
         Integer capacity = 100;
 
         // When & Then
@@ -26,7 +27,7 @@ class GetUserQueueRankQueryTest {
     @Test
     void shouldThrowInvalidExceptionWhenCapacityIsNull() {
         // Given
-        Long tokenId = 1L;
+        String tokenId = UuidUtil.generateUuid();
         Integer capacity = null;
 
         // When & Then

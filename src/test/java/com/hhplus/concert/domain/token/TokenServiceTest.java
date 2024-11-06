@@ -40,7 +40,7 @@ class TokenServiceTest {
         when(timeProvider.getCurrentInstantPlusMinutes(30)).thenReturn(20220101L);
 
         // when
-        when(queueTokenRepository.token(1L, uuid, timeProvider.getCurrentInstantPlusMinutes(30))).thenReturn(uuid);
+        when(queueTokenRepository.token(uuid, timeProvider.getCurrentInstantPlusMinutes(30))).thenReturn(uuid);
         String token = tokenService.createQueueToken(command);
 
         // then
@@ -52,8 +52,8 @@ class TokenServiceTest {
     @DisplayName("유저 대기 순서 조회 성공 테스트")
     void shouldRetrieveUserQueueOrderSuccessfully() {
         // given
-        GetUserQueueRankQuery command = new GetUserQueueRankQuery(150L, 100);
-        when(queueTokenRepository.lastProcessingToken(QueueTokenStatus.PROCESSING)).thenReturn(100L);
+        String token = tokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
+        GetUserQueueRankQuery command = new GetUserQueueRankQuery(token, 100);
 
         // when
         Long rank = tokenService.userRank(command);
@@ -70,13 +70,13 @@ class TokenServiceTest {
         // given
         FindQueueTokenQuery command = new FindQueueTokenQuery("token");
         when(timeProvider.getCurrentTimestamp()).thenReturn(20220101L);
-        when(queueTokenRepository.findToken("token", timeProvider.getCurrentTimestamp())).thenReturn(null);
+        when(queueTokenRepository.findToken("token")).thenReturn(false);
 
         // when
-        QueueToken token = tokenService.findQueueToken(command);
+        boolean token = tokenService.findQueueToken(command);
 
         // then
-        assertThat(token).isNull();
+        assertThat(token).isFalse();
     }
 
 
