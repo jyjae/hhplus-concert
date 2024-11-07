@@ -14,3 +14,6 @@
 
 ### 프로젝트 문서
 [hhplus-concert/docs/project-quide.md](https://github.com/jyjae/hhplus-concert/blob/main/docs/project_guide.md)
+
+## 성능 개선을 위한 캐싱 및 대기열 Redis 활용 방안 분석
+[성능 개선을 위한 캐싱 및 대기열 Redis 활용 방안 분석](https://yeonjari.tistory.com/7)
