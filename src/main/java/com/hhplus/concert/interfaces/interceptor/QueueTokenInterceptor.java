@@ -1,8 +1,9 @@
 package com.hhplus.concert.interfaces.interceptor;
 
 import com.hhplus.concert.domain.token.dto.FindQueueTokenQuery;
-import com.hhplus.concert.domain.token.model.QueueToken;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
+import com.hhplus.concert.exception.ErrorType;
+import com.hhplus.concert.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -21,10 +22,12 @@ public class QueueTokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("X-Access-Token");
 
-        QueueToken queueToken = queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
-        if(queueToken == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return false;
+        if (token == null) {
+            throw new NotFoundException(ErrorType.NOT_FOUND_TOKEN);
+        }
+
+        if(!queueTokenService.findQueueToken(new FindQueueTokenQuery(token))) {
+            throw new NotFoundException(ErrorType.NOT_FOUND_TOKEN);
         }
 
         return true;

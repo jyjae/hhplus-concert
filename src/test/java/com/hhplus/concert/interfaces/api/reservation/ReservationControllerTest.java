@@ -3,6 +3,7 @@ package com.hhplus.concert.interfaces.api.reservation;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
@@ -46,7 +47,7 @@ class ReservationControllerTest {
   @DisplayName("예약 성공")
   @Test
   void shouldReservationSuccessfully() {
-    String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+    String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
@@ -115,8 +116,8 @@ class ReservationControllerTest {
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
-    assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
-    assertThat(response.getBody().message()).isEqualTo(ErrorType.INVALID_TOKEN.getMessage());
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.NOT_FOUND_TOKEN.getMessage());
 
   }
 

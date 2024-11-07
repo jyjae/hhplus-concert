@@ -1,6 +1,7 @@
 package com.hhplus.concert.application.facade;
 
 import com.hhplus.concert.domain.point.PointConcurrencyTest;
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.domain.user.point.dto.ChargePointCommand;
@@ -45,7 +46,7 @@ class PaymentFacadeTest {
     @Test
     void shouldFailPaymentInFacadeIntegrationTestDueToInsufficientPoints() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
         // when
 
@@ -60,7 +61,7 @@ class PaymentFacadeTest {
     @Test
     void shouldCompletePaymentSuccessfullyInFacadeIntegrationTest() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
         // when
         Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L));
@@ -74,7 +75,7 @@ class PaymentFacadeTest {
     @Test
     void shouldFailPaymentInFacadeIntegrationTestDueToNonExistentReservation() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
         // then
         assertThatThrownBy(() -> paymentFacade.payment(token, new CreatePaymentRequest(1L, 30L)))
@@ -88,8 +89,7 @@ class PaymentFacadeTest {
     @Test
     void shouldFailPaymentInFacadeIntegrationTestDueToReleasedTemporaryReservation() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
-
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
         // then
         assertThatThrownBy(() -> paymentFacade.payment(token, new CreatePaymentRequest(1L, 2L)))
                 .isInstanceOf(InvalidException.class)
@@ -103,7 +103,7 @@ class PaymentFacadeTest {
     @Test
     public void shouldCompleteUsePointWithPessimisticLockWithConcurrencySuccessfully() throws InterruptedException {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
         int threadCount = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);

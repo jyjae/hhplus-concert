@@ -19,10 +19,10 @@ public class UserFacade {
     private final PointService pointService;
 
     public Long rank(Long userId, String token) {
-        QueueToken queueToken = queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
+//        QueueToken queueToken = queueTokenService.findQueueToken(new FindQueueTokenQuery(token));
         int count = configService.getMaxQueueTokens();
 
-        return queueTokenService.userRank(new GetUserQueueRankQuery(queueToken.getId(), count));
+        return queueTokenService.userRank(new GetUserQueueRankQuery(token, count));
     }
 
 

@@ -29,7 +29,6 @@ class ReservationFacadeTest {
     @Test
     void shouldCompleteReservationSuccessfullyInFacadeIntegrationTest() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
         // when
         Long reservationId = reservationFacade.reservation(1L, 1L, 5L );
@@ -44,7 +43,6 @@ class ReservationFacadeTest {
     @Test
     void shouldFailReservationInFacadeIntegrationTestDueToUnavailableSeat() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
         // when
 

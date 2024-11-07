@@ -3,6 +3,8 @@ package com.hhplus.concert.interfaces.api.user;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.hhplus.concert.AbstractRedisTest;
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
@@ -25,7 +27,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserControllerTest {
+class UserControllerTest extends AbstractRedisTest {
 
   @LocalServerPort
   private int port;
@@ -45,7 +47,7 @@ class UserControllerTest {
   @Test
   void shouldGetQueueRankSuccessfully() {
     // Given
-    String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(2L)).getToken();
+    String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.set("X-Access-Token", token);
@@ -60,7 +62,7 @@ class UserControllerTest {
     // Then
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
-    assertThat(response.getBody().getRank()).isEqualTo(0);
+    assertThat(response.getBody().getRank()).isEqualTo(1L);
   }
 
   @Sql({"/reset.sql", "/insert.sql"})
@@ -104,8 +106,8 @@ class UserControllerTest {
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
-    assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
-    assertThat(response.getBody().message()).isEqualTo(ErrorType.INVALID_TOKEN.getMessage());
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.NOT_FOUND_TOKEN.getMessage());
 
   }
 

@@ -1,6 +1,7 @@
 package com.hhplus.concert.interfaces.api.concert;
 
 import com.hhplus.concert.domain.concert.constants.ConcertDateSeatStatus;
+import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.BaseException;
@@ -70,7 +71,7 @@ class ConcertControllerTest {
     @Test()
     void shouldGetConcertDatesSuccessfully() {
         Long concertId = 1L;
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("X-Access-Token", token);
@@ -124,7 +125,7 @@ class ConcertControllerTest {
     void shouldGetConcertDateSeatsSuccessfully() {
         Long concertId = 1L;
         Long concertDateId = 1L;
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("X-Access-Token", token);

@@ -1,5 +1,6 @@
 package com.hhplus.concert.application.facade;
 
+import com.hhplus.concert.config.TestContainerConfig;
 import com.hhplus.concert.domain.concert.model.Concert;
 import com.hhplus.concert.domain.concert.model.ConcertDate;
 import com.hhplus.concert.domain.concert.model.ConcertDateSeat;
@@ -9,6 +10,7 @@ import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
@@ -45,7 +47,6 @@ class ConcertFacadeTest {
     @Test
     void shouldRetrieveAvailableDatesSuccessfullyInFacadeIntegrationTest() {
         // given
-        QueueToken token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L));
 
         // when
         List<ConcertDate> concertDates = concertFacade.concertDates(1L);
@@ -62,7 +63,6 @@ class ConcertFacadeTest {
     @Test
     void shouldRetrieveAvailableSeatsSuccessfullyInFacadeIntegrationTest() {
         // given
-        String token = queueTokenService.getQueueToken(new GetQueueTokenCommand(1L)).getToken();
 
         // when
         List<ConcertDateSeat> concertDateSeats = concertFacade.concertDateSeats( 1L);

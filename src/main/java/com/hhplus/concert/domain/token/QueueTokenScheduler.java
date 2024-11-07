@@ -30,12 +30,11 @@ public class QueueTokenScheduler {
 
     @Scheduled(initialDelay = 10000, fixedRate = 100000)
     public void scheduleProcessQueue() {
-        if (!scheduling) {
+         if (!scheduling) {
             return;
         }
 
         int count = configService.getMaxQueueTokens();
-        List<QueueToken> queueTokens = queueTokenService.getQueueTokens(count);
-        queueTokenService.processQueueTokens(queueTokens);
+        queueTokenService.processQueueTokens(count);
     }
 }
