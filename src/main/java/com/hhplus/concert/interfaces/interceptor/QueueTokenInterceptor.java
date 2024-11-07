@@ -1,7 +1,6 @@
 package com.hhplus.concert.interfaces.interceptor;
 
 import com.hhplus.concert.domain.token.dto.FindQueueTokenQuery;
-import com.hhplus.concert.domain.token.model.QueueToken;
 import com.hhplus.concert.domain.token.service.QueueTokenService;
 import com.hhplus.concert.exception.ErrorType;
 import com.hhplus.concert.exception.NotFoundException;
@@ -24,7 +23,7 @@ public class QueueTokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader("X-Access-Token");
 
         if (token == null) {
-            return false;
+            throw new NotFoundException(ErrorType.NOT_FOUND_TOKEN);
         }
 
         if(!queueTokenService.findQueueToken(new FindQueueTokenQuery(token))) {

@@ -1,5 +1,6 @@
 package com.hhplus.concert.application.facade;
 
+import com.hhplus.concert.AbstractRedisTest;
 import com.hhplus.concert.domain.config.model.ConfigKey;
 import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
@@ -21,7 +22,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 
 @SpringBootTest
-class UserFacadeTest {
+class UserFacadeTest extends AbstractRedisTest {
 
     @Autowired
     private UserFacade userFacade;
@@ -41,12 +42,12 @@ class UserFacadeTest {
     void shouldRetrieveQueueOrderSuccessfully() {
         // given
         String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
-        then(queueTokenService.userRank(new GetUserQueueRankQuery(token, 100))).isEqualTo(0);
+        then(queueTokenService.userRank(new GetUserQueueRankQuery(token, 100))).isEqualTo(1);
         // when
         Long rank = userFacade.rank(1L, token);
 
         // then
-        assertThat(rank).isEqualTo(0);
+        assertThat(rank).isEqualTo(1);
     }
 
     @Sql({"/reset.sql", "/insert.sql"})

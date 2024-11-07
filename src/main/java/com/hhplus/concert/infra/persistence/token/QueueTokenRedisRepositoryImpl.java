@@ -1,16 +1,11 @@
 package com.hhplus.concert.infra.persistence.token;
 
 import com.hhplus.concert.common.TimeProvider;
-import com.hhplus.concert.domain.token.model.QueueToken;
 import com.hhplus.concert.domain.token.repository.QueueTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 

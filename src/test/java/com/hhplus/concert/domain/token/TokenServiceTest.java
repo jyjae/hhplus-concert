@@ -51,9 +51,8 @@ class TokenServiceTest {
     @Test
     @DisplayName("유저 대기 순서 조회 성공 테스트")
     void shouldRetrieveUserQueueOrderSuccessfully() {
-        // given
-        String token = tokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
-        GetUserQueueRankQuery command = new GetUserQueueRankQuery(token, 100);
+         // given
+        GetUserQueueRankQuery command = new GetUserQueueRankQuery("token", 100);
 
         // when
         Long rank = tokenService.userRank(command);
@@ -61,7 +60,6 @@ class TokenServiceTest {
         // then
         assertThat(rank).isNotNull();
         assertThat(rank).isEqualTo(0L);
-
     }
 
     @Test
@@ -69,7 +67,6 @@ class TokenServiceTest {
     void findToken() {
         // given
         FindQueueTokenQuery command = new FindQueueTokenQuery("token");
-        when(timeProvider.getCurrentTimestamp()).thenReturn(20220101L);
         when(queueTokenRepository.findToken("token")).thenReturn(false);
 
         // when

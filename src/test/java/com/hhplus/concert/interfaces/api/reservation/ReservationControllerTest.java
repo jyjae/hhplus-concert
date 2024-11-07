@@ -116,8 +116,8 @@ class ReservationControllerTest {
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
-    assertThat(response.getBody().code()).isEqualTo(ErrorCode.INVALID_PARAMETER.getCode());
-    assertThat(response.getBody().message()).isEqualTo(ErrorType.INVALID_TOKEN.getMessage());
+    assertThat(response.getBody().code()).isEqualTo(ErrorCode.NOT_FOUND.getCode());
+    assertThat(response.getBody().message()).isEqualTo(ErrorType.NOT_FOUND_TOKEN.getMessage());
 
   }
 

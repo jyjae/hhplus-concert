@@ -1,12 +1,12 @@
 -- Config 데이터 삽입
-INSERT INTO config (config_key, config_value, updated_at) VALUES ('max-processing-token', '100', FROM_UNIXTIME(1697680800));
+INSERT INTO config (config_key, config_value, updated_at) VALUES ('max-processing-token', '100', 1798642845000);
 
 -- User 데이터 삽입
-INSERT INTO `user` (id, name) VALUES (1, 'Alice');
-INSERT INTO `user` (id, name) VALUES (2, 'Bob');
-INSERT INTO `user` (id, name) VALUES (3, 'Charlie');
+INSERT INTO "user" (id, name) VALUES (1, 'Alice');
+INSERT INTO "user" (id, name) VALUES (2, 'Bob');
+INSERT INTO "user" (id, name) VALUES (3, 'Charlie');
 
-INSERT INTO point (user_id, point, last_updated, version) values (1, 1200000, 1798642845000, 0);
+INSERT INTO point (user_id, point, last_updated, version) values (1L, 1200000, 1798642845000, 0);
 
 
 -- QueueToken 데이터 삽입 (UUID를 token으로 사용)
@@ -93,11 +93,10 @@ INSERT INTO concert_date_seat (concert_date_id, price, expired_date, status) VAL
 
 -- 초기 예약 데이터 삽입
 INSERT INTO reservation (user_id, price, concert_date_seat_id, reservation_date, expiration_date)
-VALUES (1, 10000, 1, 1798644645000, 1798644345000);
+VALUES (1L, 10000, 1L, 1798644645000, 1798644345000);
 
 INSERT INTO reservation ( user_id, price, concert_date_seat_id, reservation_date, expiration_date)
-VALUES (1, 10000, 4, 1697594400000, 1697680800000);
+VALUES (1L, 10000, 4L, 1697594400000, 1697680800000);
 
 INSERT INTO reservation (user_id, price, concert_date_seat_id, reservation_date, expiration_date)
-VALUES (1, 10000, 6, 1697594400000, 1697680800000);
-
+VALUES (1L, 10000, 6L, 1697594400000, 1697680800000);

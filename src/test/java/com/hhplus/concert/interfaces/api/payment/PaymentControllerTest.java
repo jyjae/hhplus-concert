@@ -116,7 +116,7 @@ class PaymentControllerTest {
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isNotNull();
-    assertThat(response.getBody().code()).isEqualTo(400);
+    assertThat(response.getBody().code()).isEqualTo(404);
   }
 
 }
