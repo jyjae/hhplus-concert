@@ -1,6 +1,8 @@
 package com.hhplus.concert.application.facade;
 
+import com.hhplus.concert.application.PaymentHistoryEventPublisher;
 import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
+import com.hhplus.concert.domain.event.PaymentHistoryEvent;
 import com.hhplus.concert.domain.reservation.service.ReservationService;
 import com.hhplus.concert.domain.payment.dto.PaymentCommand;
 import com.hhplus.concert.domain.payment.service.PaymentService;
@@ -14,8 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class PaymentFacade {
 
     private final PaymentService paymentService;
@@ -23,6 +25,7 @@ public class PaymentFacade {
     private final ReservationService reservationService;
     private final ConcertDateSeatService concertDateSeatService;
     private final PointService pointService;
+    private final PaymentHistoryEventPublisher eventPublisher; // 이벤트 발행 서비스 추가
 
     @Transactional
     public Long payment(String token, CreatePaymentRequest request) {
@@ -42,7 +45,9 @@ public class PaymentFacade {
         // 5. 좌석 예약 확정
         concertDateSeatService.completeReservation(reservation.getConcertDateSeatId());
 
-        return paymentId;
+        // 6. 결제 이력 이벤트 발행 (트랜잭션 커밋 후 전송)
+        eventPublisher.publishPaymentHistoryEvent(new PaymentHistoryEvent(paymentId, request.getUserId(), reservation.getConcertDateSeatId()));
 
+        return paymentId;
     }
 }
