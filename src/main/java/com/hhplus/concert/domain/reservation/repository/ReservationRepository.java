@@ -4,7 +4,7 @@ import com.hhplus.concert.domain.reservation.model.Reservation;
 import java.util.Optional;
 
 public interface ReservationRepository {
-    Optional<Reservation> findReservationExpiredDateAfter(Long reservationId, Long currentTime);
+    Optional<Reservation> findReservation(Long reservationId);
 
     Long reserveConcertDateSeat(Reservation reservation);
 

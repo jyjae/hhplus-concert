@@ -38,13 +38,13 @@ class ReservationServiceTest {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
-        when(reservationRepository.findReservationExpiredDateAfter(1L, 20220101L)).thenReturn(Optional.empty());
+        when(reservationRepository.findReservation(1L)).thenReturn(Optional.empty());
         when(timeProvider.getCurrentTimestamp()).thenReturn(20220101L);
         when(timeProvider.getCurrentInstantPlusMinutes(5)).thenReturn(20520101L);
         Long reservationId = reservationService.reserveConcertDateSeat(command);
 
         // Then
-        when(reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L)).thenReturn(Optional.of(
+        when(reservationRepository.findReservation(reservationId)).thenReturn(Optional.of(
                 Reservation.builder()
                         .id(1L)
                         .concertDateSeatId(1L)
@@ -54,7 +54,7 @@ class ReservationServiceTest {
                         .expirationDate(20520101L)
                         .build()
         ));
-        Reservation reservation = reservationRepository.findReservationExpiredDateAfter(reservationId, 20220101L).get();
+        Reservation reservation = reservationRepository.findReservation(reservationId).get();
         assertThat(reservationId).isNotNull();
         assertThat(reservation.getUserId()).isEqualTo(1L);
         assertThat(reservation.getConcertDateSeatId()).isEqualTo(1L);
@@ -67,8 +67,8 @@ class ReservationServiceTest {
         // Given
         ReservationCommand command = new ReservationCommand(1L, 1L, 1000);
         // When
-        when(timeProvider.getCurrentTimestamp()).thenReturn(20120101L);
-        when(reservationRepository.findReservationExpiredDateAfter(1L, 20120101L)).thenReturn(Optional.of(
+        when(timeProvider.getCurrentTimestamp()).thenReturn(20420105L);
+        when(reservationRepository.findReservation(1L)).thenReturn(Optional.of(
                 Reservation.builder()
                         .id(1L)
                         .userId(1L)

@@ -14,8 +14,8 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     private final ReservationJpaRepository reservationJpaRepository;
 
     @Override
-    public Optional<Reservation> findReservationExpiredDateAfter(Long reservationId, Long currentTime) {
-        return reservationJpaRepository.findByIdAndExpirationDateAfter(reservationId, currentTime)
+    public Optional<Reservation> findReservation(Long concertDateSeatId) {
+        return reservationJpaRepository.findByConcertDateSeatId(concertDateSeatId)
                 .map(ReservationJpaEntity::toDomain);
     }
 

@@ -11,8 +11,9 @@ import com.hhplus.concert.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -23,14 +24,20 @@ public class ReservationService {
 
     @Transactional
     public Long reserveConcertDateSeat(ReservationCommand command) {
-        Optional<Reservation> reservationOptional = reservationRepository.findReservationExpiredDateAfter(command.getConcertDateSeatId(), timeProvider.getCurrentTimestamp());
+        Optional<Reservation> reservationOptional = reservationRepository.findReservation(command.getConcertDateSeatId());
 
-        if (reservationOptional.isPresent()) {
-            throw new AlreadyExistsException(ErrorType.SEAT_ALREADY_RESERVED);
-        }
+        reservationOptional.ifPresent(reservation -> {
+            if (reservation.isExpired(timeProvider.getCurrentTimestamp())) {
+                throw new AlreadyExistsException(ErrorType.SEAT_ALREADY_RESERVED);
+            }
+        });
 
-        Reservation reservation = Reservation.from(command.getUserId(), command.getPrice(), command.getConcertDateSeatId(), timeProvider.getCurrentTimestamp(), timeProvider.getCurrentInstantPlusMinutes(5));
-        return reservationRepository.reserveConcertDateSeat(reservation);
+        return reservationRepository.reserveConcertDateSeat(Reservation.from(
+                command.getUserId(),
+                command.getPrice(),
+                command.getConcertDateSeatId(),
+                timeProvider.getCurrentTimestamp(),
+                timeProvider.getCurrentInstantPlusMinutes(5)));
     }
 
     @Transactional(readOnly = true)
