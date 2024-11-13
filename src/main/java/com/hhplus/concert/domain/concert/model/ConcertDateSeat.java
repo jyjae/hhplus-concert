@@ -14,16 +14,13 @@ public class ConcertDateSeat {
   private Long id;
   private Long concertDateId;
   private int price;
-  private Long expiredDate;
   private ConcertDateSeatStatus status;
 
-  public static ConcertDateSeat of(Long id, Long concertDateId, int price, Long expiredDate,
-      ConcertDateSeatStatus status) {
+  public static ConcertDateSeat of(Long id, Long concertDateId, int price, ConcertDateSeatStatus status) {
     return ConcertDateSeat.builder()
         .id(id)
         .concertDateId(concertDateId)
         .price(price)
-        .expiredDate(expiredDate)
         .status(status)
         .build();
   }
@@ -37,7 +34,6 @@ public class ConcertDateSeat {
         .id(id)
         .concertDateId(concertDateId)
         .price(price)
-        .expiredDate(expiredDate)
         .status(ConcertDateSeatStatus.RESERVED)
         .build();
   }

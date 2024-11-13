@@ -27,7 +27,6 @@ public class ConcertDateSeatService {
         return concertDateSeatRepository.concertDateSeat(concertDateId, timeProvider.getCurrentTimestamp())
                 .stream()
                 .filter(ConcertDateSeat::isAvailable)
-                .filter(seat -> seat.getExpiredDate() > timeProvider.getCurrentTimestamp())
                 .toList();
     }
 

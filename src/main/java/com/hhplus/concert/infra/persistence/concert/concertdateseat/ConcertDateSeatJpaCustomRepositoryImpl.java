@@ -16,11 +16,10 @@ public class ConcertDateSeatJpaCustomRepositoryImpl implements ConcertDateSeatJp
     QConcertDateSeatJpaEntity qConcertDateSeat = QConcertDateSeatJpaEntity.concertDateSeatJpaEntity;
 
     @Override
-    public List<ConcertDateSeatJpaEntity> concertDateSeats(long concertDateId, long now) {
+    public List<ConcertDateSeatJpaEntity> concertDateSeats(long concertDateId) {
         return factory.select(qConcertDateSeat)
                 .from(qConcertDateSeat)
                 .where(qConcertDateSeat.concertDateId.eq(concertDateId)
-                        .and(qConcertDateSeat.expiredDate.gt(now))
                         .and(qConcertDateSeat.status.ne(ConcertDateSeatStatus.RESERVED.name())))
                 .fetch();
     }
@@ -32,7 +31,6 @@ public class ConcertDateSeatJpaCustomRepositoryImpl implements ConcertDateSeatJp
                 .where(qConcertDateSeat.concertDateId.eq(concertDateId)
                         .and(qConcertDateSeat.id.eq(concertDateSeatId))
                         .and(qConcertDateSeat.status.eq(ConcertDateSeatStatus.AVAILABLE.getStatus())))
-//                        .setLockMode(LockModeType.PESSIMISTIC_WRITE)
                 .fetchOne());
     }
 }

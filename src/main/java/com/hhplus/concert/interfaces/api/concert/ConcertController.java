@@ -61,7 +61,6 @@ public class ConcertController implements ConcertApi {
                         seat.getId(),
                         seat.getConcertDateId(),
                         seat.getPrice(),
-                        seat.getExpiredDate(),
                         seat.getStatus())).toList());
     }
 

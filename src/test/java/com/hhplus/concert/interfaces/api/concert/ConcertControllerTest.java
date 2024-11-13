@@ -146,7 +146,6 @@ class ConcertControllerTest {
         GetConcertDateSeatResponse firstDate = response.getBody()[0];
         assertThat(firstDate.getConcertDateId()).isEqualTo(concertDateId);
         assertThat(firstDate.getPrice()).isGreaterThanOrEqualTo(0);
-        assertThat(firstDate.getExpiredDate()).isNotNull();
         assertThat(firstDate.getStatus()).isEqualTo(ConcertDateSeatStatus.AVAILABLE);
 
     }

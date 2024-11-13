@@ -17,7 +17,7 @@ public class ConcertDateSeatRepositoryImpl implements ConcertDateSeatRepository 
 
     @Override
     public List<ConcertDateSeat> concertDateSeat(long concertDateId, long currentTime) {
-        return concertDateSeatJpaRepository.concertDateSeats(concertDateId, currentTime).stream()
+        return concertDateSeatJpaRepository.concertDateSeats(concertDateId).stream()
                 .map(ConcertDateSeatJpaEntity::toDomain)
                 .toList();
     }

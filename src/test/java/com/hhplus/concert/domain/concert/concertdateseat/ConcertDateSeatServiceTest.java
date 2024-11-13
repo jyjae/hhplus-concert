@@ -39,10 +39,10 @@ class ConcertDateSeatServiceTest {
     void shouldRetrieveAvailableSeatsSuccessfully() {
         // Given
         List<ConcertDateSeat> list = List.of(
-                ConcertDateSeat.of(1L, 1L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE),
-                ConcertDateSeat.of(1L, 2L, 100, 20220101L, ConcertDateSeatStatus.RESERVED),
-                ConcertDateSeat.of(1L, 3L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE),
-                ConcertDateSeat.of(1L, 4L, 100, 20220101L, ConcertDateSeatStatus.AVAILABLE)
+                ConcertDateSeat.of(1L, 1L, 100, ConcertDateSeatStatus.AVAILABLE),
+                ConcertDateSeat.of(1L, 2L, 100, ConcertDateSeatStatus.RESERVED),
+                ConcertDateSeat.of(1L, 3L, 100, ConcertDateSeatStatus.AVAILABLE),
+                ConcertDateSeat.of(1L, 4L, 100, ConcertDateSeatStatus.AVAILABLE)
         );
 
         when(timeProvider.getCurrentTimestamp()).thenReturn(20220100L);
