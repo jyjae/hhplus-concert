@@ -67,7 +67,7 @@ class ReservationControllerTest {
     assertThat(response.getBody()).isNotNull();
 
     ReservationResponse reservationResponse = response.getBody();
-    assertThat(reservationResponse.getReservationId()).isEqualTo(4L);
+    assertThat(reservationResponse.getReservationId()).isEqualTo(5L);
 
   }
 

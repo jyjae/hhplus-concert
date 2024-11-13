@@ -1,5 +1,7 @@
 package com.hhplus.concert.application.facade;
 
+import com.hhplus.concert.domain.payment.model.history.PaymentHistory;
+import com.hhplus.concert.domain.payment.service.PaymentHistoryService;
 import com.hhplus.concert.domain.point.PointConcurrencyTest;
 import com.hhplus.concert.domain.token.dto.CreateQueueTokenCommand;
 import com.hhplus.concert.domain.token.dto.GetQueueTokenCommand;
@@ -39,7 +41,7 @@ class PaymentFacadeTest {
     private QueueTokenService queueTokenService;
 
     @Autowired
-    private PointService pointService;
+    private PaymentHistoryService paymentHistoryService;
 
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("포인트 부족으로 결제 파사드 통합 테스트 실패")
@@ -64,10 +66,29 @@ class PaymentFacadeTest {
         String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
         // when
-        Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L));
+        Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 4L));
 
         // then
         assertThat(paymentId).isNotNull();
+    }
+
+    @Sql({"/reset.sql", "/insert.sql"})
+    @DisplayName("결제 파사드 통합 테스트 이력 저장 성공")
+    @Test
+    void shouldCompletePaymentSuccessfullyInFacadeIntegrationAndHistoryTest() {
+        // given
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
+
+        // when
+        Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 4L));
+
+        // then
+        PaymentHistory savedHistory = paymentHistoryService.findByPaymentId(paymentId).orElse(null);
+
+        assertThat(savedHistory).isNotNull();
+        assertThat(savedHistory.getPaymentId()).isEqualTo(paymentId);
+        assertThat(savedHistory.getUserId()).isEqualTo(1L);
+        assertThat(savedHistory.getConcertDateSeatId()).isEqualTo(21L);
     }
 
     @Sql({"/reset.sql", "/insert.sql"})
@@ -98,6 +119,8 @@ class PaymentFacadeTest {
 
 
 
+
+
     @DisplayName("포인트 사용 동시성 테스트 성공 - 비관적 락")
     @Sql({"/reset.sql", "/insert.sql"})
     @Test
@@ -115,7 +138,7 @@ class PaymentFacadeTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L));
+                    paymentFacade.payment(token, new CreatePaymentRequest(1L, 4L));
                     successCount.incrementAndGet();
                 } catch (ObjectOptimisticLockingFailureException e) {
                     log.info("예외 발생: {}", e.getMessage());

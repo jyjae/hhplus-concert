@@ -20,7 +20,7 @@ public class ConcertDateSeatConcurrencyTest {
     private ConcertDateSeatService concertDateSeatService;
     
 
-    private final Long seatId = 1L;  // 테스트용 좌석 ID
+    private final Long seatId = 21L;  // 테스트용 좌석 ID
 
     @Sql({"/reset.sql", "/insert.sql"})
     @Test

@@ -5,6 +5,8 @@ import com.hhplus.concert.domain.payment.repository.history.PaymentHistoryReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Repository
 public class PaymentHistoryRepositoryImpl implements PaymentHistoryRepository {
@@ -14,5 +16,11 @@ public class PaymentHistoryRepositoryImpl implements PaymentHistoryRepository {
     @Override
     public void save(PaymentHistory paymentHistory) {
         paymentHistoryJpaRepository.save(PaymentHistoryJpaEntity.from(paymentHistory));
+    }
+
+    @Override
+    public Optional<PaymentHistory> findByPaymentId(Long paymentId) {
+        return paymentHistoryJpaRepository.findByPaymentId(paymentId)
+                .map(PaymentHistoryJpaEntity::toDomain);
     }
 }

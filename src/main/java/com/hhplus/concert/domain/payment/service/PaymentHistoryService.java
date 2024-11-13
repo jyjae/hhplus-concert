@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class PaymentHistoryService {
@@ -16,5 +18,9 @@ public class PaymentHistoryService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void save(PaymentHistory paymentHistory) {
         paymentHistoryRepository.save(paymentHistory);
+    }
+
+    public Optional<PaymentHistory> findByPaymentId(Long paymentId) {
+        return paymentHistoryRepository.findByPaymentId(paymentId);
     }
 }

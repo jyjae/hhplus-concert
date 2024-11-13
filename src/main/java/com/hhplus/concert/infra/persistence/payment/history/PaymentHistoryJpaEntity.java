@@ -33,4 +33,13 @@ public class PaymentHistoryJpaEntity {
                 paymentHistory.getConcertDateSeatId()
         );
     }
+
+    public PaymentHistory toDomain() {
+        return PaymentHistory.builder()
+                .id(id)
+                .paymentId(paymentId)
+                .userId(userId)
+                .concertDateSeatId(concertDateSeatId)
+                .build();
+    }
 }
