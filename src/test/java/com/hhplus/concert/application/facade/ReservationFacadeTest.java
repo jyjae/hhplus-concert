@@ -31,7 +31,7 @@ class ReservationFacadeTest {
         // given
 
         // when
-        Long reservationId = reservationFacade.reservation(1L, 1L, 5L );
+        Long reservationId = reservationFacade.reservation(1L, 1L, 7L );
 
         // then
         assertThat(reservationId).isNotNull();

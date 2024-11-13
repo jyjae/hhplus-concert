@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Profile("test")
+@Profile("dev")
 public class DataInitializer implements ApplicationRunner {
 
     private final UserJpaRepository userJpaRepository;
@@ -88,14 +88,12 @@ public class DataInitializer implements ApplicationRunner {
             ConcertDateSeatJpaEntity concertDateSeat = ConcertDateSeatJpaEntity.of(
                     (long) 1,                // concertDateId를 1부터 50까지
                     10000 + (i * 500),       // 가격을 10000부터 시작해 i에 따라 증가
-                    System.currentTimeMillis() + timeProvider.getCurrentInstantPlusMinutes(30),           // 만료일을 20240101부터 i만큼 더해 설정
                     i % 2 == 0 ? "AVAILABLE" : "RESERVED"  // 짝수는 AVAILABLE, 홀수는 RESERVED
             );
 
             ConcertDateSeatJpaEntity concertDateSeat2 = ConcertDateSeatJpaEntity.of(
                     (long) 2,                // concertDateId를 1부터 50까지
                     10000 + (i * 500),       // 가격을 10000부터 시작해 i에 따라 증가
-                    System.currentTimeMillis() + timeProvider.getCurrentInstantPlusMinutes(30),           // 만료일을 20240101부터 i만큼 더해 설정
                     i % 2 == 0 ? "AVAILABLE" : "RESERVED"  // 짝수는 AVAILABLE, 홀수는 RESERVED
             );
 

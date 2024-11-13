@@ -21,32 +21,27 @@ public class ConcertDateSeatJpaEntity {
     @Column(name = "price")
     private int price;
 
-    @Column(name = "expired_date")
-    private Long expiredDate;
-
     @Column(name = "status")
     private String status;
 
 //    @Version
 //    private Long version = 0L;
 
-    public ConcertDateSeatJpaEntity(Long concertDateId, int price, Long expiredDate, String status) {
+    public ConcertDateSeatJpaEntity(Long concertDateId, int price, String status) {
         this.concertDateId = concertDateId;
         this.price = price;
-        this.expiredDate = expiredDate;
         this.status = status;
     }
 
-    public ConcertDateSeatJpaEntity(Long id, Long concertDateId, int price, Long expiredDate, String status) {
+    public ConcertDateSeatJpaEntity(Long id, Long concertDateId, int price, String status) {
         this.id = id;
         this.concertDateId = concertDateId;
         this.price = price;
-        this.expiredDate = expiredDate;
         this.status = status;
     }
 
-    public static ConcertDateSeatJpaEntity of(Long concertDateId, int price, Long expiredDate, String status) {
-        return new ConcertDateSeatJpaEntity(concertDateId, price, expiredDate, status);
+    public static ConcertDateSeatJpaEntity of(Long concertDateId, int price, String status) {
+        return new ConcertDateSeatJpaEntity(concertDateId, price,status);
     }
 
     public static ConcertDateSeatJpaEntity from(ConcertDateSeat concertDateSeat) {
@@ -54,19 +49,17 @@ public class ConcertDateSeatJpaEntity {
                 concertDateSeat.getId(),
                 concertDateSeat.getConcertDateId(),
                 concertDateSeat.getPrice(),
-                concertDateSeat.getExpiredDate(),
                 concertDateSeat.getStatus().name());
     }
 
 
     public ConcertDateSeat toDomain() {
-        return ConcertDateSeat.of(id, concertDateId, price, expiredDate, ConcertDateSeatStatus.valueOf(status));
+        return ConcertDateSeat.of(id, concertDateId, price, ConcertDateSeatStatus.valueOf(status));
     }
 
     public void update(ConcertDateSeat concertDateSeat) {
         this.concertDateId = concertDateSeat.getConcertDateId();
         this.price = concertDateSeat.getPrice();
-        this.expiredDate = concertDateSeat.getExpiredDate();
         this.status = concertDateSeat.getStatus().name();
     }
 }
