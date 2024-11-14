@@ -60,6 +60,7 @@ INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5007, 
 INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5008, 'RESERVED');
 INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5009, 'AVAILABLE');
 INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5010, 'RESERVED');
+INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5001, 'TEMP_RESERVED');
 INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5001, 'AVAILABLE');
 INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5002, 'RESERVED');
 INSERT INTO concert_date_seat (concert_date_id, price, status) VALUES (1, 5003, 'AVAILABLE');
@@ -100,3 +101,6 @@ VALUES (1L, 10000, 4L, 1697594400000, 1697680800000);
 
 INSERT INTO reservation (user_id, price, concert_date_seat_id, reservation_date, expiration_date)
 VALUES (1L, 10000, 6L, 1697594400000, 1697680800000);
+
+INSERT INTO reservation (user_id, price, concert_date_seat_id, reservation_date, expiration_date)
+VALUES (1L, 10000, 21L, 1798644645000, 1798644345000);

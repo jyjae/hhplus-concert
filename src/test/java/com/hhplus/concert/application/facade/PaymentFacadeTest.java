@@ -13,10 +13,13 @@ import com.hhplus.concert.interfaces.api.payment.dto.CreatePaymentRequest;
 import com.hhplus.concert.util.UuidUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -28,6 +31,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+
+@ExtendWith(OutputCaptureExtension.class)
 @SpringBootTest
 class PaymentFacadeTest {
     private static final Logger log = LoggerFactory.getLogger(PaymentFacadeTest.class);
@@ -38,8 +43,6 @@ class PaymentFacadeTest {
     @Autowired
     private QueueTokenService queueTokenService;
 
-    @Autowired
-    private PointService pointService;
 
     @Sql({"/reset.sql", "/insert.sql"})
     @DisplayName("포인트 부족으로 결제 파사드 통합 테스트 실패")
@@ -64,10 +67,25 @@ class PaymentFacadeTest {
         String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
 
         // when
-        Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L));
+        Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 4L));
 
         // then
         assertThat(paymentId).isNotNull();
+    }
+
+    @Sql({"/reset.sql", "/insert.sql"})
+    @DisplayName("결제 파사드 통합 테스트 이력 저장 성공")
+    @Test
+    void shouldCompletePaymentSuccessfullyInFacadeIntegrationAndHistoryTest(CapturedOutput output) {
+        // given
+        String token = queueTokenService.createQueueToken(new CreateQueueTokenCommand(1L, UuidUtil.generateUuid()));
+
+        // when
+        Long paymentId = paymentFacade.payment(token, new CreatePaymentRequest(1L, 4L));
+
+        // then
+        assertThat(output.toString()).contains("[SUCCESS] Send info to Slack");
+
     }
 
     @Sql({"/reset.sql", "/insert.sql"})
@@ -98,6 +116,8 @@ class PaymentFacadeTest {
 
 
 
+
+
     @DisplayName("포인트 사용 동시성 테스트 성공 - 비관적 락")
     @Sql({"/reset.sql", "/insert.sql"})
     @Test
@@ -115,7 +135,7 @@ class PaymentFacadeTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    paymentFacade.payment(token, new CreatePaymentRequest(1L, 1L));
+                    paymentFacade.payment(token, new CreatePaymentRequest(1L, 4L));
                     successCount.incrementAndGet();
                 } catch (ObjectOptimisticLockingFailureException e) {
                     log.info("예외 발생: {}", e.getMessage());

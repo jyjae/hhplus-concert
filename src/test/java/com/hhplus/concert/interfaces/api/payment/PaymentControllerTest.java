@@ -55,7 +55,7 @@ class PaymentControllerTest {
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.set("X-Access-Token", token);
 
-    CreatePaymentRequest request = new CreatePaymentRequest(1L, 1L);
+    CreatePaymentRequest request = new CreatePaymentRequest(1L, 4L);
     HttpEntity<CreatePaymentRequest> requestEntity = new HttpEntity<>(request, headers);
 
     ResponseEntity<CreatePaymentResponse> response = restTemplate.exchange(
@@ -80,7 +80,7 @@ class PaymentControllerTest {
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.set("X-Access-Token", UuidUtil.generateUuid());
 
-    CreatePaymentRequest request = new CreatePaymentRequest(1L, 1L);
+    CreatePaymentRequest request = new CreatePaymentRequest(1L, 4L);
     HttpEntity<CreatePaymentRequest> requestEntity = new HttpEntity<>(request, headers);
 
     ResponseEntity<ErrorResponse> response = restTemplate.exchange(

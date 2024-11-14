@@ -68,7 +68,7 @@ public class DataInitializer implements ApplicationRunner {
         queueTokenJpaRepository.save(queueToken);
 
         ConfigJpaEntity config1 = new ConfigJpaEntity(ConfigKey.MAX_PROCESSING_TOKEN.getKey(), "10", "10");
-//        configRepository.save(config1);
+        configRepository.save(config1);
 
         ConcertJpaEntity concert1 = ConcertJpaEntity.of("Concert A", 20240101L, 20240105L);
         ConcertJpaEntity concert2 = ConcertJpaEntity.of("Concert B", 20240201L, 20240205L);
