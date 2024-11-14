@@ -1,6 +1,8 @@
 package com.hhplus.concert.application.facade;
 
 import com.hhplus.concert.domain.concert.service.ConcertDateSeatService;
+import com.hhplus.concert.domain.event.PaymentEventPublisher;
+import com.hhplus.concert.domain.event.PaymentSuccessEvent;
 import com.hhplus.concert.domain.reservation.service.ReservationService;
 import com.hhplus.concert.domain.payment.dto.PaymentCommand;
 import com.hhplus.concert.domain.payment.service.PaymentService;
@@ -23,6 +25,7 @@ public class PaymentFacade {
     private final ReservationService reservationService;
     private final ConcertDateSeatService concertDateSeatService;
     private final PointService pointService;
+    private final PaymentEventPublisher eventPublisher;
 
     @Transactional
     public Long payment(String token, CreatePaymentRequest request) {
@@ -41,6 +44,14 @@ public class PaymentFacade {
 
         // 5. 좌석 예약 확정
         concertDateSeatService.completeReservation(reservation.getConcertDateSeatId());
+
+        // 6. 결제 완료 이벤트 발행
+        eventPublisher.success(PaymentSuccessEvent.builder()
+                .reservationId(reservation.getId())
+                .paymentId(paymentId)
+                .userId(request.getUserId())
+                    .concertDateSeatId(reservation.getConcertDateSeatId())
+            .build());
 
         return paymentId;
 
