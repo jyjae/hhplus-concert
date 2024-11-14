@@ -1,18 +1,20 @@
-package com.hhplus.concert.application;
+package com.hhplus.concert.domain.event;
 
-import com.hhplus.concert.domain.event.PaymentHistoryEvent;
+
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
+
 @Component
-public class PaymentHistoryEventPublisher {
+public class PaymentEventPublisher {
+
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public PaymentHistoryEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+    public PaymentEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
-    public void publishPaymentHistoryEvent(PaymentHistoryEvent event) {
+    public void success(PaymentSuccessEvent event) {
         applicationEventPublisher.publishEvent(event);
     }
 }
